@@ -22,12 +22,33 @@
 </div>
 
 <div class="main-content">
-    <h1>Settings</h1>
 
-    <div class="card">
-        <h3>Settings Module - Coming Soon</h3>
+    <h1>⚙️ Gym Settings</h1>
+
+    <div class="card" style="width:600px;">
+
+        <label><b>Gym Name</b></label><br>
+        <input type="text" id="gymName" value="RR Technologies Gym"><br><br>
+
+        <label><b>Owner Name</b></label><br>
+        <input type="text" id="ownerName" value="Ravindra Reddy"><br><br>
+
+        <label><b>Mobile Number</b></label><br>
+        <input type="text" id="mobile" placeholder="Enter Mobile Number"><br><br>
+
+        <label><b>Email</b></label><br>
+        <input type="email" id="email" placeholder="Enter Email"><br><br>
+
+        <label><b>Address</b></label><br>
+        <textarea id="address" rows="4" style="width:100%;"></textarea><br><br>
+
+        <button onclick="saveSettings()">💾 Save Settings</button>
+
     </div>
+
 </div>
+
+<script src="settings.js"></script>
 
 </body>
 </html>

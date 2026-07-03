@@ -3,84 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance</title>
+    <title>Attendance - RR Technologies Gym Pro</title>
+
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
+
 <div class="sidebar">
     <h2>RR Technologies</h2>
+
     <a href="dashboard.html">🏠 Dashboard</a>
     <a href="member-registration.html">👤 Member Registration</a>
     <a href="members-list.html">👥 Members List</a>
     <a href="fee-collection.html">💰 Fee Collection</a>
-    <a href="attendance.html">📅 Attendance</a>
+    <a href="attendance.html" class="active">📅 Attendance</a>
     <a href="reports.html">📊 Reports</a>
     <a href="settings.html">⚙️ Settings</a>
     <a href="index.html">🚪 Logout</a>
 </div>
 
 <div class="main-content">
+
     <h1>Attendance</h1>
-    <div class="card">
-        <h3>Attendance Module - Coming Soon</h3>
-    </div>
-</div>
-</body>
-</html>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance - RR Technologies Gym Pro</title>
-    <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="attendance.css">
-</head>
-<body>
+    <input
+        type="text"
+        id="search"
+        placeholder="Search Member..."
+    >
 
-<div class="container">
+    <br><br>
 
-    <aside class="sidebar">
-        <h2>🏋️ Gym Pro</h2>
+    <select id="memberSelect">
+        <option value="">-- Select Member --</option>
+    </select>
 
-        <a href="dashboard.html">Dashboard</a>
-        <a href="member-registration.html">Member Registration</a>
-        <a href="members-list.html">Members List</a>
-        <a href="fee-collection.html">Fee Collection</a>
-        <a href="attendance.html" class="active">Attendance</a>
-        <a href="reports.html">Reports</a>
-        <a href="settings.html">Settings</a>
-        <a href="index.html">Logout</a>
-    </aside>
+    <br><br>
 
-    <main class="content">
+    <button id="presentBtn">✅ Present</button>
+    <button id="absentBtn">❌ Absent</button>
 
-        <h1>Attendance</h1>
+    <br><br>
 
-        <input type="text"
-               id="search"
-               placeholder="Search Member">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Member Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
 
-        <table>
-
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Check In</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-
-            <tbody id="attendanceTable">
-
-            </tbody>
-
-        </table>
-
-    </main>
+        <tbody id="attendanceTable">
+            <!-- Attendance data will be loaded here -->
+        </tbody>
+    </table>
 
 </div>
 
