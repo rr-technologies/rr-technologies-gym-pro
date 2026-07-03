@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RR Technologies Dashboard</title>
+    <title>Fee Collection - RR Technologies Gym Pro</title>
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
@@ -22,36 +22,25 @@
 </div>
 
 <div class="main-content">
+    <h1>Fee Collection</h1>
 
-    <h1>Dashboard</h1>
+    <div class="card">
+        <h3>Member ID</h3>
+        <input type="text" placeholder="Enter Member ID"><br><br>
 
-    <div class="cards">
+        <h3>Amount</h3>
+        <input type="number" placeholder="Enter Amount"><br><br>
 
-        <div class="card">
-            <h2>Total Members</h2>
-            <h1>125</h1>
-        </div>
+        <h3>Payment Mode</h3>
+        <select>
+            <option>Cash</option>
+            <option>UPI</option>
+            <option>Card</option>
+        </select><br><br>
 
-        <div class="card">
-            <h2>Today's Collection</h2>
-            <h1>₹15,000</h1>
-        </div>
-
-        <div class="card">
-            <h2>Attendance</h2>
-            <h1>78</h1>
-        </div>
-
-        <div class="card">
-            <h2>Expiring Members</h2>
-            <h1>09</h1>
-        </div>
-
+        <button>Collect Fee</button>
     </div>
-
 </div>
-
-<script src="dashboard.js"></script>
 
 </body>
 </html>

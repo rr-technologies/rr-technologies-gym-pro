@@ -64,3 +64,35 @@ body{
     color:#00bcd4;
     margin-top:15px;
 }
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+table th,
+table td{
+padding:12px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+button{
+background:#28a745;
+color:white;
+border:none;
+padding:8px 15px;
+cursor:pointer;
+border-radius:5px;
+}
+
+button:hover{
+background:#218838;
+}
+
+input{
+padding:10px;
+width:300px;
+margin-top:20px;
+}
