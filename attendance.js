@@ -1,106 +1,212 @@
-// Load Members from localStorage
-let members = JSON.parse(localStorage.getItem("members")) || [];
-let attendance = JSON.parse(localStorage.getItem("attendance")) || [];
+document.addEventListener("DOMContentLoaded", function () {
 
-// Load Members into Dropdown
-function loadMembers() {
+    // ==========================
+    // Load Data
+    // ==========================
+
+    let members = JSON.parse(localStorage.getItem("members")) || [];
+    let attendance = JSON.parse(localStorage.getItem("attendance")) || [];
+
     const memberSelect = document.getElementById("memberSelect");
-    memberSelect.innerHTML = '<option value="">-- Select Member --</option>';
+    const memberIdInput = document.getElementById("memberIdInput");
+    const attendanceTable = document.getElementById("attendanceTable");
 
-    members.forEach(member => {
-        memberSelect.innerHTML += `
-            <option value="${member.name}">
-                ${member.name}
-            </option>
-        `;
-    });
-}
+    // ==========================
+    // Load Members
+    // ==========================
 
-// Load Attendance Table
-function loadAttendance(searchText = "") {
+    function loadMembers() {
 
-    const table = document.getElementById("attendanceTable");
-    table.innerHTML = "";
+        memberSelect.innerHTML =
+            '<option value="">-- Select Member --</option>';
 
-    attendance.forEach((item, index) => {
+        members.forEach(member => {
 
-        if (
-            item.memberName.toLowerCase().includes(searchText.toLowerCase())
-        ) {
-
-            table.innerHTML += `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${item.memberName}</td>
-                <td>${item.date}</td>
-                <td>${item.time}</td>
-                <td>${item.status}</td>
-            </tr>
+            memberSelect.innerHTML += `
+                <option value="${member.memberId}">
+                    ${member.memberId} - ${member.name}
+                </option>
             `;
+
+        });
+
+    }
+
+    // ==========================
+    // Auto Search While Typing
+    // ==========================
+
+    memberIdInput.addEventListener("input", function () {
+
+        const id = this.value.trim().toUpperCase();
+
+        const member = members.find(m => m.memberId === id);
+
+        if (member) {
+
+            memberSelect.value = member.memberId;
+
+        } else {
+
+            memberSelect.value = "";
+
         }
 
     });
 
-}
+    // ==========================
+    // Dropdown -> Member ID
+    // ==========================
 
-// Save Attendance
-function markAttendance(status) {
+    memberSelect.addEventListener("change", function () {
 
-    const memberName = document.getElementById("memberSelect").value;
+        memberIdInput.value = this.value;
 
-    if (memberName === "") {
-        alert("Please select a member.");
-        return;
-    }
-
-    const today = new Date();
-
-    const date = today.toLocaleDateString("en-GB");
-
-    const time = today.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit"
     });
 
-    // Prevent duplicate attendance for same day
-    const alreadyMarked = attendance.find(item =>
-        item.memberName === memberName &&
-        item.date === date
-    );
+    // ==========================
+    // Load Attendance Table
+    // ==========================
 
-    if (alreadyMarked) {
-        alert("Attendance already marked today.");
-        return;
+    function loadAttendance() {
+
+        attendanceTable.innerHTML = "";
+
+        const sortedAttendance = [...attendance].reverse();
+
+        sortedAttendance.forEach(item => {
+
+            attendanceTable.innerHTML += `
+                <tr>
+
+                    <td>${item.memberId}</td>
+
+                    <td>${item.memberName}</td>
+
+                    <td>${item.date}</td>
+
+                    <td>${item.time}</td>
+
+                    <td style="
+                        color:${item.status === "Present" ? "green" : "red"};
+                        font-weight:bold;
+                    ">
+                        ${item.status}
+                    </td>
+
+                </tr>
+            `;
+
+        });
+
     }
 
-    attendance.push({
-        memberName,
-        date,
-        time,
-        status
-    });
+    // ==========================
+    // Mark Attendance
+    // ==========================
 
-    localStorage.setItem("attendance", JSON.stringify(attendance));
+    function markAttendance(status) {
+
+        const memberId = memberSelect.value;
+
+        if (memberId === "") {
+
+            alert("Please select a member.");
+
+            return;
+
+        }
+
+        const member = members.find(m => m.memberId === memberId);
+
+        const now = new Date();
+
+        // IMPORTANT: Same format as dashboard.js
+        const date = now.toLocaleDateString();
+
+        const time = now.toLocaleTimeString([], {
+
+            hour: "2-digit",
+
+            minute: "2-digit"
+
+        });
+
+        const alreadyMarked = attendance.find(record =>
+
+            record.memberId === memberId &&
+            record.date === date
+
+        );
+
+        if (alreadyMarked) {
+
+            alert("Attendance already marked for today.");
+
+            return;
+
+        }
+
+        attendance.push({
+
+            memberId: member.memberId,
+
+            memberName: member.name,
+
+            date: date,
+
+            time: time,
+
+            status: status
+
+        });
+
+        localStorage.setItem(
+
+            "attendance",
+
+            JSON.stringify(attendance)
+
+        );
+
+        loadAttendance();
+
+        memberSelect.value = "";
+
+        memberIdInput.value = "";
+
+        memberIdInput.focus();
+
+        alert("Attendance marked successfully!");
+
+    }
+
+    // ==========================
+    // Buttons
+    // ==========================
+
+    document.getElementById("presentBtn")
+        .addEventListener("click", function () {
+
+            markAttendance("Present");
+
+        });
+
+    document.getElementById("absentBtn")
+        .addEventListener("click", function () {
+
+            markAttendance("Absent");
+
+        });
+
+    // ==========================
+    // Initial Load
+    // ==========================
+
+    loadMembers();
 
     loadAttendance();
 
-    alert("Attendance marked successfully!");
-}
+    memberIdInput.focus();
 
-// Buttons
-document.getElementById("presentBtn").addEventListener("click", () => {
-    markAttendance("Present");
 });
-
-document.getElementById("absentBtn").addEventListener("click", () => {
-    markAttendance("Absent");
-});
-
-// Search
-document.getElementById("search").addEventListener("keyup", function () {
-    loadAttendance(this.value);
-});
-
-// Initial Load
-loadMembers();
-loadAttendance();

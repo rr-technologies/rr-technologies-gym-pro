@@ -1,76 +1,106 @@
-function openPage(page) {
-    window.location.href = page;
-}
-
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ==========================
-    // Load Members
-    // ==========================
-    let members = JSON.parse(localStorage.getItem("members")) || [];
+    // ==============================
+    // Load Data
+    // ==============================
 
+    const members = JSON.parse(localStorage.getItem("members")) || [];
+    const attendance = JSON.parse(localStorage.getItem("attendance")) || [];
+
+    // ==============================
     // Total Members
-    document.getElementById("totalMembers").innerText = members.length;
+    // ==============================
 
-    // ==========================
+    const totalMembers = members.length;
+
+    // ==============================
+    // Today's Date
+    // ==============================
+
+    const today = new Date().toLocaleDateString();
+
+    // ==============================
+    // Present Today
+    // ==============================
+
+    let presentToday = 0;
+
+    attendance.forEach(record => {
+
+        if (
+            record.date === today &&
+            record.status === "Present"
+        ) {
+            presentToday++;
+        }
+
+    });
+
+    // ==============================
     // Today's Collection
-    // ==========================
-    let totalCollection = 0;
+    // ==============================
 
-    members.forEach(member => {
-        totalCollection += Number(member.fee || 0);
-    });
+    const todayCollection =
+        Number(localStorage.getItem("todayCollection")) || 0;
 
-    document.getElementById("todayCollection").innerText =
-        "₹" + totalCollection.toLocaleString();
+    // ==============================
+    // Pending Fees
+    // ==============================
 
-    // ==========================
-    // Expiring Members (Next 7 Days)
-    // ==========================
-    let expiring = 0;
-    let today = new Date();
+    let pendingFees = 0;
 
     members.forEach(member => {
 
-        if (!member.joiningDate) return;
-
-        let joinDate = new Date(member.joiningDate);
-
-        let months = 1;
-
-        if (member.plan === "3 Months") {
-            months = 3;
-        } else if (member.plan === "6 Months") {
-            months = 6;
-        } else if (member.plan === "12 Months") {
-            months = 12;
-        }
-
-        let expiry = new Date(joinDate);
-        expiry.setMonth(expiry.getMonth() + months);
-
-        let diff = (expiry - today) / (1000 * 60 * 60 * 24);
-
-        if (diff >= 0 && diff <= 7) {
-            expiring++;
+        if (
+            member.paymentStatus &&
+            member.paymentStatus.toLowerCase() === "pending"
+        ) {
+            pendingFees++;
         }
 
     });
 
-    document.getElementById("expiringMembers").innerText = expiring;
+    // ==============================
+    // Dashboard Cards
+    // ==============================
 
-    // ==========================
-    // Today's Attendance
-    // ==========================
-    let attendance = JSON.parse(localStorage.getItem("attendance")) || [];
+    document.getElementById("totalMembers").textContent =
+        totalMembers;
 
-    let todayDate = new Date().toLocaleDateString("en-GB");
+    document.getElementById("presentToday").textContent =
+        presentToday;
 
-    let todayPresent = attendance.filter(item =>
-        item.date === todayDate &&
-        item.status === "Present"
-    ).length;
+    document.getElementById("todayCollection").textContent =
+        "₹" + todayCollection;
 
-    document.getElementById("attendanceCount").innerText = todayPresent;
+    document.getElementById("pendingFees").textContent =
+        pendingFees;
+
+    // ==============================
+    // Summary Table
+    // ==============================
+
+    document.getElementById("summaryMembers").textContent =
+        totalMembers;
+
+    document.getElementById("summaryAttendance").textContent =
+        presentToday;
+
+    document.getElementById("summaryCollection").textContent =
+        "₹" + todayCollection;
+
+    document.getElementById("summaryPending").textContent =
+        pendingFees;
+
+    // ==============================
+    // Console Log
+    // ==============================
+
+    console.log("Dashboard Loaded Successfully");
+
+    console.log("Total Members :", totalMembers);
+    console.log("Present Today :", presentToday);
+    console.log("Today's Collection :", todayCollection);
+    console.log("Pending Fees :", pendingFees);
 
 });

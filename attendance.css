@@ -1,0 +1,123 @@
+/* ==========================
+   RR Technologies Gym Pro
+   Attendance Page
+========================== */
+
+.main-content h1{
+    font-size:42px;
+    color:#1f2937;
+    margin-bottom:30px;
+}
+
+/* Attendance Form */
+.attendance-form{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.attendance-form input,
+.attendance-form select{
+    width:250px;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+    transition:.3s;
+}
+
+.attendance-form input:focus,
+.attendance-form select:focus{
+    border-color:#00bfff;
+    box-shadow:0 0 8px rgba(0,191,255,.3);
+}
+
+/* Buttons */
+.attendance-buttons{
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.attendance-buttons button{
+    border:none;
+    padding:12px 22px;
+    color:#fff;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.3s;
+}
+
+#presentBtn{
+    background:#28a745;
+}
+
+#presentBtn:hover{
+    background:#218838;
+}
+
+#absentBtn{
+    background:#dc3545;
+}
+
+#absentBtn:hover{
+    background:#c82333;
+}
+
+/* Table */
+.attendance-table{
+    width:100%;
+    border-collapse:collapse;
+    background:#fff;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.attendance-table th{
+    background:#0099ff;
+    color:#fff;
+    padding:14px;
+    text-align:center;
+}
+
+.attendance-table td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+.attendance-table tr:nth-child(even){
+    background:#f8f9fa;
+}
+
+.attendance-table tr:hover{
+    background:#eef8ff;
+}
+
+/* Responsive */
+@media(max-width:768px){
+
+.attendance-form{
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.attendance-form input,
+.attendance-form select{
+    width:100%;
+}
+
+.attendance-buttons{
+    width:100%;
+}
+
+.attendance-buttons button{
+    flex:1;
+}
+
+}

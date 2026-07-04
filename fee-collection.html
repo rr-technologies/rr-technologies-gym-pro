@@ -1,46 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fee Collection - RR Technologies Gym Pro</title>
-    <link rel="stylesheet" href="dashboard.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RR Technologies - Fee Collection</title>
+
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="fee-collection.css">
+
 </head>
 <body>
 
 <div class="sidebar">
-    <h2>RR Technologies</h2>
 
-    <a href="dashboard.html">🏠 Dashboard</a>
-    <a href="member-registration.html">👤 Member Registration</a>
-    <a href="members-list.html">👥 Members List</a>
-    <a href="fee-collection.html">💰 Fee Collection</a>
-    <a href="attendance.html">📅 Attendance</a>
-    <a href="reports.html">📊 Reports</a>
-    <a href="settings.html">⚙️ Settings</a>
-    <a href="index.html">🚪 Logout</a>
+<h2>RR Technologies</h2>
+
+<a href="dashboard.html">🏠 Dashboard</a>
+<a href="member-registration.html">👤 Member Registration</a>
+<a href="members-list.html">👥 Members List</a>
+<a href="fee-collection.html" class="active">💰 Fee Collection</a>
+<a href="attendance.html">📅 Attendance</a>
+<a href="reports.html">📊 Reports</a>
+<a href="settings.html">⚙️ Settings</a>
+<a href="index.html">🚪 Logout</a>
+
 </div>
 
 <div class="main-content">
-    <h1>Fee Collection</h1>
 
-    <div class="card">
-        <h3>Member ID</h3>
-        <input type="text" placeholder="Enter Member ID"><br><br>
+<h1>💰 Fee Collection</h1>
 
-        <h3>Amount</h3>
-        <input type="number" placeholder="Enter Amount"><br><br>
+<table id="feeTable">
 
-        <h3>Payment Mode</h3>
-        <select>
-            <option>Cash</option>
-            <option>UPI</option>
-            <option>Card</option>
-        </select><br><br>
+<thead>
 
-        <button>Collect Fee</button>
-    </div>
+<tr>
+
+<th>Member ID</th>
+<th>Name</th>
+<th>Plan</th>
+<th>Fee</th>
+<th>Payment Mode</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+</tbody>
+
+</table>
+
+<br><br>
+
+<h2>Payment History</h2>
+
+<table id="historyTable">
+
+<thead>
+
+<tr>
+
+<th>Receipt No</th>
+<th>Member ID</th>
+<th>Name</th>
+<th>Amount</th>
+<th>Mode</th>
+<th>Date</th>
+<th>Time</th>
+<th>Receipt</th>
+
+</tr>
+
+</thead>
+
+<tbody id="historyBody">
+
+</tbody>
+
+</table>
+
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="fee-collection.js"></script>
 
 </body>
 </html>

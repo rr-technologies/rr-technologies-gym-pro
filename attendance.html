@@ -6,6 +6,7 @@
     <title>Attendance - RR Technologies Gym Pro</title>
 
     <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="attendance.css">
 </head>
 <body>
 
@@ -26,29 +27,30 @@
 
     <h1>Attendance</h1>
 
-    <input
-        type="text"
-        id="search"
-        placeholder="Search Member..."
-    >
+    <div class="attendance-form">
 
-    <br><br>
+        <input
+            type="text"
+            id="memberIdInput"
+            placeholder="Enter Member ID (Example: RR1001)"
+            autocomplete="off"
+        >
 
-    <select id="memberSelect">
-        <option value="">-- Select Member --</option>
-    </select>
+        <select id="memberSelect">
+            <option value="">-- Select Member --</option>
+        </select>
 
-    <br><br>
+    </div>
 
-    <button id="presentBtn">✅ Present</button>
-    <button id="absentBtn">❌ Absent</button>
+    <div class="attendance-buttons">
+        <button id="presentBtn">✅ Present</button>
+        <button id="absentBtn">❌ Absent</button>
+    </div>
 
-    <br><br>
-
-    <table>
+    <table class="attendance-table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Member ID</th>
                 <th>Member Name</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -56,9 +58,7 @@
             </tr>
         </thead>
 
-        <tbody id="attendanceTable">
-            <!-- Attendance data will be loaded here -->
-        </tbody>
+        <tbody id="attendanceTable"></tbody>
     </table>
 
 </div>

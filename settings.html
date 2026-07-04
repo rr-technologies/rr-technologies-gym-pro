@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings - RR Technologies Gym Pro</title>
+    <title>Settings - RR Technologies</title>
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
@@ -17,34 +17,38 @@
     <a href="fee-collection.html">💰 Fee Collection</a>
     <a href="attendance.html">📅 Attendance</a>
     <a href="reports.html">📊 Reports</a>
-    <a href="settings.html">⚙️ Settings</a>
+    <a href="settings.html" class="active">⚙️ Settings</a>
     <a href="index.html">🚪 Logout</a>
 </div>
 
 <div class="main-content">
 
-    <h1>⚙️ Gym Settings</h1>
+<h1>Gym Settings</h1>
 
-    <div class="card" style="width:600px;">
+<div class="form-container">
 
-        <label><b>Gym Name</b></label><br>
-        <input type="text" id="gymName" value="RR Technologies Gym"><br><br>
+<form id="settingsForm">
 
-        <label><b>Owner Name</b></label><br>
-        <input type="text" id="ownerName" value="Ravindra Reddy"><br><br>
+<label>Gym Name</label>
+<input type="text" id="gymName">
 
-        <label><b>Mobile Number</b></label><br>
-        <input type="text" id="mobile" placeholder="Enter Mobile Number"><br><br>
+<label>Owner Name</label>
+<input type="text" id="ownerName">
 
-        <label><b>Email</b></label><br>
-        <input type="email" id="email" placeholder="Enter Email"><br><br>
+<label>Mobile Number</label>
+<input type="text" id="mobile">
 
-        <label><b>Address</b></label><br>
-        <textarea id="address" rows="4" style="width:100%;"></textarea><br><br>
+<label>Email</label>
+<input type="email" id="email">
 
-        <button onclick="saveSettings()">💾 Save Settings</button>
+<label>Address</label>
+<textarea id="address"></textarea>
 
-    </div>
+<button type="submit">Save Settings</button>
+
+</form>
+
+</div>
 
 </div>
 

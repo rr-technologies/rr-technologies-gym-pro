@@ -1,29 +1,48 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Load Members
-    let members = JSON.parse(localStorage.getItem("members")) || [];
+    const members = JSON.parse(localStorage.getItem("members")) || [];
+    const feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
 
-    // Load Attendance
-    let attendance = JSON.parse(localStorage.getItem("attendance")) || [];
+    const reportBody = document.getElementById("reportBody");
 
-    // Total Members
-    document.getElementById("totalMembers").textContent = members.length;
+    let totalMembers = members.length;
+    let totalCollection = 0;
+    let todayCollection = 0;
+    let activeMembers = 0;
 
-    // Present Members
-    let present = attendance.filter(member => member.status === "Present").length;
-    document.getElementById("presentMembers").textContent = present;
+    const today = new Date().toLocaleDateString("en-GB");
 
-    // Absent Members
-    let absent = members.length - present;
-    document.getElementById("absentMembers").textContent = absent;
+    reportBody.innerHTML = "";
 
-    // Total Fees
-    let totalFees = 0;
+    feeHistory.forEach(record => {
 
-    members.forEach(member => {
-        totalFees += Number(member.fee) || 0;
+        totalCollection += Number(record.amount);
+
+        if (record.date === today) {
+            todayCollection += Number(record.amount);
+        }
+
+        reportBody.innerHTML += `
+            <tr>
+                <td>${record.receiptNo}</td>
+                <td>${record.memberId}</td>
+                <td>${record.memberName}</td>
+                <td>₹${record.amount}</td>
+                <td>${record.mode}</td>
+                <td>${record.date}</td>
+            </tr>
+        `;
     });
 
-    document.getElementById("totalFees").textContent = "₹" + totalFees;
+    members.forEach(member => {
+        if (member.status === "Active") {
+            activeMembers++;
+        }
+    });
+
+    document.getElementById("totalMembers").textContent = totalMembers;
+    document.getElementById("totalCollection").textContent = "₹" + totalCollection;
+    document.getElementById("todayCollection").textContent = "₹" + todayCollection;
+    document.getElementById("activeMembers").textContent = activeMembers;
 
 });
