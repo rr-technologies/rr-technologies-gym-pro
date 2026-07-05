@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-     // Load Gym Settings
+    // Load Gym Settings
     const gymSettings = JSON.parse(localStorage.getItem("gymSettings")) || {};
 
     const gymTitle = document.getElementById("sidebarGymName");
@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         gymTitle.textContent = gymSettings.gymName;
     }
 
+    // Load Data
     const members = JSON.parse(localStorage.getItem("members")) || [];
     const attendance = JSON.parse(localStorage.getItem("attendance")) || [];
     const feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
@@ -18,66 +19,72 @@ document.addEventListener("DOMContentLoaded", function () {
     let pendingFees = 0;
     let todayCollection = 0;
 
+    // Today's Date
     const now = new Date();
 
     const today =
-    String(now.getDate()).padStart(2, "0") + "-" +
-    String(now.getMonth() + 1).padStart(2, "0") + "-" +
-    now.getFullYear();
+        String(now.getDate()).padStart(2, "0") + "-" +
+        String(now.getMonth() + 1).padStart(2, "0") + "-" +
+        now.getFullYear();
+
+    // DD-MM-YYYY → Date Object
+    function parseDate(dateString) {
+
+    if (!dateString) return null;
+
+    // YYYY-MM-DD format
+    if (dateString.split("-")[0].length === 4) {
+        return new Date(dateString + "T00:00:00");
+    }
+
+    // DD-MM-YYYY format
+    const [day, month, year] = dateString.split("-");
+    return new Date(year, month - 1, day);
+
+}
 
     // Active & Expired Members
     members.forEach(member => {
 
-        if (member.expiryDate) {
+        if (!member.expiryDate) return;
 
-            const expiry = new Date(member.expiryDate);
-            const current = new Date();
+        const expiry = parseDate(member.expiryDate);
 
-            expiry.setHours(0, 0, 0, 0);
-            current.setHours(0, 0, 0, 0);
+        if (!expiry) return;
 
-            if (expiry >= current) {
-                activeMembers++;
-            } else {
-                expiredMembers++;
-            }
+        expiry.setHours(0,0,0,0);
+
+        const current = new Date();
+        current.setHours(0,0,0,0);
+
+        if (expiry >= current) {
+            activeMembers++;
+        } else {
+            expiredMembers++;
         }
 
     });
 
-    // Pending Fees = Expired Members
-    pendingFees = members.filter(member => {
-
-        if (!member.expiryDate) return false;
-
-        const expiry = new Date(member.expiryDate);
-        const current = new Date();
-
-        expiry.setHours(0, 0, 0, 0);
-        current.setHours(0, 0, 0, 0);
-
-        return expiry < current;
-
-    }).length;
+    // Pending Fees
+    pendingFees = expiredMembers;
 
     // Today's Collection
     feeHistory.forEach(record => {
 
-    let recordDate = record.date;
+        let recordDate = record.date;
 
-    // Old format (YYYY-MM-DD) -> New format (DD-MM-YYYY)
-    if (recordDate.split("-")[0].length === 4) {
-        recordDate = recordDate.split("-").reverse().join("-");
-    }
+        if (recordDate && recordDate.split("-")[0].length === 4) {
+            recordDate = recordDate.split("-").reverse().join("-");
+        }
 
-    if (recordDate === today) {
-        todayCollection += Number(record.amount);
-    }
+        if (recordDate === today) {
+            todayCollection += Number(record.amount || 0);
+        }
 
-});
+    });
 
     // Present Today
-    const presentToday = attendance.filter(record => 
+    const presentToday = attendance.filter(record =>
         record.date === today &&
         record.status === "Present"
     ).length;
@@ -94,13 +101,71 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("summaryCollection").textContent = "₹" + todayCollection;
     document.getElementById("summaryPending").textContent = pendingFees;
 
-    // Optional (Future Cards)
+    // Future Cards (Optional)
     if (document.getElementById("activeMembers")) {
         document.getElementById("activeMembers").textContent = activeMembers;
     }
 
     if (document.getElementById("expiredMembers")) {
         document.getElementById("expiredMembers").textContent = expiredMembers;
+    }
+
+    // =====================================
+    // Expiring in Next 7 Days
+    // =====================================
+
+    const expiryTable = document.getElementById("expiryAlertTable");
+
+    if (expiryTable) {
+
+        expiryTable.innerHTML = "";
+
+        const todayDate = new Date();
+        todayDate.setHours(0,0,0,0);
+
+        const next7 = new Date(todayDate);
+        next7.setDate(next7.getDate() + 7);
+
+        let found = false;
+
+        members.forEach(member => {
+
+            if (!member.expiryDate) return;
+
+            const expiry = parseDate(member.expiryDate);
+
+            if (!expiry) return;
+
+            expiry.setHours(0,0,0,0);
+
+            if (expiry >= todayDate && expiry <= next7) {
+
+                found = true;
+
+                expiryTable.innerHTML += `
+                    <tr>
+                        <td>${member.memberId}</td>
+                        <td>${member.name}</td>
+                        <td>${member.expiryDate}</td>
+                    </tr>
+                `;
+
+            }
+
+        });
+
+        if (!found) {
+
+            expiryTable.innerHTML = `
+                <tr>
+                    <td colspan="3" style="text-align:center;color:green;">
+                        ✅ No members expiring in the next 7 days
+                    </td>
+                </tr>
+            `;
+
+        }
+
     }
 
 });
