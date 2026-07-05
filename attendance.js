@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
         memberSelect.innerHTML =
             '<option value="">-- Select Member --</option>';
 
-        members.forEach(member => {
+        members
+            .filter(member => member.status === "Active")
+            .forEach(member => {
 
             memberSelect.innerHTML += `
                 <option value="${member.memberId}">
@@ -79,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadAttendance() {
 
-        attendanceTable.innerHTML = "";
+                attendanceTable.innerHTML = "";
 
         const sortedAttendance = [...attendance].reverse();
 

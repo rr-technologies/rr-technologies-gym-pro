@@ -11,6 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const memberForm = document.getElementById("memberForm");
 
+    // Generate Member ID on page load
+    generateMemberId();
+
     // ============================
     // Generate Member ID
     // ============================
@@ -121,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             fee: document.getElementById("fee").value,
 
-            paymentStatus: "Paid",
+            paymentStatus: "Unpaid",
 
             address: document.getElementById("address").value
 
@@ -138,6 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
 
             members.push(member);
+
+            localStorage.setItem("lastMemberId", document.getElementById("memberId").value.replace("RR", ""));
 
             const currentId =
                 parseInt(member.memberId.replace("RR", ""));

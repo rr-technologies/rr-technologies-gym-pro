@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadMembers() {
 
+         members = JSON.parse(localStorage.getItem("members")) || [];
+
         tableBody.innerHTML = "";
 
         if (members.length === 0) {
@@ -145,6 +147,49 @@ document.addEventListener("DOMContentLoaded", function () {
             JSON.stringify(feeHistory)
         );
 
+        // Update Payment Status
+member.paymentStatus = "Paid";
+
+members[index] = member;
+
+localStorage.setItem(
+    "members",
+    JSON.stringify(members)
+);
+
+
+        // ===========================
+// Renew Membership
+// ===========================
+
+let expiry = new Date(member.expiryDate);
+
+switch (member.plan) {
+
+    case "1 Month":
+        expiry.setMonth(expiry.getMonth() + 1);
+        break;
+
+    case "3 Months":
+        expiry.setMonth(expiry.getMonth() + 3);
+        break;
+
+    case "6 Months":
+        expiry.setMonth(expiry.getMonth() + 6);
+        break;
+
+    case "12 Months":
+        expiry.setFullYear(expiry.getFullYear() + 1);
+        break;
+}
+
+member.expiryDate = expiry.toISOString().split("T")[0];
+member.status = getMemberStatus(member.expiryDate);
+
+members[index] = member;
+
+localStorage.setItem("members", JSON.stringify(members));
+
         // Dashboard Collection
 
         let todayCollection =
@@ -157,6 +202,9 @@ document.addEventListener("DOMContentLoaded", function () {
             todayCollection
         );
 
+        loadMembers();
+        loadHistory();
+
         alert(
             "Fee Collected Successfully!\n\n" +
             "Receipt : " + receiptNo +
@@ -165,6 +213,8 @@ document.addEventListener("DOMContentLoaded", function () {
             "\nMode : " + paymentMode
         );
 
+        console.log(members);
+        loadMembers();
         loadHistory();
 
     };

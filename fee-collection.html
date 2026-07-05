@@ -31,6 +31,57 @@
 
 <h1>💰 Fee Collection</h1>
 
+<div class="search-box">
+
+    <input type="text" id="searchMember" placeholder="🔍 Search by Member ID or Mobile Number">
+
+    <button id="searchBtn">Search</button>
+
+</div>
+
+<div id="memberDetails" class="member-card" style="display:none;">
+
+    <h2>Member Details</h2>
+
+    <p><strong>Member ID :</strong> <span id="dMemberId"></span></p>
+
+    <p><strong>Name :</strong> <span id="dName"></span></p>
+
+    <p><strong>Mobile :</strong> <span id="dMobile"></span></p>
+
+    <p><strong>Plan :</strong> <span id="dPlan"></span></p>
+
+    <p><strong>Current Expiry :</strong> <span id="dExpiry"></span></p>
+
+    <p><strong>Status :</strong> <span id="dStatus"></span></p>
+
+    <hr>
+
+    <label>Fee Amount</label>
+
+    <input type="number" id="feeAmount">
+
+    <label>Payment Mode</label>
+
+    <select id="paymentMode">
+
+        <option>Cash</option>
+        <option>UPI</option>
+        <option>Card</option>
+        <option>Bank Transfer</option>
+
+    </select>
+
+    <label>Remarks</label>
+
+    <textarea id="remarks"></textarea>
+
+    <button id="collectFeeBtn">
+        💰 Collect Fee
+    </button>
+
+</div>
+
 <table id="feeTable">
 
 <thead>
