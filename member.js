@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+     // Load Gym Settings
+    const gymSettings = JSON.parse(localStorage.getItem("gymSettings")) || {};
+
+    const gymTitle = document.getElementById("sidebarGymName");
+
+    if (gymTitle && gymSettings.gymName) {
+        gymTitle.textContent = gymSettings.gymName;
+    }
+
     const memberForm = document.getElementById("memberForm");
 
     // ============================

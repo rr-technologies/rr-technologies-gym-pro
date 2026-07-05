@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+     // Load Gym Settings
+    const gymSettings = JSON.parse(localStorage.getItem("gymSettings")) || {};
+
+    const gymTitle = document.getElementById("sidebarGymName");
+
+    if (gymTitle && gymSettings.gymName) {
+        gymTitle.textContent = gymSettings.gymName;
+    }
+
     const tableBody = document.querySelector("#feeTable tbody");
     const historyBody = document.getElementById("historyBody");
 
@@ -199,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <td>${record.mode}</td>
 
-                    <td>${record.date}</td>
+                    <td>${record.date.split("-").reverse().join("-")}</td>
 
                     <td>${record.time}</td>
            

@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+     // Load Gym Settings
+    const gymSettings = JSON.parse(localStorage.getItem("gymSettings")) || {};
+
+    const gymTitle = document.getElementById("sidebarGymName");
+
+    if (gymTitle && gymSettings.gymName) {
+        gymTitle.textContent = gymSettings.gymName;
+    }
+
     // ==========================
     // Load Data
     // ==========================
@@ -122,7 +131,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const now = new Date();
 
         // IMPORTANT: Same format as dashboard.js
-        const date = now.toLocaleDateString();
+        const date =
+    String(now.getDate()).padStart(2, "0") + "-" +
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    now.getFullYear();
 
         const time = now.toLocaleTimeString([], {
 

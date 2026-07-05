@@ -9,7 +9,7 @@
 <body>
 
 <div class="sidebar">
-    <h2>RR Technologies</h2>
+    <h2 id="sidebarGymName">RR Technologies</h2>
 
     <a href="dashboard.html">🏠 Dashboard</a>
     <a href="member-registration.html">👤 Member Registration</a>
@@ -43,6 +43,21 @@
 
 <label>Address</label>
 <textarea id="address"></textarea>
+
+<label>Receipt Prefix</label>
+<input type="text" id="receiptPrefix" value="RCPT">
+
+<label>Currency</label>
+<select id="currency">
+    <option value="₹">Indian Rupee (₹)</option>
+    <option value="$">US Dollar ($)</option>
+    <option value="€">Euro (€)</option>
+</select>
+
+<br><br>
+
+<button type="submit">💾 Save Settings</button>
+<button type="reset">🔄 Reset</button>
 
 <button type="submit">Save Settings</button>
 

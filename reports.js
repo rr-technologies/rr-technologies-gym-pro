@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+     // Load Gym Settings
+    const gymSettings = JSON.parse(localStorage.getItem("gymSettings")) || {};
+
+    const gymTitle = document.getElementById("sidebarGymName");
+
+    if (gymTitle && gymSettings.gymName) {
+        gymTitle.textContent = gymSettings.gymName;
+    }
+
     const members = JSON.parse(localStorage.getItem("members")) || [];
     const feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
 
@@ -29,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${record.memberName}</td>
                 <td>₹${record.amount}</td>
                 <td>${record.mode}</td>
-                <td>${record.date}</td>
+                <td>${record.date.split("-").reverse().join("-")}</td>
             </tr>
         `;
     });

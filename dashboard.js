@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+     // Load Gym Settings
+    const gymSettings = JSON.parse(localStorage.getItem("gymSettings")) || {};
+
+    const gymTitle = document.getElementById("sidebarGymName");
+
+    if (gymTitle && gymSettings.gymName) {
+        gymTitle.textContent = gymSettings.gymName;
+    }
+
     const members = JSON.parse(localStorage.getItem("members")) || [];
     const attendance = JSON.parse(localStorage.getItem("attendance")) || [];
     const feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
@@ -9,7 +18,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let pendingFees = 0;
     let todayCollection = 0;
 
-    const today = new Date().toISOString().split("T")[0];
+    const now = new Date();
+
+    const today =
+    String(now.getDate()).padStart(2, "0") + "-" +
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    now.getFullYear();
 
     // Active & Expired Members
     members.forEach(member => {
@@ -49,16 +63,24 @@ document.addEventListener("DOMContentLoaded", function () {
     // Today's Collection
     feeHistory.forEach(record => {
 
-        if (record.date === today) {
-            todayCollection += Number(record.amount);
-        }
+    let recordDate = record.date;
 
-    });
+    // Old format (YYYY-MM-DD) -> New format (DD-MM-YYYY)
+    if (recordDate.split("-")[0].length === 4) {
+        recordDate = recordDate.split("-").reverse().join("-");
+    }
+
+    if (recordDate === today) {
+        todayCollection += Number(record.amount);
+    }
+
+});
 
     // Present Today
-    const presentToday = attendance.filter(record => {
-        return record.date === today;
-    }).length;
+    const presentToday = attendance.filter(record => 
+        record.date === today &&
+        record.status === "Present"
+    ).length;
 
     // Dashboard Cards
     document.getElementById("totalMembers").textContent = members.length;

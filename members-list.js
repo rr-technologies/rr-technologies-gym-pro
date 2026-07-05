@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+     // Load Gym Settings
+    const gymSettings = JSON.parse(localStorage.getItem("gymSettings")) || {};
+
+    const gymTitle = document.getElementById("sidebarGymName");
+
+    if (gymTitle && gymSettings.gymName) {
+        gymTitle.textContent = gymSettings.gymName;
+    }
+
     let members = JSON.parse(localStorage.getItem("members")) || [];
 
     const table = document.getElementById("membersTable");
@@ -80,9 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <td>₹${member.fee}</td>
 
-                    <td>${member.joiningDate}</td>
+                    <td>${formatDate(member.joiningDate)}</td>
 
-                    <td>${member.expiryDate || "-"}</td>
+                    <td>${member.expiryDate ? formatDate(member.expiryDate) : "-"}</td>
 
                     <td>${member.paymentStatus || "Paid"}</td>
 
