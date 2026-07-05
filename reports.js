@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let todayCollection = 0;
     let activeMembers = 0;
 
-    const today = new Date().toLocaleDateString("en-GB");
+    const today = new Date().toISOString().split("T")[0];
 
     reportBody.innerHTML = "";
 

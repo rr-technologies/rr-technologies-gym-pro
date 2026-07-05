@@ -3,33 +3,56 @@ document.addEventListener("DOMContentLoaded", function () {
     let members = JSON.parse(localStorage.getItem("members")) || [];
 
     const table = document.getElementById("membersTable");
+    const searchInput = document.getElementById("searchMember");
 
+    // ============================
+    // Get Member Status
+    // ============================
     function getMemberStatus(expiryDate) {
 
-        const today = new Date();
+        if (!expiryDate) {
+            return "<span style='color:gray;font-weight:bold;'>No Date</span>";
+        }
 
+        const today = new Date();
         today.setHours(0, 0, 0, 0);
 
         const expiry = new Date(expiryDate);
-
         expiry.setHours(0, 0, 0, 0);
 
-        if (expiry < today) {
-            return "<span style='color:red;font-weight:bold;'>Expired</span>";
-        }
+        const diffDays = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
 
-        return "<span style='color:green;font-weight:bold;'>Active</span>";
+        if (diffDays < 0) {
+            return "<span style='color:red;font-weight:bold;'>🔴 Expired</span>";
+        } else if (diffDays <= 5) {
+            return "<span style='color:orange;font-weight:bold;'>🟡 Expiring Soon</span>";
+        } else {
+            return "<span style='color:green;font-weight:bold;'>🟢 Active</span>";
+        }
     }
 
-    function displayMembers() {
+    // ============================
+    // Display Members
+    // ============================
+    function displayMembers(search = "") {
 
         table.innerHTML = "";
 
-        if (members.length === 0) {
+        const filteredMembers = members.filter(member => {
+
+            return (
+                (member.memberId || "").toLowerCase().includes(search) ||
+                (member.name || "").toLowerCase().includes(search) ||
+                (member.mobile || "").toLowerCase().includes(search)
+            );
+
+        });
+
+        if (filteredMembers.length === 0) {
 
             table.innerHTML = `
                 <tr>
-                    <td colspan="10" style="text-align:center;">
+                    <td colspan="11" style="text-align:center;">
                         No Members Found
                     </td>
                 </tr>
@@ -38,12 +61,14 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        members.forEach((member, index) => {
+        filteredMembers.forEach((member) => {
+
+            const originalIndex = members.indexOf(member);
 
             table.innerHTML += `
                 <tr>
 
-                    <td>${index + 1}</td>
+                    <td>${originalIndex + 1}</td>
 
                     <td>${member.memberId}</td>
 
@@ -64,13 +89,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>${getMemberStatus(member.expiryDate)}</td>
 
                     <td>
-                        <button onclick="editMember(${index})">
-                            Edit
+
+                        <button onclick="editMember(${originalIndex})">
+                            ✏️ Edit
                         </button>
 
-                        <button onclick="deleteMember(${index})">
-                            Delete
+                        <button onclick="deleteMember(${originalIndex})">
+                            🗑 Delete
                         </button>
+
                     </td>
 
                 </tr>
@@ -80,6 +107,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    // ============================
+    // Search Members
+    // ============================
+    if (searchInput) {
+
+        searchInput.addEventListener("keyup", function () {
+
+            displayMembers(this.value.toLowerCase());
+
+        });
+
+    }
+
+    // ============================
+    // Edit Member
+    // ============================
     window.editMember = function(index) {
 
         localStorage.setItem("editMemberIndex", index);
@@ -88,6 +131,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     };
 
+    // ============================
+    // Delete Member
+    // ============================
     window.deleteMember = function(index) {
 
         if (confirm("Are you sure you want to delete this member?")) {
@@ -96,12 +142,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             localStorage.setItem("members", JSON.stringify(members));
 
-            displayMembers();
+            displayMembers(searchInput ? searchInput.value.toLowerCase() : "");
 
         }
 
     };
 
+    // ============================
+    // Load Members
+    // ============================
     displayMembers();
 
 });

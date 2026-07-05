@@ -108,6 +108,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             expiryDate: expiryDate,
 
+            status: getMemberStatus(expiryDate),
+
             fee: document.getElementById("fee").value,
 
             paymentStatus: "Paid",
@@ -144,3 +146,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+function getMemberStatus(expiryDate) {
+
+    const today = new Date();
+    const expiry = new Date(expiryDate);
+
+    // Time difference in days
+    const diffDays = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) {
+        return "Expired";
+    } else if (diffDays <= 5) {
+        return "Expiring Soon";
+    } else {
+        return "Active";
+    }
+}
