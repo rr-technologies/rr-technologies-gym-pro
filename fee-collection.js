@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         members.forEach((member, index) => {
 
+            if (member.paymentStatus === "Paid") {
+        return;
+    }
+
             tableBody.innerHTML += `
                 <tr>
 
@@ -67,9 +71,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <td>
 
-                        <button onclick="collectFee(${index})">
-                            Collect
-                        </button>
+                        ${
+                            
+                 member.paymentStatus === "Paid"
+
+                  ? `<span style="color:green;font-weight:bold;">✅ Paid</span>`
+
+                 : `<button onclick="collectFee(${index})">Collect</button>`
+
+            }
+
 
                     </td>
 
@@ -85,6 +96,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // ===========================
 
     window.collectFee = function(index) {
+
+         members = JSON.parse(localStorage.getItem("members")) || [];
+
+         feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
 
         const member = members[index];
 
@@ -224,6 +239,8 @@ localStorage.setItem("members", JSON.stringify(members));
     // ===========================
 
     function loadHistory() {
+
+         feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
 
         historyBody.innerHTML = "";
 

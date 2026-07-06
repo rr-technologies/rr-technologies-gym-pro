@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // ============================
     function displayMembers(search = "") {
 
+        members = JSON.parse(localStorage.getItem("members")) || [];
+
         table.innerHTML = "";
 
         const filteredMembers = members.filter(member => {
@@ -93,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <td>${member.expiryDate ? formatDate(member.expiryDate) : "-"}</td>
 
-                    <td>${member.paymentStatus || "Paid"}</td>
+                    <td>${member.paymentStatus || "unpaid"}</td>
 
                     <td>${getMemberStatus(member.expiryDate)}</td>
 
