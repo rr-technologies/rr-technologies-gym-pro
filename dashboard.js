@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const attendance = JSON.parse(localStorage.getItem("attendance")) || [];
     const feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
 
+    
+
     let activeMembers = 0;
     let expiredMembers = 0;
     let pendingFees = 0;
@@ -23,9 +25,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const now = new Date();
 
     const today =
-        String(now.getDate()).padStart(2, "0") + "-" +
-        String(now.getMonth() + 1).padStart(2, "0") + "-" +
-        now.getFullYear();
+    String(now.getDate()).padStart(2, "0") + "-" +
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    now.getFullYear();
+
+    console.log("Today:", today);
+console.log("Fee History:", feeHistory);
 
     // DD-MM-YYYY → Date Object
     function parseDate(dateString) {
@@ -71,19 +76,18 @@ document.addEventListener("DOMContentLoaded", function () {
     // Today's Collection
     feeHistory.forEach(record => {
 
-        let recordDate = record.date;
+       if (record.date === today) {
+        todayCollection += Number(record.amount || 0);
 
-        if (recordDate && recordDate.split("-")[0].length === 4) {
-            recordDate = recordDate.split("-").reverse().join("-");
-        }
-
-        if (recordDate === today) {
-            todayCollection += Number(record.amount || 0);
         }
 
     });
 
     // Present Today
+console.log("Today =", today);
+console.log("Attendance =", attendance);
+console.log("Attendance Dates =", attendance.map(x => x.date));
+
     const presentToday = attendance.filter(record =>
         record.date === today &&
         record.status === "Present"
@@ -96,10 +100,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("pendingFees").textContent = pendingFees;
 
     // Summary Table
-    document.getElementById("summaryMembers").textContent = members.length;
-    document.getElementById("summaryAttendance").textContent = presentToday;
-    document.getElementById("summaryCollection").textContent = "₹" + todayCollection;
-    document.getElementById("summaryPending").textContent = pendingFees;
+   // document.getElementById("summaryMembers").textContent = members.length;
+    //document.getElementById("summaryAttendance").textContent = presentToday;
+    //document.getElementById("summaryCollection").textContent = "₹" + todayCollection;
+    //document.getElementById("summaryPending").textContent = pendingFees;
 
     // Future Cards (Optional)
     if (document.getElementById("activeMembers")) {
@@ -167,5 +171,42 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     }
+// ===============================
+// Recent Fee Collections
+// ===============================
+
+const recentBody = document.getElementById("recentCollectionTable");
+
+if (recentBody) {
+
+    recentBody.innerHTML = "";
+
+    if (feeHistory.length === 0) {
+
+        recentBody.innerHTML = `
+            <tr>
+                <td colspan="3">No Collections</td>
+            </tr>
+        `;
+
+    } else {
+
+        const recent = [...feeHistory].slice(-5).reverse();
+
+        recent.forEach(record => {
+
+            recentBody.innerHTML += `
+                <tr>
+                    <td>${record.memberName}</td>
+                    <td>₹${record.amount}</td>
+                    <td>${record.time}</td>
+                </tr>
+            `;
+
+        });
+
+    }
+
+}
 
 });

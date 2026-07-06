@@ -52,72 +52,47 @@
             <h2 id="pendingFees">0</h2>
         </div>
 
-    </div>
+       <div class="dashboard-content">
 
-    <br><br>
+   <div class="card warning-card">
 
-    <div class="summary-card">
+    <h3>⚠ Expiring Soon</h3>
 
-        <div class="summary-card">
+    <h2 id="expiringSoonCount">0</h2>
 
-    <h2>⚠️ Expiring in Next 7 Days</h2>
+    <p id="expiringSoonText">
+        No members expiring in next 7 days
+    </p>
 
-    <table border="1" width="100%" cellspacing="0" cellpadding="10">
+</div>
 
-        <thead style="background:#ff9800;color:white;">
+</div>
+
+<div class="summary-card">
+
+    <h2>💰 Recent Fee Collections</h2>
+
+    <table width="100%" cellspacing="0" cellpadding="10">
+
+        <thead style="background:#0ea5e9;color:white;">
             <tr>
-                <th>Member ID</th>
-                <th>Name</th>
-                <th>Expiry Date</th>
+                <th>Member</th>
+                <th>Amount</th>
+                <th>Time</th>
             </tr>
         </thead>
 
-        <tbody id="expiryAlertTable">
+        <tbody id="recentCollectionTable">
 
             <tr>
                 <td colspan="3" style="text-align:center;">
-                    No members expiring soon
+                    No Collections
                 </td>
             </tr>
 
         </tbody>
 
     </table>
-
-</div>
-
-        <h2>Gym Summary</h2>
-
-        <table border="1" width="100%" cellspacing="0" cellpadding="10">
-
-            <tr style="background:#0099ff;color:white;">
-                <th>Information</th>
-                <th>Value</th>
-            </tr>
-
-            <tr>
-                <td>Total Members</td>
-                <td id="summaryMembers">0</td>
-            </tr>
-
-            <tr>
-                <td>Today's Attendance</td>
-                <td id="summaryAttendance">0</td>
-            </tr>
-
-            <tr>
-                <td>Today's Collection</td>
-                <td id="summaryCollection">₹0</td>
-            </tr>
-
-            <tr>
-                <td>Pending Fees</td>
-                <td id="summaryPending">0</td>
-            </tr>
-
-        </table>
-
-    </div>
 
 </div>
 

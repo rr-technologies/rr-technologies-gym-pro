@@ -83,6 +83,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 attendanceTable.innerHTML = "";
 
+                if (attendance.length === 0) {
+
+    attendanceTable.innerHTML = `
+        <tr>
+            <td colspan="5" style="text-align:center;">
+                No Attendance Records
+            </td>
+        </tr>
+    `;
+
+    return;
+}
+
         const sortedAttendance = [...attendance].reverse();
 
         sortedAttendance.forEach(item => {
@@ -129,6 +142,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const member = members.find(m => m.memberId === memberId);
+
+        if (!member || member.status !== "Active") {
+
+    alert("Only active members can mark attendance.");
+
+    return;
+
+}
 
         const now = new Date();
 
