@@ -41,6 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         localStorage.setItem("gymSettings", JSON.stringify(gymSettings));
 
+        // Update sidebar immediately
+        document.getElementById("sidebarGymName").textContent = gymSettings.gymName;
+
         alert("✅ Settings Saved Successfully!");
 
     });
