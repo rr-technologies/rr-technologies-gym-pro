@@ -96,8 +96,8 @@ console.log("Attendance Dates =", attendance.map(x => x.date));
     // Dashboard Cards
     document.getElementById("totalMembers").textContent = members.length;
     document.getElementById("presentToday").textContent = presentToday;
-    document.getElementById("todayCollection").textContent = "₹" + todayCollection;
-    document.getElementById("pendingFees").textContent = pendingFees;
+    //document.getElementById("todayCollection").textContent = "₹" + todayCollection;
+    //document.getElementById("pendingFees").textContent = pendingFees;
 
     // Summary Table
    // document.getElementById("summaryMembers").textContent = members.length;
@@ -133,6 +133,8 @@ console.log("Attendance Dates =", attendance.map(x => x.date));
         let found = false;
 
         members.forEach(member => {
+
+        console.log(member.name, member.expiryDate, parseDate(member.expiryDate));
 
             if (!member.expiryDate) return;
 

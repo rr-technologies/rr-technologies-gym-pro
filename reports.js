@@ -19,7 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let todayCollection = 0;
     let activeMembers = 0;
 
-    const today = new Date().toISOString().split("T")[0];
+    const now = new Date();
+
+const today =
+    String(now.getDate()).padStart(2, "0") + "-" +
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    now.getFullYear();
 
     reportBody.innerHTML = "";
 
@@ -38,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${record.memberName}</td>
                 <td>₹${record.amount}</td>
                 <td>${record.mode}</td>
-                <td>${record.date.split("-").reverse().join("-")}</td>
+                <td>${record.date}</td>
             </tr>
         `;
     });
