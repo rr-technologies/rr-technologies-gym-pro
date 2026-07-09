@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - RR Technologies</title>
     <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="settings.css">
 </head>
 <body>
 
@@ -60,6 +61,29 @@
 <button type="reset">🔄 Reset</button>
 
 </form>
+
+<hr style="margin:30px 0;">
+
+<h2>💾 Data Backup & Restore</h2>
+
+<div class="backup-section">
+
+    <button id="backupBtn" class="backup-btn">
+        💾 Backup Data
+    </button>
+
+    <br><br>
+
+    <input
+        type="file"
+        id="restoreFile"
+        accept=".json">
+
+    <button id="restoreBtn" class="restore-btn">
+        📂 Restore Data
+    </button>
+
+</div>
 
 </div>
 
