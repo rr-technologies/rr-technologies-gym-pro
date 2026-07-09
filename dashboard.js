@@ -115,9 +115,6 @@ console.log("Attendance Dates =", attendance.map(x => x.date));
 
 
 // ===== Dashboard Alerts =====
-document.getElementById("alertExpiring").textContent = expiringSoon;
-document.getElementById("alertExpired").textContent = expiredMembers;
-document.getElementById("alertPresent").textContent = presentToday;
     //document.getElementById("todayCollection").textContent = "₹" + todayCollection;
     //document.getElementById("pendingFees").textContent = pendingFees;
 
@@ -199,7 +196,7 @@ document.getElementById("alertPresent").textContent = presentToday;
 // Recent Fee Collections
 // ===============================
 
-const recentBody = document.getElementById("recentCollectionTable");
+const recentBody = document.getElementById("recentCollectionBody");
 
 if (recentBody) {
 
@@ -221,6 +218,7 @@ if (recentBody) {
 
             recentBody.innerHTML += `
                 <tr>
+                    <td>${record.receiptNo}</td>
                     <td>${record.memberName}</td>
                     <td>₹${record.amount}</td>
                     <td>${record.time}</td>
@@ -234,3 +232,42 @@ if (recentBody) {
 }
 
 });
+
+// ===============================
+// Recent Member Registrations
+// ===============================
+
+const recentMembersBody = document.getElementById("recentMembersBody");
+
+if (recentMembersBody) {
+
+    recentMembersBody.innerHTML = "";
+
+    if (members.length === 0) {
+
+        recentMembersBody.innerHTML = `
+        <tr>
+            <td colspan="4">No Members</td>
+        </tr>
+        `;
+
+    } else {
+
+        const recentMembers = [...members].slice(-5).reverse();
+
+        recentMembers.forEach(member => {
+
+            recentMembersBody.innerHTML += `
+            <tr>
+                <td>${member.memberId}</td>
+                <td>${member.name}</td>
+                <td>${member.plan}</td>
+                <td>${member.joiningDate}</td>
+            </tr>
+            `;
+
+        });
+
+    }
+
+}

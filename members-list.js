@@ -87,9 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <td>${member.mobile}</td>
 
-                    <td>${member.plan}</td>
+                    <td style="white-space:nowrap;">${member.plan}</td>
 
-                    <td>₹${member.fee}</td>
+                    <td>₹${String(member.fee).replace("₹","")}</td>
 
                     <td>${formatDate(member.joiningDate)}</td>
 
@@ -99,21 +99,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <td>${getMemberStatus(member.expiryDate)}</td>
 
-                    <td>
+                   <td class="action-buttons">
+                     <button onclick="editMember(${originalIndex})">✏️ Edit</button>
 
-                        <button onclick="editMember(${originalIndex})">
-                            ✏️ Edit
-                        </button>
+                    <button onclick="renewMember(${originalIndex})">🔄 Renew</button>
 
-                        <button onclick="renewMember(${originalIndex})">
-                             🔄 Renew
-                        </button>
-
-                        <button onclick="deleteMember(${originalIndex})">
-                            🗑 Delete
-                        </button>
-
-                    </td>
+                    <button onclick="deleteMember(${originalIndex})">🗑 Delete</button>
+               </td>
 
                 </tr>
             `;
@@ -157,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             localStorage.setItem("members", JSON.stringify(members));
 
-            displayMembers(searchInput ? searchInput.value.toLowerCase() : "");
+            displayMembers(searchBox ? searchBox.value.toLowerCase() : "");
 
         }
 
@@ -166,11 +158,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // ============================
     // Load Members
     // ============================
-    displayMembers();
+    const searchBox = document.getElementById("searchMember");
+
+displayMembers(searchBox ? searchBox.value : "");
 
 });
 
-function renewMember(index) {
+window.renewMember = function(index) {
 
     const members = JSON.parse(localStorage.getItem("members")) || [];
     const member = members[index];
@@ -257,7 +251,7 @@ member.expiryDate =
     today.getFullYear();
     
     // Update Member Details
-member.fee = "₹" + fee;
+member.fee = fee;
 member.paymentStatus = "Paid";
 member.status = "Active";
 
@@ -303,7 +297,7 @@ localStorage.setItem(
     JSON.stringify(members)
 );
 
-displayMembers();
+window.location.reload();
 
 alert("Membership Renewed Successfully!");
 

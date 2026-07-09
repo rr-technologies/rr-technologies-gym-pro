@@ -9,80 +9,58 @@
 </head>
 <body>
 
-<div class="sidebar">
+    <!-- Sidebar -->
+    <div class="sidebar">
 
-    <h2 id="sidebarGymName">RR Technologies</h2>
+        <h2 id="sidebarGymName">RR Technologies</h2>
 
-    <a href="dashboard.html" class="active">🏠 Dashboard</a>
-    <a href="member-registration.html">👤 Member Registration</a>
-    <a href="members-list.html">👥 Members List</a>
-    <a href="fee-collection.html">💰 Fee Collection</a>
-    <a href="attendance.html">📅 Attendance</a>
-    <a href="reports.html">📊 Reports</a>
-    <a href="settings.html">⚙️ Settings</a>
-    <a href="index.html">🚪 Logout</a>
+        <a href="dashboard.html" class="active">🏠 Dashboard</a>
+        <a href="member-registration.html">👤 Member Registration</a>
+        <a href="members-list.html">👥 Members List</a>
+        <a href="fee-collection.html">💰 Fee Collection</a>
+        <a href="attendance.html">📅 Attendance</a>
+        <a href="reports.html">📊 Reports</a>
+        <a href="settings.html">⚙️ Settings</a>
+        <a href="index.html">🚪 Logout</a>
 
-</div>
-
-<div class="main-content">
-
-    <h1>Dashboard</h1>
-
-    <p>Welcome to RR Technologies Gym Pro</p>
-
-    <!-- Dashboard Alerts -->
-<div class="dashboard-alerts">
-
-    <h3>🔔 Notifications</h3>
-
-    <div class="alert-item warning">
-        🟡 Expiring Soon :
-        <span id="alertExpiring">0</span>
-        Members
     </div>
 
-    <div class="alert-item danger">
-        🔴 Expired Members :
-        <span id="alertExpired">0</span>
-    </div>
+    <!-- Main Content -->
+    <div class="main-content">
 
-    <div class="alert-item success">
-        📅 Present Today :
-        <span id="alertPresent">0</span>
-        Members
-    </div>
+        <h1>Dashboard</h1>
 
-</div>
+        <p>Welcome to RR Technologies Gym Pro</p>
 
-    <div class="cards">
+        <!-- Dashboard Cards -->
+        <div class="cards">
 
-        <div class="card">
-            <h3>Total Members</h3>
-            <h2 id="totalMembers">0</h2>
+            <div class="card">
+                <h3>Total Members</h3>
+                <h2 id="totalMembers">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Present Today</h3>
+                <h2 id="presentToday">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Active Members</h3>
+                <h2 id="activeMembers">0</h2>
+            </div>
+
+            <div class="card warning-card">
+                <h3>⚠ Expiring Soon</h3>
+                <h2 id="expiringSoon">0</h2>
+            </div>
+
         </div>
 
-        <div class="card">
-            <h3>Present Today</h3>
-            <h2 id="presentToday">0</h2>
-        </div>
+    </div>
 
-        <div class="card">
-    <h3>Active Members</h3>
-    <h2 id="activeMembers">0</h2>
-
-</div>
-
-<div class="card warning-card">
-
-    <h3>⚠ Expiring Soon</h3>
-
-    <h2 id="expiringSoonCount">0</h2>
-
-</div>
-
-
-<script src="common.js"></script>
-<script src="dashboard.js"></script>
+    <script src="common.js"></script>
+    <script src="dashboard.js"></script>
 
 </body>
 </html>
