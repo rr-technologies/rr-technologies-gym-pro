@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load Data
     // ==========================
 
-    let members = JSON.parse(localStorage.getItem("members")) || [];
-    let attendance = JSON.parse(localStorage.getItem("attendance")) || [];
+    let members = getMembers();
+    attendance = getAttendance();
 
     const memberSelect = document.getElementById("memberSelect");
     const memberIdInput = document.getElementById("memberIdInput");

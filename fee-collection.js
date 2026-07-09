@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const tableBody = document.querySelector("#feeTable tbody");
     const historyBody = document.getElementById("historyBody");
 
-    let members = JSON.parse(localStorage.getItem("members")) || [];
-    let feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
+    let members = getMembers();
+    let feeHistory = getFeeHistory();
 
     // ===========================
     // Load Members
@@ -116,9 +116,9 @@ function getMemberStatus(expiryDate) {
 
     window.collectFee = function(index) {
 
-         members = JSON.parse(localStorage.getItem("members")) || [];
+         const members = getMembers();
 
-         feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
+         feeHistory = getFeeHistory();
 
         const member = members[index];
 
@@ -179,20 +179,14 @@ function getMemberStatus(expiryDate) {
 
         feeHistory.push(payment);
 
-        localStorage.setItem(
-            "feeHistory",
-            JSON.stringify(feeHistory)
-        );
+        saveFeeHistory(feeHistory);
 
         // Update Payment Status
 member.paymentStatus = "Paid";
 
 members[index] = member;
 
-localStorage.setItem(
-    "members",
-    JSON.stringify(members)
-);
+saveMembers(members);
 
 
         // ===========================
@@ -262,7 +256,7 @@ localStorage.setItem("members", JSON.stringify(members));
 
     function loadHistory() {
 
-         feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
+         feeHistory = getFeeHistory();
 
         historyBody.innerHTML = "";
 

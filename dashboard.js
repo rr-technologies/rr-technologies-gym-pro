@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Load Data
-    const members = JSON.parse(localStorage.getItem("members")) || [];
+    const members = getMembers();
     const attendance = JSON.parse(localStorage.getItem("attendance")) || [];
-    const feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
+    const feeHistory = getFeeHistory();
 
     
 

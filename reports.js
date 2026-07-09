@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
         gymTitle.textContent = gymSettings.gymName;
     }
 
-    const members = JSON.parse(localStorage.getItem("members")) || [];
-    const feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
+    const members = getMembers();
+    const feeHistory = getFeeHistory();
 
     const reportBody = document.getElementById("reportBody");
 
