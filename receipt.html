@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payment Receipt</title>
+
+<link rel="stylesheet" href="receipt.css">
+
+</head>
+
+<body>
+
+<div class="receipt">
+
+    <div class="header">
+
+        <h1 id="gymName">
+            RR Technologies Gym
+        </h1>
+
+        <p id="gymAddress">
+            Gym Address
+        </p>
+
+        <p id="gymMobile">
+            Mobile Number
+        </p>
+
+    </div>
+
+    <hr>
+
+    <div class="receipt-info">
+
+        <div>
+            <b>Receipt No :</b>
+            <span id="receiptNo"></span>
+        </div>
+
+        <div>
+            <b>Date :</b>
+            <span id="date"></span>
+        </div>
+
+        <div>
+            <b>Time :</b>
+            <span id="time"></span>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <table>
+
+        <tr>
+            <td>Member ID</td>
+            <td id="memberId"></td>
+        </tr>
+
+        <tr>
+            <td>Member Name</td>
+            <td id="memberName"></td>
+        </tr>
+
+        <tr>
+            <td>Membership</td>
+            <td id="plan"></td>
+        </tr>
+
+        <tr>
+            <td>Amount</td>
+            <td id="amount"></td>
+        </tr>
+
+        <tr>
+            <td>Payment Mode</td>
+            <td id="mode"></td>
+        </tr>
+
+        <tr>
+            <td>Joining Date</td>
+            <td id="joiningDate"></td>
+        </tr>
+
+        <tr>
+            <td>Expiry Date</td>
+            <td id="expiryDate"></td>
+        </tr>
+
+    </table>
+
+    <hr>
+
+    <div class="footer">
+
+        <h3>
+            Thank You For Visiting
+        </h3>
+
+        <p>
+            Stay Healthy 💪
+        </p>
+
+        <br>
+
+        <div class="signature">
+
+            Authorized Signature
+
+        </div>
+
+        <br>
+
+        <small>
+
+            Powered By RR Technologies
+
+        </small>
+
+    </div>
+
+</div>
+
+<div class="buttons">
+
+<button onclick="window.print()">
+
+🖨 Print
+
+</button>
+
+<button onclick="window.close()">
+
+❌ Close
+
+</button>
+
+</div>
+
+<script src="receipt.js"></script>
+
+</body>
+
+</html>

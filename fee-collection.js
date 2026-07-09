@@ -71,16 +71,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <td>
 
-                        ${
-                            
-                 member.paymentStatus === "Paid"
+                       ${member.paymentStatus === "Paid"
 
-                  ? `<span style="color:green;font-weight:bold;">✅ Paid</span>`
+                       ? `
+                       <span style="color:green;font-weight:bold;">✅ Paid</span>
 
-                 : `<button onclick="collectFee(${index})">Collect</button>`
+                       <br><br>
 
-            }
+                       <button onclick="printReceipt('${lastPayment.receiptNo}')">
+                    🧾 Receipt
+                  </button>
+                    `
+                    : `
+                  <button onclick="collectFee(${index})">
+                 💰 Collect
+                 </button>
+                 `
+                 }
 
+</td>
 
                     </td>
 
@@ -355,3 +364,13 @@ localStorage.setItem("members", JSON.stringify(members));
     loadHistory();
 
 });
+
+
+window.printReceipt = function(receiptNo) {
+
+    window.open(
+        "receipt.html?receipt=" + receiptNo,
+        "_blank"
+    );
+
+};

@@ -1,0 +1,188 @@
+body{
+
+    margin:0;
+
+    padding:20px;
+
+    font-family:Arial,sans-serif;
+
+    background:#f2f4f8;
+
+}
+
+.receipt{
+
+    width:148mm;          /* A5 Width */
+
+    min-height:210mm;     /* A5 Height */
+
+    margin:auto;
+
+    background:#fff;
+
+    border:2px solid #0ea5e9;
+
+    border-radius:10px;
+
+    padding:25px;
+
+    box-sizing:border-box;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+
+}
+
+.header{
+
+    text-align:center;
+
+}
+
+.header h1{
+
+    color:#0284c7;
+
+    margin-bottom:5px;
+
+}
+
+.header p{
+
+    margin:4px;
+
+    color:#555;
+
+    font-size:14px;
+
+}
+
+.receipt-info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:15px 0;
+
+    font-size:15px;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:15px;
+
+}
+
+table td{
+
+    border:1px solid #ddd;
+
+    padding:12px;
+
+    font-size:15px;
+
+}
+
+table td:first-child{
+
+    background:#f7fafc;
+
+    font-weight:bold;
+
+    width:40%;
+
+}
+
+.footer{
+
+    text-align:center;
+
+    margin-top:30px;
+
+}
+
+.signature{
+
+    margin-top:35px;
+
+    border-top:1px solid #000;
+
+    display:inline-block;
+
+    padding-top:6px;
+
+    min-width:180px;
+
+}
+
+.buttons{
+
+    margin-top:20px;
+
+    text-align:center;
+
+}
+
+.buttons button{
+
+    background:#06b6d4;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 25px;
+
+    margin:8px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+}
+
+.buttons button:hover{
+
+    background:#0891b2;
+
+}
+
+@media print{
+
+    body{
+
+        background:white;
+
+        padding:0;
+
+    }
+
+    .buttons{
+
+        display:none;
+
+    }
+
+    .receipt{
+
+        width:100%;
+
+        min-height:auto;
+
+        border:none;
+
+        box-shadow:none;
+
+        margin:0;
+
+    }
+}
