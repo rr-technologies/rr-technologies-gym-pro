@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let activeMembers = 0;
     let expiredMembers = 0;
+    let expiringSoon = 0;
     let pendingFees = 0;
     let todayCollection = 0;
 
@@ -62,11 +63,22 @@ console.log("Fee History:", feeHistory);
         const current = new Date();
         current.setHours(0,0,0,0);
 
-        if (expiry >= current) {
-            activeMembers++;
-        } else {
-            expiredMembers++;
-        }
+        const diffDays = Math.ceil((expiry - current) / (1000 * 60 * 60 * 24));
+
+if (diffDays < 0) {
+
+    expiredMembers++;
+
+} else if (diffDays <= 7) {
+
+    expiringSoon++;
+    activeMembers++;
+
+} else {
+
+    activeMembers++;
+
+}
 
     });
 
@@ -96,6 +108,16 @@ console.log("Attendance Dates =", attendance.map(x => x.date));
     // Dashboard Cards
     document.getElementById("totalMembers").textContent = members.length;
     document.getElementById("presentToday").textContent = presentToday;
+
+    if (document.getElementById("expiringSoon")) {
+    document.getElementById("expiringSoon").textContent = expiringSoon;
+}
+
+
+// ===== Dashboard Alerts =====
+document.getElementById("alertExpiring").textContent = expiringSoon;
+document.getElementById("alertExpired").textContent = expiredMembers;
+document.getElementById("alertPresent").textContent = presentToday;
     //document.getElementById("todayCollection").textContent = "₹" + todayCollection;
     //document.getElementById("pendingFees").textContent = pendingFees;
 
