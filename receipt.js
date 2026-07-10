@@ -32,7 +32,8 @@ if (!payment) {
     const member = members.find(m => m.memberId === payment.memberId);
 
     document.getElementById("receiptNo").textContent = payment.receiptNo;
-    document.getElementById("date").textContent = payment.date;
+    document.getElementById("date").textContent =
+    payment.date.split("-").reverse().join("-");
     document.getElementById("time").textContent = payment.time;
 
     document.getElementById("memberId").textContent = payment.memberId;
@@ -48,8 +49,47 @@ if (!payment) {
         payment.mode;
 
     document.getElementById("joiningDate").textContent =
-        member ? member.joiningDate : "-";
-
+    member
+        ? member.joiningDate.split("-").reverse().join("-")
+        : "-";
     document.getElementById("expiryDate").textContent =
-        member ? member.expiryDate : "-";
+    member
+        ? member.expiryDate.split("-").reverse().join("-")
+        : "-";
+}
+
+// Auto Print after page loads
+window.onload = function () {
+
+    setTimeout(() => {
+        window.print();
+    }, 500);
+
+};
+
+function shareWhatsApp() {
+
+    const member = members.find(m => m.memberId === payment.memberId);
+
+
+    const text =
+`🏋️ ${gymSettings.gymName}
+
+🧾 Receipt No : ${payment.receiptNo}
+
+👤 Member : ${member ? member.name : payment.memberName}
+
+💰 Amount : ₹${payment.amount}
+
+💳 Payment Mode : ${payment.mode}
+
+📅 Date : ${payment.date}
+
+🙏 Thank You!`;
+
+    window.open(
+        "https://wa.me/?text=" + encodeURIComponent(text),
+        "_blank"
+    );
+
 }

@@ -156,3 +156,37 @@ td:nth-child(8){
 .action-buttons button:hover{
     transform:scale(1.05);
 }
+
+/* Search Box */
+
+.search-box{
+
+    margin:20px 0;
+
+}
+
+.search-box input{
+
+    width:100%;
+
+    padding:12px 15px;
+
+    font-size:16px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.search-box input:focus{
+
+    border-color:#06b6d4;
+
+    box-shadow:0 0 6px rgba(6,182,212,.3);
+
+}

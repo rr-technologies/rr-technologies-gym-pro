@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load Members
     // ===========================
 
-    function loadMembers() {
+    function loadMembers(search = "") {
 
          members = JSON.parse(localStorage.getItem("members")) || [];
 
@@ -38,11 +38,26 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        members.forEach((member, index) => {
+        const keyword = search.toLowerCase().trim();
 
-            if (member.paymentStatus === "Paid") {
-        return;
-    }
+        members.forEach((member, index) => {    
+
+            console.log("Keyword:", keyword);
+            console.log(member.memberId, member.name, member.mobile);
+
+        
+            if (
+    keyword &&
+    !member.memberId.toLowerCase().includes(keyword) &&
+    !member.name.toLowerCase().includes(keyword) &&
+    !(member.mobile || "").toLowerCase().includes(keyword)
+) {
+    return;
+}
+
+            //if (member.paymentStatus === "Paid") {
+        //return;
+    //}
 
             tableBody.innerHTML += `
                 <tr>
@@ -73,21 +88,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                        ${member.paymentStatus === "Paid"
 
-                       ? `
-                       <span style="color:green;font-weight:bold;">✅ Paid</span>
+? `
+<span style="color:green;font-weight:bold;">✅ Paid</span>
+`
 
-                       <br><br>
-
-                       <button onclick="printReceipt('${lastPayment.receiptNo}')">
-                    🧾 Receipt
-                  </button>
-                    `
-                    : `
-                  <button onclick="collectFee(${index})">
-                 💰 Collect
-                 </button>
-                 `
-                 }
+: `
+<button onclick="collectFee(${index})">
+💰 Collect
+</button>
+`
+}
 
 </td>
 
@@ -254,9 +264,7 @@ localStorage.setItem("members", JSON.stringify(members));
         );
 
         console.log(members);
-        loadMembers();
-        loadHistory();
-
+        
     };
 
         // ===========================
@@ -305,7 +313,7 @@ localStorage.setItem("members", JSON.stringify(members));
                     <td>${record.time}</td>
            
              <td>
-    <button class="print-btn" onclick="downloadReceipt('${record.receiptNo}')">
+    <button class="print-btn" onclick="printReceipt('${record.receiptNo}')">
        🖨️ Print
     </button>
 
@@ -320,51 +328,21 @@ localStorage.setItem("members", JSON.stringify(members));
     }
 
     loadMembers();
+ loadHistory();
 
-    window.downloadReceipt = function(receiptNo) {
+document.getElementById("searchBtn").addEventListener("click", function () {
 
-    const record = feeHistory.find(r => r.receiptNo === receiptNo);
+     alert("Search Button Working");
 
-    if (!record) {
-        alert("Receipt not found.");
-        return;
-    }
-
-    const { jsPDF } = window.jspdf;
-
-    const doc = new jsPDF();
-
-    doc.setFontSize(18);
-    doc.text("RR TECHNOLOGIES", 20, 20);
-
-    doc.setFontSize(14);
-    doc.text("GYM PRO SOFTWARE", 20, 30);
-
-    doc.line(20, 35, 190, 35);
-
-    doc.setFontSize(12);
-
-    doc.text("Receipt No : " + record.receiptNo, 20, 50);
-    doc.text("Member ID  : " + record.memberId, 20, 60);
-    doc.text("Member     : " + record.memberName, 20, 70);
-    doc.text("Amount     : Rs. " + record.amount, 20, 80);
-    doc.text("Payment    : " + record.mode, 20, 90);
-    doc.text("Date       : " + record.date, 20, 100);
-    doc.text("Time       : " + record.time, 20, 110);
-
-    doc.line(20, 120, 190, 120);
-
-    doc.setFontSize(14);
-    doc.text("Thank You! Visit Again", 20, 135);
-
-    doc.save(record.receiptNo + ".pdf");
-
-};
-
-    loadHistory();
-
+    loadMembers(document.getElementById("searchMember").value);
+    
 });
 
+document.getElementById("searchMember").addEventListener("keyup", function (e) {
+    if (e.key === "Enter") {
+        loadMembers(this.value);
+    }
+});
 
 window.printReceipt = function(receiptNo) {
 
@@ -373,4 +351,6 @@ window.printReceipt = function(receiptNo) {
         "_blank"
     );
 
-};
+};  
+
+});
