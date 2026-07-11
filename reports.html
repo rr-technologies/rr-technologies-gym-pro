@@ -53,6 +53,67 @@
 
     <h2>Collection Report</h2>
 
+    <div class="report-filters">
+
+    <div class="filter-row">
+
+        <div class="filter-group">
+            <label>From Date</label>
+            <input type="date" id="fromDate">
+        </div>
+
+        <div class="filter-group">
+            <label>To Date</label>
+            <input type="date" id="toDate">
+        </div>
+
+        <div class="filter-group">
+            <label>Member ID</label>
+            <input type="text" id="searchMemberId" placeholder="Member ID">
+        </div>
+
+        <div class="filter-group">
+            <label>Member Name</label>
+            <input type="text" id="searchMemberName" placeholder="Member Name">
+        </div>
+
+    </div>
+
+    <div class="filter-row">
+
+        <div class="filter-group">
+            <label>Payment Mode</label>
+            <select id="paymentModeFilter">
+                <option value="">All</option>
+                <option>Cash</option>
+                <option>UPI</option>
+                <option>Card</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Receipt No</label>
+            <input type="text" id="receiptFilter" placeholder="Receipt No">
+        </div>
+
+        <div class="filter-buttons">
+
+            <button id="searchReportBtn">🔍 Search</button>
+
+            <button id="refreshReportBtn">🔄 Refresh</button>
+
+              <button id="excelReportBtn">📊 Excel</button>
+
+              <button id="printReportBtn" class="btn btn-primary">
+                    🖨️ Print Report
+                </button>        
+
+        </div>
+
+    </div>
+
+</div>
+
     <table id="reportTable">
         <thead>
             <tr>
@@ -74,6 +135,11 @@
 </div>
 
 <script src="common.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
 <script src="reports.js"></script>
 
 </body>

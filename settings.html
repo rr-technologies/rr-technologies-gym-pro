@@ -10,6 +10,7 @@
 <body>
 
 <div class="sidebar">
+     <img id="sidebarLogo" src="logo.png" alt="Gym Logo">
     <h2 id="sidebarGymName">RR Technologies</h2>
 
     <a href="dashboard.html">🏠 Dashboard</a>
@@ -56,6 +57,29 @@
 </select>
 
 <br><br>
+
+<div class="form-group">
+    <label for="gymLogo">Gym Logo</label>
+
+    <input type="file"
+           id="gymLogo"
+           accept="image/*">
+
+    <br><br>
+
+    <img id="logoPreview"
+         src="logo.png"
+         alt="Logo Preview"
+         style="
+            width:120px;
+            height:120px;
+            object-fit:contain;
+            border:1px solid #ccc;
+            border-radius:10px;
+            padding:8px;
+            background:#fff;
+         ">
+</div>
 
 <button type="submit">💾 Save Settings</button>
 <button type="reset">🔄 Reset</button>

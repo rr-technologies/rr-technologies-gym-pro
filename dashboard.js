@@ -1,13 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Load Gym Settings
-    const gymSettings = JSON.parse(localStorage.getItem("gymSettings")) || {};
+    // ============================
+// Load Gym Settings
+// ============================
 
-    const gymTitle = document.getElementById("sidebarGymName");
+const gymSettings = JSON.parse(localStorage.getItem("gymSettings")) || {};
 
-    if (gymTitle && gymSettings.gymName) {
-        gymTitle.textContent = gymSettings.gymName;
-    }
+if (gymSettings.gymName) {
+    document.getElementById("sidebarGymName").textContent = gymSettings.gymName;
+}
+
+const logo = document.getElementById("sidebarLogo");
+
+if (gymSettings.logo) {
+    logo.src = gymSettings.logo;
+} else {
+    logo.src = "logo.png";
+}
+
 
     // Load Data
     const members = getMembers();

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collection Report</title>
+
+    <link rel="stylesheet" href="print-report.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="report-container">
+
+    <div class="report-header">
+
+        <img id="gymLogo" src="logo.png" alt="Logo">
+
+        <div>
+
+            <h1 id="gymName">RR Technologies Gym Pro</h1>
+
+            <h2>Collection Report</h2>
+
+            <p id="reportDate"></p>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <table id="printTable">
+
+        <thead>
+
+            <tr>
+
+                <th>Receipt No</th>
+                <th>Member ID</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Mode</th>
+                <th>Date</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="printBody">
+
+        </tbody>
+
+    </table>
+
+    <br>
+
+    <div class="summary">
+
+        <h3>Summary</h3>
+
+        <p>Total Records :
+            <span id="totalRecords">0</span>
+        </p>
+
+        <p>Total Collection :
+            ₹<span id="totalAmount">0</span>
+        </p>
+
+    </div>
+
+</div>
+
+<script src="print-report.js"></script>
+
+</body>
+</html> 

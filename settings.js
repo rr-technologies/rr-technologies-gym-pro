@@ -14,6 +14,33 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load saved settings
     const settings = JSON.parse(localStorage.getItem("gymSettings")) || {};
 
+    // ===========================
+// Load Logo Preview
+// ===========================
+
+const logoInput = document.getElementById("gymLogo");
+const logoPreview = document.getElementById("logoPreview");
+
+if (settings.logo) {
+    logoPreview.src = settings.logo;
+}
+
+logoInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        logoPreview.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
     document.getElementById("gymName").value = settings.gymName || "";
     document.getElementById("ownerName").value = settings.ownerName || "";
     document.getElementById("mobile").value = settings.mobile || "";
@@ -29,23 +56,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const gymSettings = {
 
-            gymName: document.getElementById("gymName").value.trim(),
-            ownerName: document.getElementById("ownerName").value.trim(),
-            mobile: document.getElementById("mobile").value.trim(),
-            email: document.getElementById("email").value.trim(),
-            address: document.getElementById("address").value.trim(),
-            receiptPrefix: document.getElementById("receiptPrefix").value.trim(),
-            currency: document.getElementById("currency").value
+    gymName: document.getElementById("gymName").value.trim(),
+    ownerName: document.getElementById("ownerName").value.trim(),
+    mobile: document.getElementById("mobile").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    address: document.getElementById("address").value.trim(),
+    receiptPrefix: document.getElementById("receiptPrefix").value.trim(),
+    currency: document.getElementById("currency").value,
 
-        };
+    // Old logo ni preserve cheyyi
+    logo: settings.logo || ""
+
+};
+
+        const file = logoInput.files[0];
+
+if (file) {
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+
+        gymSettings.logo = e.target.result;
 
         localStorage.setItem("gymSettings", JSON.stringify(gymSettings));
 
-        // Update sidebar immediately
         document.getElementById("sidebarGymName").textContent = gymSettings.gymName;
+
+        const sidebarLogo = document.getElementById("sidebarLogo");
+        if (sidebarLogo) {
+            sidebarLogo.src = gymSettings.logo;
+        }
 
         alert("✅ Settings Saved Successfully!");
 
+    };
+
+    reader.readAsDataURL(file);
+
+} else {
+
+    localStorage.setItem("gymSettings", JSON.stringify(gymSettings));
+
+    document.getElementById("sidebarGymName").textContent = gymSettings.gymName;
+
+    const sidebarLogo = document.getElementById("sidebarLogo");
+    if (sidebarLogo) {
+        sidebarLogo.src = gymSettings.logo || "logo.png";
+    }
+
+    
+}
+
+      
     });
 
 });

@@ -1,0 +1,162 @@
+/* ==========================
+   RR Technologies Gym Pro
+   Print Report
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#fff;
+    color:#222;
+    padding:30px;
+}
+
+.report-container{
+    width:100%;
+    max-width:1000px;
+    margin:auto;
+}
+
+/* ==========================
+   Header
+========================== */
+
+.report-header{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:25px;
+    margin-bottom:15px;
+}
+
+.report-header img{
+    width:120px;
+    height:120px;
+    object-fit:contain;
+}
+
+.report-header div{
+    text-align:center;
+}
+
+.report-header h1{
+    font-size:34px;
+    margin-bottom:5px;
+    color:#222;
+}
+
+.report-header h2{
+    font-size:28px;
+    color:#11a8c9;
+    margin-bottom:8px;
+}
+
+.report-header p{
+    font-size:16px;
+    color:#555;
+}
+
+hr{
+    border:none;
+    border-top:2px solid #ccc;
+    margin:20px 0;
+}
+
+/* ==========================
+   Table
+========================== */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+
+thead{
+    background:#11a8c9;
+}
+
+thead th{
+    color:#fff;
+    font-size:17px;
+    padding:12px;
+    border:1px solid #cfcfcf;
+}
+
+tbody td{
+    border:1px solid #cfcfcf;
+    padding:11px;
+    text-align:center;
+    font-size:16px;
+}
+
+/* Amount Column */
+
+tbody td:nth-child(4){
+    text-align:right;
+    padding-right:18px;
+    font-weight:bold;
+}
+
+/* ==========================
+   Summary
+========================== */
+
+.summary{
+    width:360px;
+    margin-left:auto;
+    margin-top:35px;
+    border:2px solid #ddd;
+    padding:20px;
+    page-break-inside:avoid;
+}
+
+.summary h3{
+    font-size:28px;
+    margin-bottom:18px;
+}
+
+.summary p{
+    display:flex;
+    justify-content:space-between;
+    margin:12px 0;
+    font-size:18px;
+}
+
+.summary span{
+    font-weight:bold;
+}
+
+/* ==========================
+   Print
+========================== */
+
+@page {
+    size: A4;
+    margin: 12mm;
+}
+
+@media print {
+
+    body{
+        margin:0;
+        padding:10mm;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .report-container{
+        width:100%;
+        margin:0 auto;
+    }
+
+    .summary{
+        page-break-inside: avoid;
+    }
+
+}
