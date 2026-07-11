@@ -119,11 +119,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // ============================
     if (searchInput) {
 
-        searchInput.addEventListener("keyup", function () {
+        searchInput.addEventListener("input", function () {
+    displayMembers(this.value.trim().toLowerCase());
 
-            displayMembers(this.value.toLowerCase());
-
-        });
+});
 
     }
 

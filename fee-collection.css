@@ -49,3 +49,24 @@ color:white;
 .print-btn:hover{
     background:#0aa2c0;
 }
+
+.paid-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.receipt-btn {
+    background: #17a2b8;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.receipt-btn:hover {
+    background: #138496;
+}

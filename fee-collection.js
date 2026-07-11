@@ -42,22 +42,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
         members.forEach((member, index) => {    
 
-            console.log("Keyword:", keyword);
-            console.log(member.memberId, member.name, member.mobile);
+            //console.log("Keyword:", keyword);
+            //console.log(member.memberId, member.name, member.mobile);
 
         
-            if (
-    keyword &&
-    !member.memberId.toLowerCase().includes(keyword) &&
-    !member.name.toLowerCase().includes(keyword) &&
-    !(member.mobile || "").toLowerCase().includes(keyword)
-) {
-    return;
-}
+            // Search lekapothe Paid members hide
+if (keyword === "") {
 
-            //if (member.paymentStatus === "Paid") {
-        //return;
-    //}
+    if (member.paymentStatus === "Paid") {
+        return;
+    }
+
+} else {
+
+    // Search unte Paid + Unpaid rendu search cheyyi
+    if (
+        !member.memberId.toLowerCase().includes(keyword) &&
+        !member.name.toLowerCase().includes(keyword) &&
+        !(member.mobile || "").toLowerCase().includes(keyword)
+    ) {
+        return;
+    }
+
+}
 
             tableBody.innerHTML += `
                 <tr>
@@ -89,9 +96,19 @@ document.addEventListener("DOMContentLoaded", function () {
                        ${member.paymentStatus === "Paid"
 
 ? `
-<span style="color:green;font-weight:bold;">✅ Paid</span>
-`
 
+<div class="paid-action">
+
+<span style="color:green;font-weight:bold;">✅ Paid</span>
+
+<button class="receipt-btn"
+
+ onclick="printLatestReceipt('${member.memberId}')">
+🧾 Receipt
+</button>
+
+</div>
+`
 : `
 <button onclick="collectFee(${index})">
 💰 Collect
@@ -327,15 +344,49 @@ localStorage.setItem("members", JSON.stringify(members));
 
     }
 
+    window.printLatestReceipt = function(memberId) {
+
+    const feeHistory = getFeeHistory();
+
+    const payments = feeHistory.filter(p => p.memberId === memberId);
+
+    if (payments.length === 0) {
+        alert("Receipt Not Found");
+        return;
+    }
+
+    const latest = payments[payments.length - 1];
+
+    window.open(
+    "receipt.html?receipt=" + latest.receiptNo,
+    "_blank"
+);
+
+ document.getElementById("searchMember").value = "";
+
+ loadMembers();
+
+};
+
     loadMembers();
  loadHistory();
 
 document.getElementById("searchBtn").addEventListener("click", function () {
 
-     alert("Search Button Working");
+
 
     loadMembers(document.getElementById("searchMember").value);
+
     
+});
+
+document.getElementById("refreshBtn").addEventListener("click", function () {
+
+    document.getElementById("searchMember").value = "";
+
+    loadMembers();
+    loadHistory();
+
 });
 
 document.getElementById("searchMember").addEventListener("keyup", function (e) {
