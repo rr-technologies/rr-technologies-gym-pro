@@ -5,142 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports - RR Technologies Gym Pro</title>
 
+    <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="reports.css">
 </head>
 <body>
 
-<div class="sidebar">
-    <h2 id="sidebarGymName">RR Technologies</h2>
+    <!-- Sidebar -->
+    <div id="sidebarContainer"></div>
 
-    <a href="dashboard.html">🏠 Dashboard</a>
-    <a href="member-registration.html">👤 Member Registration</a>
-    <a href="members-list.html">📋 Members List</a>
-    <a href="fee-collection.html">💰 Fee Collection</a>
-    <a href="attendance.html">📝 Attendance</a>
-    <a href="reports.html" class="active">📊 Reports</a>
-    <a href="settings.html">⚙️ Settings</a>
-    <a href="index.html">🚪 Logout</a>
-</div>
+    <!-- Main Content -->
+    <div class="main-content">
 
-<div class="main-content">
+        <h1>📊 Reports</h1>
 
-    <h1>📊 Reports</h1>
+        <div class="report-cards">
 
-    <div class="report-cards">
+            <div class="card">
+                <h3>Total Members</h3>
+                <h2 id="totalMembers">0</h2>
+            </div>
 
-        <div class="card">
-            <h3>Total Members</h3>
-            <h2 id="totalMembers">0</h2>
+            <div class="card">
+                <h3>Total Collection</h3>
+                <h2 id="totalCollection">₹0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Today's Collection</h3>
+                <h2 id="todayCollection">₹0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Active Members</h3>
+                <h2 id="activeMembers">0</h2>
+            </div>
+
         </div>
 
-        <div class="card">
-            <h3>Total Collection</h3>
-            <h2 id="totalCollection">₹0</h2>
+        <h2>Collection Report</h2>
+
+        <div class="report-filters">
+
+            <div class="filter-row">
+
+                <div class="filter-group">
+                    <label>From Date</label>
+                    <input type="date" id="fromDate">
+                </div>
+
+                <div class="filter-group">
+                    <label>To Date</label>
+                    <input type="date" id="toDate">
+                </div>
+
+                <div class="filter-group">
+                    <label>Member ID</label>
+                    <input type="text" id="searchMemberId" placeholder="Member ID">
+                </div>
+
+                <div class="filter-group">
+                    <label>Member Name</label>
+                    <input type="text" id="searchMemberName" placeholder="Member Name">
+                </div>
+
+            </div>
+
+            <div class="filter-row">
+
+                <div class="filter-group">
+                    <label>Payment Mode</label>
+                    <select id="paymentModeFilter">
+                        <option value="">All</option>
+                        <option>Cash</option>
+                        <option>UPI</option>
+                        <option>Card</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Receipt No</label>
+                    <input type="text" id="receiptFilter" placeholder="Receipt No">
+                </div>
+
+                <div class="filter-buttons">
+
+                    <button id="searchReportBtn">🔍 Search</button>
+
+                    <button id="refreshReportBtn">🔄 Refresh</button>
+
+                    <button id="excelReportBtn">📊 Excel</button>
+
+                    <button id="printReportBtn">
+                        🖨️ Print Report
+                    </button>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="card">
-            <h3>Today's Collection</h3>
-            <h2 id="todayCollection">₹0</h2>
-        </div>
+        <table id="reportTable">
 
-        <div class="card">
-            <h3>Active Members</h3>
-            <h2 id="activeMembers">0</h2>
-        </div>
+            <thead>
+
+                <tr>
+                    <th>Receipt No</th>
+                    <th>Member ID</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Payment Mode</th>
+                    <th>Date</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="reportBody">
+
+            </tbody>
+
+        </table>
 
     </div>
 
-    <h2>Collection Report</h2>
+    <!-- Scripts -->
 
-    <div class="report-filters">
+    <script src="sidebar.js"></script>
 
-    <div class="filter-row">
+    <script src="common.js"></script>
 
-        <div class="filter-group">
-            <label>From Date</label>
-            <input type="date" id="fromDate">
-        </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-        <div class="filter-group">
-            <label>To Date</label>
-            <input type="date" id="toDate">
-        </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 
-        <div class="filter-group">
-            <label>Member ID</label>
-            <input type="text" id="searchMemberId" placeholder="Member ID">
-        </div>
-
-        <div class="filter-group">
-            <label>Member Name</label>
-            <input type="text" id="searchMemberName" placeholder="Member Name">
-        </div>
-
-    </div>
-
-    <div class="filter-row">
-
-        <div class="filter-group">
-            <label>Payment Mode</label>
-            <select id="paymentModeFilter">
-                <option value="">All</option>
-                <option>Cash</option>
-                <option>UPI</option>
-                <option>Card</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label>Receipt No</label>
-            <input type="text" id="receiptFilter" placeholder="Receipt No">
-        </div>
-
-        <div class="filter-buttons">
-
-            <button id="searchReportBtn">🔍 Search</button>
-
-            <button id="refreshReportBtn">🔄 Refresh</button>
-
-              <button id="excelReportBtn">📊 Excel</button>
-
-              <button id="printReportBtn" class="btn btn-primary">
-                    🖨️ Print Report
-                </button>        
-
-        </div>
-
-    </div>
-
-</div>
-
-    <table id="reportTable">
-        <thead>
-            <tr>
-                <th>Receipt No</th>
-                <th>Member ID</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Payment Mode</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-
-        <tbody id="reportBody">
-
-        </tbody>
-
-    </table>
-
-</div>
-
-<script src="common.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-
-<script src="reports.js"></script>
+    <script src="reports.js"></script>
 
 </body>
 </html>

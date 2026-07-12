@@ -70,3 +70,8 @@ color:white;
 .receipt-btn:hover {
     background: #138496;
 }
+
+#feeTable thead th{
+    background: #0f172a !important;
+    color: #ffffff !important;
+}

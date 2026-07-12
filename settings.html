@@ -3,117 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings - RR Technologies</title>
+    <title>Settings - RR Technologies Gym Pro</title>
+
+    <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="settings.css">
 </head>
 <body>
 
-<div class="sidebar">
-     <img id="sidebarLogo" alt="Gym Logo">
-    <h2 id="sidebarGymName">RR Technologies</h2>
+    <!-- Sidebar -->
+    <div id="sidebarContainer"></div>
 
-    <a href="dashboard.html">🏠 Dashboard</a>
-    <a href="member-registration.html">👤 Member Registration</a>
-    <a href="members-list.html">👥 Members List</a>
-    <a href="fee-collection.html">💰 Fee Collection</a>
-    <a href="attendance.html">📅 Attendance</a>
-    <a href="reports.html">📊 Reports</a>
-    <a href="settings.html" class="active">⚙️ Settings</a>
-    <a href="index.html">🚪 Logout</a>
-</div>
+    <!-- Main Content -->
+    <div class="main-content">
 
-<div class="main-content">
+        <h1>⚙️ Gym Settings</h1>
 
-<h1>Gym Settings</h1>
+        <div class="form-container">
 
-<div class="form-container">
+            <form id="settingsForm">
 
-<form id="settingsForm">
+                <label>Gym Name</label>
+                <input type="text" id="gymName">
 
-<label>Gym Name</label>
-<input type="text" id="gymName">
+                <label>Owner Name</label>
+                <input type="text" id="ownerName">
 
-<label>Owner Name</label>
-<input type="text" id="ownerName">
+                <label>Mobile Number</label>
+                <input type="text" id="mobile">
 
-<label>Mobile Number</label>
-<input type="text" id="mobile">
+                <label>Email</label>
+                <input type="email" id="email">
 
-<label>Email</label>
-<input type="email" id="email">
+                <label>Address</label>
+                <textarea id="address"></textarea>
 
-<label>Address</label>
-<textarea id="address"></textarea>
+                <label>Receipt Prefix</label>
+                <input type="text" id="receiptPrefix" value="RCPT">
 
-<label>Receipt Prefix</label>
-<input type="text" id="receiptPrefix" value="RCPT">
+                <label>Currency</label>
 
-<label>Currency</label>
-<select id="currency">
-    <option value="₹">Indian Rupee (₹)</option>
-    <option value="$">US Dollar ($)</option>
-    <option value="€">Euro (€)</option>
-</select>
+                <select id="currency">
+                    <option value="₹">Indian Rupee (₹)</option>
+                    <option value="$">US Dollar ($)</option>
+                    <option value="€">Euro (€)</option>
+                </select>
 
-<br><br>
+                <br><br>
 
-<div class="form-group">
-    <label for="gymLogo">Gym Logo</label>
+                <div class="form-group">
 
-    <input type="file"
-           id="gymLogo"
-           accept="image/*">
+                    <label for="gymLogo">Gym Logo</label>
 
-    <br><br>
+                    <input
+                        type="file"
+                        id="gymLogo"
+                        accept="image/*">
 
-    <img id="logoPreview"
-         src=""
-         alt="Logo Preview"
-         style="
-            width:120px;
-            height:120px;
-            object-fit:contain;
-            border:1px solid #ccc;
-            border-radius:10px;
-            padding:8px;
-            background:#fff;
-         ">
-</div>
+                    <br><br>
 
-<button type="submit">💾 Save Settings</button>
-<button type="reset">🔄 Reset</button>
+                    <img
+                        id="logoPreview"
+                        src=""
+                        alt="Logo Preview"
+                        style="
+                            width:120px;
+                            height:120px;
+                            object-fit:contain;
+                            border:1px solid #ccc;
+                            border-radius:10px;
+                            padding:8px;
+                            background:#fff;
+                        ">
 
-</form>
+                </div>
 
-<hr style="margin:30px 0;">
+                <br>
 
-<h2>💾 Data Backup & Restore</h2>
+                <button type="submit">
+                    💾 Save Settings
+                </button>
 
-<div class="backup-section">
+                <button type="reset">
+                    🔄 Reset
+                </button>
 
-    <button id="backupBtn" class="backup-btn">
-        💾 Backup Data
-    </button>
+            </form>
 
-    <br><br>
+            <hr style="margin:35px 0;">
 
-    <input
-        type="file"
-        id="restoreFile"
-        accept=".json">
+            <h2>💾 Data Backup & Restore</h2>
 
-    <button id="restoreBtn" class="restore-btn">
-        📂 Restore Data
-    </button>
+            <div class="backup-section">
 
-</div>
+                <button id="backupBtn" class="backup-btn">
+                    💾 Backup Data
+                </button>
 
-</div>
+                <br><br>
 
-</div>
+                <input
+                    type="file"
+                    id="restoreFile"
+                    accept=".json">
 
-<script src="settings.js"></script>
+                <button
+                    id="restoreBtn"
+                    class="restore-btn">
+
+                    📂 Restore Data
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+
+    <script src="sidebar.js"></script>
+
+    <script src="common.js"></script>
+
+    <script src="settings.js"></script>
 
 </body>
 </html>

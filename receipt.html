@@ -23,9 +23,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     ✅ PAID
 </div>
 
-    <img src="images/logo.PNG"
-         id="receiptLogo"
-         alt="RR Technologies Logo">
+    <img
+    id="receiptLogo"
+    src="logo.png"
+    alt="Gym Logo">
 
     <h1 id="gymName">RR Technologies Gym</h1>
 
@@ -37,15 +38,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
     <div class="gym-info">
 
-        <p id="gymAddress"></p>
+    <p id="gymAddress"></p>
 
-        <p>
+    <p>
+        📞 <span id="gymMobile"></span>
+    </p>
 
-            📞 <span id="gymMobile"></span>
+    <p>
+        ✉️ <span id="gymEmail"></span>
+    </p>
 
-        </p>
-
-    </div>
+</div>
 
 </div>
 
@@ -53,22 +56,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
     <div class="receipt-info">
 
-        <div>
-            <b>Receipt No :</b>
-            <span id="receiptNo"></span>
-        </div>
+    <div class="info-card">
 
-        <div>
-            <b>Date :</b>
-            <span id="date"></span>
-        </div>
+        <small>Receipt No</small>
 
-        <div>
-            <b>Time :</b>
-            <span id="time"></span>
-        </div>
+        <h3 id="receiptNo"></h3>
 
     </div>
+
+    <div class="info-card">
+
+        <small>Date</small>
+
+        <h3 id="date"></h3>
+
+    </div>
+
+    <div class="info-card">
+
+        <small>Time</small>
+
+        <h3 id="time"></h3>
+
+    </div>
+
+</div>
 
     <hr>
 
@@ -91,7 +103,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
         <tr>
             <td>Amount</td>
-            <td id="amount"></td>
+             <td id="amount"></td>
         </tr>
 
         <tr>

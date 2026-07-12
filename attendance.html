@@ -5,66 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance - RR Technologies Gym Pro</title>
 
+    <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="attendance.css">
 </head>
 <body>
 
-<div class="sidebar">
-    <h2 id="sidebarGymName">RR Technologies</h2>
+    <!-- Sidebar -->
+    <div id="sidebarContainer"></div>
 
-    <a href="dashboard.html">🏠 Dashboard</a>
-    <a href="member-registration.html">👤 Member Registration</a>
-    <a href="members-list.html">👥 Members List</a>
-    <a href="fee-collection.html">💰 Fee Collection</a>
-    <a href="attendance.html" class="active">📅 Attendance</a>
-    <a href="reports.html">📊 Reports</a>
-    <a href="settings.html">⚙️ Settings</a>
-    <a href="index.html">🚪 Logout</a>
-</div>
+    <!-- Main Content -->
+    <div class="main-content">
 
-<div class="main-content">
+        <h1>Attendance</h1>
 
-    <h1>Attendance</h1>
+        <div class="attendance-form">
 
-    <div class="attendance-form">
+            <input
+                type="text"
+                id="memberIdInput"
+                placeholder="Enter Member ID (Example: RR1001)"
+                autocomplete="off"
+            >
 
-        <input
-            type="text"
-            id="memberIdInput"
-            placeholder="Enter Member ID (Example: RR1001)"
-            autocomplete="off"
-        >
+            <select id="memberSelect">
+                <option value="">-- Select Member --</option>
+            </select>
 
-        <select id="memberSelect">
-            <option value="">-- Select Member --</option>
-        </select>
+        </div>
+
+        <div class="attendance-buttons">
+            <button id="presentBtn">✅ Present</button>
+            <button id="absentBtn">❌ Absent</button>
+        </div>
+
+        <table class="attendance-table">
+            <thead>
+                <tr>
+                    <th>Member ID</th>
+                    <th>Member Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="attendanceTable"></tbody>
+        </table>
 
     </div>
 
-    <div class="attendance-buttons">
-        <button id="presentBtn">✅ Present</button>
-      <button id="absentBtn">❌ Absent</button>  
-    </div>
-
-    <table class="attendance-table">
-        <thead>
-            <tr>
-                <th>Member ID</th>
-                <th>Member Name</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-
-        <tbody id="attendanceTable"></tbody>
-    </table>
-
-</div>
-
-<script src="common.js"></script>
-<script src="attendance.js"></script>
+    <script src="sidebar.js"></script>
+    <script src="common.js"></script>
+    <script src="attendance.js"></script>
 
 </body>
 </html>

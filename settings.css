@@ -1,34 +1,213 @@
-/* =========================
-   Backup & Restore
-========================= */
+/* ==========================================
+   RR Technologies Gym Pro - Settings
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ================= Main Content ================= */
+
+.main-content{
+    margin-left:250px;
+    padding:30px;
+    min-height:100vh;
+    background:#f4f7fc;
+}
+
+.main-content h1{
+    font-size:42px;
+    color:#1f2937;
+    margin-bottom:25px;
+}
+
+.main-content h2{
+    color:#1f2937;
+    margin-bottom:20px;
+}
+
+/* ================= Form ================= */
+
+.form-container{
+
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+}
+
+#settingsForm{
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+
+}
+
+#settingsForm label{
+
+    font-weight:bold;
+    color:#374151;
+
+}
+
+#settingsForm input,
+#settingsForm select,
+#settingsForm textarea{
+
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+    transition:.3s;
+
+}
+
+#settingsForm textarea{
+
+    min-height:100px;
+    resize:vertical;
+
+}
+
+#settingsForm input:focus,
+#settingsForm select:focus,
+#settingsForm textarea:focus{
+
+    border-color:#06b6d4;
+    box-shadow:0 0 8px rgba(6,182,212,.2);
+
+}
+
+/* ================= Logo ================= */
+
+.form-group{
+
+    margin-top:10px;
+
+}
+
+#logoPreview{
+
+    width:120px;
+    height:120px;
+    object-fit:contain;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:8px;
+    background:#fff;
+    margin-top:10px;
+
+}
+
+/* ================= Buttons ================= */
+
+button{
+
+    border:none;
+    border-radius:8px;
+    padding:12px 20px;
+    color:#fff;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+    margin-top:10px;
+}
+
+button[type="submit"]{
+
+    background:#06b6d4;
+
+}
+
+button[type="submit"]:hover{
+
+    background:#0891b2;
+
+}
+
+button[type="reset"]{
+
+    background:#6b7280;
+
+}
+
+button[type="reset"]:hover{
+
+    background:#4b5563;
+
+}
+
+/* ================= Backup & Restore ================= */
 
 .backup-section{
-    margin-top:30px;
-    padding:20px;
-    background:#fff;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
+
+    margin-top:20px;
+    padding:25px;
+    background:#f8fafc;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+
 }
 
-.backup-btn,
-.restore-btn{
+.backup-btn{
 
     background:#0f766e;
-    color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:6px;
-    cursor:pointer;
-    font-size:16px;
-    font-weight:bold;
+
+}
+
+.backup-btn:hover{
+
+    background:#115e59;
+
 }
 
 .restore-btn{
+
     background:#2563eb;
+
 }
 
-.backup-btn:hover,
 .restore-btn:hover{
 
-    opacity:.9;
+    background:#1d4ed8;
+
+}
+
+#restoreFile{
+
+    margin:15px 0;
+
+}
+
+/* ================= Responsive ================= */
+
+@media(max-width:768px){
+
+.main-content{
+
+    margin-left:0;
+    padding:20px;
+
+}
+
+.form-container{
+
+    padding:20px;
+
+}
+
+button{
+
+    width:100%;
+
+}
+
 }
