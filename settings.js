@@ -23,6 +23,13 @@ const logoPreview = document.getElementById("logoPreview");
 
 if (settings.logo) {
     logoPreview.src = settings.logo;
+
+   const sidebarLogo = document.getElementById("sidebarLogo");
+    if (sidebarLogo) {
+        sidebarLogo.src = settings.logo;
+        
+    }
+
 }
 
 logoInput.addEventListener("change", function () {
