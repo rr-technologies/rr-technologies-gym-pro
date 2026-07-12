@@ -1,11 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ============================
+  // ============================
 // Load Gym Settings
 // ============================
 
+const gymSettings = JSON.parse(localStorage.getItem("gymSettings")) || {};
 
+// Sidebar Gym Name
+const sidebarGymName = document.getElementById("sidebarGymName");
+if (sidebarGymName && gymSettings.gymName) {
+    sidebarGymName.textContent = gymSettings.gymName;
+}
 
+// Dashboard Hero Gym Name
+const dashboardGymName = document.getElementById("dashboardGymName");
+if (dashboardGymName && gymSettings.gymName) {
+    dashboardGymName.textContent = gymSettings.gymName;
+}
+
+// Dashboard Hero Logo
+const dashboardLogo = document.getElementById("dashboardLogo");
+if (dashboardLogo) {
+    dashboardLogo.src = gymSettings.logo || "images/logo.PNG";
+}
 
     // Load Data
     const members = getMembers();
