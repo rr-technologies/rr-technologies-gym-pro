@@ -251,19 +251,17 @@ td:nth-child(11){
 }
 
 .members-header:hover{
-    transform:translateY(-3px);
-    box-shadow:0 15px 35px rgba(37,99,235,.18);
-    border:1px solid #22d3ee;
+
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,0,0,.10);
+
 }
 
 .members-header h1{
     transition:.35s ease;
 }
 
-.members-header:hover h1{
-    color:#0284c7;
-    text-shadow:0 4px 12px rgba(2,132,199,.25);
-}
+
 
 .page-title{
 
@@ -300,8 +298,11 @@ td:nth-child(11){
 }
 
 .search-box input:hover{
-    border-color:#06b6d4;
-    box-shadow:0 0 12px rgba(6,182,212,.25);
+
+    border-color:#d5dbe3;
+
+    box-shadow:none;
+
 }
 
 /* ===== Table Row Hover ===== */
@@ -313,4 +314,27 @@ tbody tr{
 tbody tr:hover{
     background:#f0fbff;
     transform:scale(1.003);
+}
+
+/* ==============================
+   Sticky Top Horizontal Scroll
+============================== */
+
+.top-scroll-wrapper{
+    position: sticky;
+    top: 90px;          /* Hero Banner height ki adjust cheddam tarvata */
+    z-index: 99;
+    background: #fff;
+    padding: 6px 0;
+}
+
+.top-scroll{
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 16px;
+}
+
+.top-scroll-content{
+    height: 1px;
+    width: 2000px;      /* Temporary */
 }

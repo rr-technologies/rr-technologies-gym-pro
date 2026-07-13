@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const gymTitle = document.getElementById("sidebarGymName");
 
+    
     if (gymTitle && gymSettings.gymName) {
         gymTitle.textContent = gymSettings.gymName;
     }
@@ -161,6 +162,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 displayMembers(searchBox ? searchBox.value : "");
 
+// ==============================
+// Top Sticky Scroll
+// ==============================
+
+setTimeout(() => {
+
+    const topScroll = document.querySelector(".top-scroll");
+    const topScrollContent = document.querySelector(".top-scroll-content");
+    const tableContainer = document.querySelector(".table-container");
+    const membersTableElement = document.querySelector(".table-container table");
+
+    topScrollContent.style.width =
+        membersTableElement.scrollWidth + "px";
+
+    topScroll.addEventListener("scroll", function () {
+        tableContainer.scrollLeft = this.scrollLeft;
+    });
+
+    tableContainer.addEventListener("scroll", function () {
+        topScroll.scrollLeft = this.scrollLeft;
+    });
+
+}, 100);
+
 });
 
 window.renewMember = function(index) {
@@ -301,3 +326,4 @@ window.location.reload();
 alert("Membership Renewed Successfully!");
 
 }
+
