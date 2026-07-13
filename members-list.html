@@ -1,75 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RR Technologies - Members List</title>
+    <title>RR Technologies - Members List</title>
 
-<link rel="stylesheet" href="members-list.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="members-list.css">
 
 </head>
+
 <body>
 
-<div class="top-bar">
+    <!-- Sidebar -->
+    <div id="sidebarContainer"></div>
 
-    <h1>👥 Members List</h1>
+    <!-- Main Content -->
+    <div class="main-content">
 
-    <a href="dashboard.html" class="home-btn">
-        🏠 Dashboard
-    </a>
+        <!-- Hero Banner -->
+        <!-- Members Header -->
+
+<div class="members-header">
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchMember"
+            placeholder="🔍 Search Member...">
+
+    </div>
+
+    <div class="page-title">
+
+        Members List
+
+    </div>
 
 </div>
 
-<div class="search-box">
-    <input
-        type="text"
-        id="searchMember"
-        placeholder="🔍 Search by Member ID, Name or Mobile">
-</div>
+        <!-- Table Wrapper -->
+        <div class="table-container">
 
-<table border="1" width="100%" cellspacing="0">
+            <table cellspacing="0">
 
-<thead>
+                <thead>
 
-<tr>
+                    <tr>
 
-<th>S.No</th>
+                        <th>S.No</th>
 
-<th>Member ID</th>
+                        <th>Member ID</th>
 
-<th>Name</th>
+                        <th>Name</th>
 
-<th>Mobile</th>
+                        <th>Mobile</th>
 
-<th>Plan</th>
+                        <th>Plan</th>
 
-<th>Fee</th>
+                        <th>Fee</th>
 
-<th>Joining Date</th>
+                        <th>Joining Date</th>
 
-<th>Expiry Date</th>
+                        <th>Expiry Date</th>
 
-<th>Payment</th>
+                        <th>Payment</th>
 
-<th>Status</th>
+                        <th>Status</th>
 
-<th>Action</th>
+                        <th>Action</th>
 
-</tr>
+                    </tr>
 
-</thead>
+                </thead>
 
-<tbody id="membersTable">
+                <tbody id="membersTable">
 
-</tbody>
+                </tbody>
 
-</table>
+            </table>
 
-<script src="common.js"></script>
-<script src="utils.js"></script>
-<script src="members-list.js"></script>
+        </div>
+
+    </div>
+
+    <script src="common.js"></script>
+    <script src="sidebar.js"></script>
+    <script src="utils.js"></script>
+    <script src="members-list.js"></script>
 
 </body>
+
 </html>

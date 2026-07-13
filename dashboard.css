@@ -369,62 +369,176 @@ text-align:center;
    Dashboard Hero
 =========================== */
 
-.dashboard-hero{
 
-    text-align:center;
 
-    margin-top:10px;
-    margin-bottom:45px;
+.dashboard-hero h1{
+    font-size: 28px;
+    font-weight: 500;
+    color:#555;
+}
 
+.dashboard-hero h2{
+    font-size: 54px;
+    color: #1565c0;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.dashboard-hero p{
+    font-size: 22px;
+    color: #666;
+}
+
+/* ===================================
+   Dashboard Watermark Logo
+=================================== */
+
+.main-content{
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* =========================================
+        Premium Hero Banner
+========================================= */
+
+.hero-banner{
+
+    display:flex;
+    align-items:center;
+    gap:40px;
+
+    width:100%;
+
+    padding:35px 45px;
+
+    background: rgba(255,255,255,.80);
+    backdrop-filter:blur(12px);
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.10);
+
+    border-left: 5px solid #d9dde5;
+
+    margin-bottom:35px;
+
+    transition: transform .35s ease,
+            box-shadow .35s ease;
+
+}
+
+.hero-banner:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(0,0,0,.14);
+}
+
+.hero-logo{
+    flex-shrink:0;
 }
 
 #dashboardLogo{
 
-    width:150px;
-    height:150px;
+    width:170px;
+    height:170px;
 
     object-fit:contain;
 
-    margin-bottom:15px;
+    background:#fff;
 
-    border-radius:15px;
+    border-radius:20px;
 
-    box-shadow:0 8px 25px rgba(0,0,0,.12);
+    padding:10px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
 
 }
 
-.dashboard-hero h1{
+.hero-text{
 
-    margin:0;
+    flex:1;
+
+}
+
+.hero-text h1{
 
     font-size:30px;
 
     color:#555;
 
-    font-weight:400;
+    font-weight:500;
 
-    letter-spacing:.5px;
-
-}
-
-.dashboard-hero h2{
-
-    margin:10px 0;
-
-    color:#1565c0;
-
-    font-size:45px;
-
-    font-weight:bold;
+    margin-bottom:10px;
 
 }
 
-.dashboard-hero p{
+.hero-text h2{
 
-    color:#666;
+    font-size:56px;
+    font-weight:700;
+    color:#1565C0;
+
+    text-shadow:
+        0 2px 0 #ffffff,
+        0 4px 8px rgba(0,0,0,.15);
+
+}
+
+.hero-text p{
+
+    font-size:22px;
+
+    color:#777;
+
+    letter-spacing:1px;
+
+    font-weight:500;
+
+}
+
+/* ==========================
+   Greeting Card
+========================== */
+
+.greeting-card{
+
+    background:#ffffff;
+
+    padding:20px;
+
+    margin-bottom:25px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    border:1px solid #eef2f7;
+
+}
+
+.greeting-card h2{
+
+    margin:0;
+
+    font-size:30px;
+
+    color:#1565C0;
+
+    font-weight:700;
+
+}
+
+.greeting-card p{
+
+    margin-top:10px;
 
     font-size:18px;
 
-    margin-top:10px;
+    color:#666;
+
+    font-weight:500;
 
 }

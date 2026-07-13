@@ -286,3 +286,54 @@ if (recentMembersBody) {
     }
 
 }
+
+// ==========================
+// Greeting & Live Date Time
+// ==========================
+
+function updateGreeting() {
+
+    const now = new Date();
+    const hour = now.getHours();
+
+    let greeting = "";
+    let emoji = "";
+
+    if (hour >= 5 && hour < 12) {
+        greeting = "Good Morning";
+        emoji = "🌅";
+    }
+    else if (hour >= 12 && hour < 17) {
+        greeting = "Good Afternoon";
+        emoji = "☀️";
+    }
+    else if (hour >= 17 && hour < 21) {
+        greeting = "Good Evening";
+        emoji = "🌇";
+    }
+    else {
+        greeting = "Good Night";
+        emoji = "🌙";
+    }
+
+    document.getElementById("greetingText").textContent =
+        `${emoji} ${greeting}`;
+
+    const options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+    };
+
+    document.getElementById("dateTimeText").textContent =
+        now.toLocaleString("en-IN", options).replace(",", " •");
+}
+
+updateGreeting();
+
+// Update every second
+setInterval(updateGreeting, 1000);

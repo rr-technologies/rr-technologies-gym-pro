@@ -1,88 +1,147 @@
+/* ==========================================
+   RR Technologies - Members List
+========================================== */
+
 body{
-    font-family:Arial, sans-serif;
-    background:#f5f5f5;
-    padding:30px;
+
     margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f7fc;
 }
 
-h1{
-    color:#0f172a;
-    margin:0;
+/* ==========================
+   Main Content
+========================== */
+
+.main-content{
+
+    margin-left:250px;
+
+    padding:25px;
+
+    width:calc(100% - 250px);
+
+    box-sizing:border-box;
+
 }
 
-/* ===== Top Bar ===== */
+/* ==========================
+   Hero Banner
+========================== */
 
-.top-bar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
+/* ===========================
+   Members Header
+=========================== */
+
+.members-header{
+    position: sticky;
+    top: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    background: #fff;
+    padding: 15px 20px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+
+    margin-bottom: 20px;
+
+    z-index: 999;
 }
 
-.home-btn{
-    background:#00bcd4;
-    color:#fff;
-    text-decoration:none;
-    padding:10px 16px;
-    border-radius:6px;
-    font-weight:bold;
-    transition:.3s;
+.page-title{
+    font-size: 30px;
+    font-weight: 700;
+    color: #1565c0;
+    white-space: nowrap;
 }
-
-.home-btn:hover{
-    background:#0097a7;
-}
-
-/* ===== Search ===== */
 
 .search-box{
-    display:flex;
-    justify-content:flex-end;
-    margin-bottom:20px;
+    flex: 1;
 }
 
 .search-box input{
-    width:350px;
-    padding:10px 15px;
-    border:1px solid #ccc;
-    border-radius:6px;
-    font-size:15px;
-    outline:none;
+    width: 420px;
+    max-width: 100%;
+
+    padding: 12px 16px;
+
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
+    font-size: 16px;
 }
 
-.search-box input:focus{
-    border-color:#28a745;
-    box-shadow:0 0 8px rgba(40,167,69,.3);
+
+/* ==========================
+   Table Container
+========================== */
+
+.table-container{
+    width:100%;
+    overflow-x:auto;
 }
 
-/* ===== Table ===== */
+/* ==========================
+   Table
+========================== */
 
 table{
     width:100%;
+    min-width:1150px;
+
     border-collapse:collapse;
+
     background:#fff;
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+    border-radius:12px;
+
+    overflow:hidden;
 }
 
 th{
-    background:#0f172a;
+
+    background:#18b4c8;
+
     color:#fff;
-    padding:14px 10px;
+
+    padding:15px 10px;
+
     text-align:center;
+
+    font-size:17px;
+
 }
 
 td{
-    padding:12px 10px;
-    border-bottom:1px solid #ddd;
+
+    padding:13px 10px;
+
+    border-bottom:1px solid #e5e7eb;
+
     text-align:center;
+
     vertical-align:middle;
+
 }
 
-tr:hover{
-    background:#f8f9fa;
+tbody tr:hover{
+
+    background:#f8fbff;
+
 }
 
-/* ===== Column Widths ===== */
+/* ==========================
+   Column Widths
+========================== */
 
 th:nth-child(1),
 td:nth-child(1){
@@ -91,7 +150,7 @@ td:nth-child(1){
 
 th:nth-child(2),
 td:nth-child(2){
-    width:100px;
+    width:110px;
 }
 
 th:nth-child(5),
@@ -106,6 +165,14 @@ td:nth-child(6){
     white-space:nowrap;
 }
 
+th:nth-child(7),
+td:nth-child(7),
+th:nth-child(8),
+td:nth-child(8){
+    width:120px;
+    white-space:nowrap;
+}
+
 th:nth-child(9),
 td:nth-child(9){
     width:90px;
@@ -113,80 +180,137 @@ td:nth-child(9){
 
 th:nth-child(10),
 td:nth-child(10){
-    width:130px;
+    width:120px;
 }
 
 th:nth-child(11),
 td:nth-child(11){
-    width:170px;
+    width:190px;
+    white-space:nowrap;
 }
 
-/* ===== Buttons ===== */
-
-button{
-    padding:5px 10px;
-    margin:2px;
-    cursor:pointer;
-}
-
-/* Date Columns */
-th:nth-child(7),
-td:nth-child(7),
-th:nth-child(8),
-td:nth-child(8){
-    white-space: nowrap;
-    width: 110px;
-}
-/* Action Buttons */
+/* ==========================
+   Action Buttons
+========================== */
 
 .action-buttons{
-    white-space: nowrap;
-    text-align: center;
+
+    white-space:nowrap;
+
 }
 
 .action-buttons button{
+
+    padding:7px 12px;
+
     margin:2px;
-    padding:6px 10px;
-    border:1px solid #ccc;
-    border-radius:5px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:6px;
+
+    background:#fff;
+
     cursor:pointer;
-    font-size:13px;
+
+    transition:.25s;
+
 }
 
 .action-buttons button:hover{
-    transform:scale(1.05);
+
+    transform:translateY(-2px);
+
+    box-shadow:0 4px 10px rgba(0,0,0,.12);
+
 }
 
-/* Search Box */
+/* ===========================
+   Members Header
+=========================== */
+
+.members-header{
+    position: sticky;
+    top: 15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+
+    background:#fff;
+    padding:15px 20px;
+
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    z-index:100;
+
+    transition:all .35s ease;
+}
+
+.members-header:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(37,99,235,.18);
+    border:1px solid #22d3ee;
+}
+
+.members-header h1{
+    transition:.35s ease;
+}
+
+.members-header:hover h1{
+    color:#0284c7;
+    text-shadow:0 4px 12px rgba(2,132,199,.25);
+}
+
+.page-title{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    color:#1565c0;
+
+    white-space:nowrap;
+
+}
 
 .search-box{
 
-    margin:20px 0;
+    flex:1;
 
 }
 
 .search-box input{
 
-    width:100%;
+    width:420px;
 
-    padding:12px 15px;
+    max-width:100%;
 
-    font-size:16px;
+    padding:12px 16px;
 
     border:1px solid #ccc;
 
-    border-radius:8px;
+    border-radius:10px;
 
-    outline:none;
-
-    transition:.3s;
+    font-size:16px;
 
 }
 
-.search-box input:focus{
-
+.search-box input:hover{
     border-color:#06b6d4;
+    box-shadow:0 0 12px rgba(6,182,212,.25);
+}
 
-    box-shadow:0 0 6px rgba(6,182,212,.3);
+/* ===== Table Row Hover ===== */
 
+tbody tr{
+    transition:all .25s ease;
+}
+
+tbody tr:hover{
+    background:#f0fbff;
+    transform:scale(1.003);
 }

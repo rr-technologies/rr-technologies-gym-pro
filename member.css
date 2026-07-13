@@ -1,52 +1,261 @@
+/* ===========================
+   Member Registration
+=========================== */
+
 body{
     margin:0;
-
-    font-family:Arial,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     background:#f4f7fc;
 }
 
-.form-container{
-    max-width:650px;
-    background:#fff;
+/* Main Content */
+
+.main-content{
+    margin-left:250px;
     padding:30px;
-    border-radius:12px;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-    margin:0 auto;
+
+    height:100vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    box-sizing:border-box;
 }
 
-.form-container h1{
-    text-align:center;
+.main-content h1{
+
+    margin:0 0 20px;
+
+    font-size:42px;
+
     color:#0f172a;
+
+    font-weight:700;
+
 }
+
+.main-content{
+    margin-left:250px;
+    padding:30px;
+
+    height:100vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    box-sizing:border-box;
+}
+
+/* Form Card */
+
+.form-container{
+
+    max-width:700px;
+
+    margin:0 auto;
+
+    background:#ffffff;
+
+    padding:25px 30px;
+
+    border-radius:18px;
+
+    border:1px solid #eef2f7;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.form-container:hover{
+
+    box-shadow:0 16px 35px rgba(0,0,0,.12);
+
+}
+
+/* Inputs */
 
 .form-container input,
 .form-container select,
 .form-container textarea{
+
     width:100%;
-    padding:12px;
-    margin:10px 0;
-    border:1px solid #ccc;
-    border-radius:6px;
+
+    padding:12px 14px;
+
+    margin:8px 0;
+
+    border:1px solid #d6dce6;
+
+    border-radius:10px;
+
+    font-size:15px;
+
     box-sizing:border-box;
+
+    outline:none;
+
+    transition:.25s;
+
+    background:#fff;
+
 }
 
+/* Focus */
+
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus{
+
+    border-color:#18b4c8;
+
+    box-shadow:0 0 0 3px rgba(24,180,200,.15);
+
+}
+
+/* Address */
+
+#address{
+
+    height:85px;
+
+    resize:none;
+
+}
+
+/* Button */
+
 .form-container button{
+
     width:100%;
-    padding:12px;
-    background:#00bcd4;
-    color:white;
+
+    padding:14px;
+
+    margin-top:10px;
+
+    background:#18b4c8;
+
+    color:#fff;
+
     border:none;
-    border-radius:6px;
-    font-size:16px;
+
+    border-radius:10px;
+
+    font-size:17px;
+
+    font-weight:600;
+
     cursor:pointer;
+
+    transition:.3s;
+
 }
 
 .form-container button:hover{
-    background:#0097a7;
+
+    background:#1099aa;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+
 }
 
-.main-content h1{
-    margin-bottom:20px;
-     margin-left:0;
-      text-align:left;
+/* Responsive */
+
+@media(max-width:768px){
+
+    .main-content{
+
+        padding:20px;
+
+    }
+
+    .main-content h1{
+
+        font-size:30px;
+
+    }
+
+    .form-container{
+
+        padding:20px;
+
+    }
+
+}
+
+/* ==========================
+   Hero Banner
+========================== */
+
+.hero-banner{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.85);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:20px;
+
+    padding:14px 30px;
+
+    width:700px;
+
+    max-width:100%;
+
+    margin:0 auto 18px;
+
+    margin-bottom:18px;
+
+    min-height:70px;
+
+    border-left:5px solid #e5e7eb;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.10);
+
+    transition:box-shadow .3s ease;
+
+    position: sticky;
+
+top: 15px;
+
+z-index: 100;
+
+}
+
+.hero-text{
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+.hero-banner:hover{
+
+    box-shadow:0 16px 35px rgba(0,0,0,.14);
+
+}
+
+.hero-text h2{
+
+    margin:0;
+
+    font-size:36px;
+
+    color:#1565C0;
+
+    font-weight:700;
+
+    text-shadow:
+        0 2px 0 #ffffff,
+        0 4px 8px rgba(0,0,0,.12);
+
 }
