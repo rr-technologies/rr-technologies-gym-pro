@@ -1,24 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RR Technologies - Gym Pro</title>
+
+    <title>RR Technologies Gym Pro</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+
 <body>
 
-<div class="login-box">
-    <h1>RR Technologies</h1>
-    <h3>Gym Management Software</h3>
+    <div class="background-overlay"></div>
 
-    <input type="text" placeholder="Username">
-    <input type="password" placeholder="Password">
+    <div class="login-container">
 
-    <button>Login</button>
-</div>
+        <div class="login-card">
 
-<script src="script.js"></script>
+            <!-- Logo -->
+
+            <div class="logo-section">
+
+                <img src="images/logo.png"
+                     id="loginLogo"
+                     alt="RR Technologies Logo">
+
+                <h1>RR Technologies Gym Pro</h1>
+
+                <p>Professional Gym Management System</p>
+
+            </div>
+
+            <!-- Login Form -->
+
+            <form id="loginForm">
+
+                <div class="input-group">
+
+                    <label>Username</label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="Enter Username"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Password</label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter Password"
+                            required>
+
+                        <span id="togglePassword">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="remember-row">
+
+                    <label>
+
+                        <input type="checkbox">
+
+                        Remember Me
+
+                    </label>
+
+                </div>
+
+                <button type="submit" class="login-btn">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                    Login
+
+                </button>
+
+            </form>
+
+            <div class="login-footer">
+
+                <p>
+
+                    Secure • Fast • Professional
+
+                </p>
+
+                <small>
+
+                    © 2026 RR Technologies
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
