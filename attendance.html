@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="attendance.css">
 </head>
+
 <body>
 
     <!-- Sidebar -->
@@ -17,30 +18,53 @@
     <!-- Main Content -->
     <div class="main-content">
 
-        <h1>Attendance</h1>
+        <!-- Sticky Header -->
+        <div class="sticky-header">
 
-        <div class="attendance-form">
+            <div class="hero-banner">
 
-            <input
-                type="text"
-                id="memberIdInput"
-                placeholder="Enter Member ID (Example: RR1001)"
-                autocomplete="off"
-            >
+                <!-- Left -->
+                <div class="hero-left">
+                    <h2>✅ Attendance</h2>
+                    <p>Mark Member Attendance & Daily Presence</p>
+                </div>
 
-            <select id="memberSelect">
-                <option value="">-- Select Member --</option>
-            </select>
+                <!-- Right -->
+                <div class="hero-search">
+
+                    <input
+                        type="text"
+                        id="memberIdInput"
+                        placeholder="🔍 Enter Member ID">
+
+                    <select id="memberSelect">
+                        <option value="">-- Select Member --</option>
+                    </select>
+
+                    <button id="presentBtn">
+                        ✅ Present
+                    </button>
+
+                    <button id="absentBtn">
+                        ❌ Absent
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
+        <!-- Sticky Header End -->
 
-        <div class="attendance-buttons">
-            <button id="presentBtn">✅ Present</button>
-            <button id="absentBtn">❌ Absent</button>
-        </div>
+
+        <!-- Attendance History -->
+
+        <h2 class="history-title">📋 Attendance History</h2>
 
         <table class="attendance-table">
+
             <thead>
+
                 <tr>
                     <th>Member ID</th>
                     <th>Member Name</th>
@@ -48,9 +72,11 @@
                     <th>Time</th>
                     <th>Status</th>
                 </tr>
+
             </thead>
 
             <tbody id="attendanceTable"></tbody>
+
         </table>
 
     </div>

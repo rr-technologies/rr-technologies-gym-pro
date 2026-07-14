@@ -1,147 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RR Technologies - Fee Collection</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="dashboard.css">
-<link rel="stylesheet" href="sidebar.css">
-<link rel="stylesheet" href="fee-collection.css">
+    <title>RR Technologies - Fee Collection</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="fee-collection.css">
 
 </head>
+
 <body>
 
-<div id="sidebarContainer"></div>
+    <div id="sidebarContainer"></div>
 
-<div class="main-content">
+    <div class="main-content">
 
-<div class="sticky-header">
+        <div class="sticky-header">
 
-<div class="hero-banner">
+            <!-- Hero Banner -->
+            <div class="hero-banner">
 
-    <div class="hero-left">
-        <h2>💰 Fee Collection</h2>
-        <p>Manage Member Fee Collection & Payment Records</p>
+                <div class="hero-left">
+
+                    <h2>💰 Fee Collection</h2>
+
+                    <p>
+                        Manage Member Fee Collection &amp; Payment Records
+                    </p>
+
+                </div>
+
+                <div class="hero-search">
+
+                    <div class="search-input-group">
+
+                        <span class="search-icon">🔍</span>
+
+                        <input
+                            type="text"
+                            id="searchMember"
+                            placeholder="Search by Member ID / Name / Mobile">
+
+                    </div>
+
+                    <button id="searchBtn" class="search-btn">
+                        🔎 Search
+                    </button>
+
+                    <button id="refreshBtn" class="refresh-btn">
+                        🔄 Refresh
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+                <!-- Member Details Card -->
+
+        <div id="memberDetails" class="member-card" style="display:none;">
+
+            <h2>👤 Member Details</h2>
+
+            <div class="member-info">
+
+                <p><strong>Member ID :</strong> <span id="dMemberId"></span></p>
+
+                <p><strong>Name :</strong> <span id="dName"></span></p>
+
+                <p><strong>Mobile :</strong> <span id="dMobile"></span></p>
+
+                <p><strong>Plan :</strong> <span id="dPlan"></span></p>
+
+                <p><strong>Current Expiry :</strong> <span id="dExpiry"></span></p>
+
+                <p><strong>Status :</strong> <span id="dStatus"></span></p>
+
+            </div>
+
+            <hr>
+
+            <div class="fee-form">
+
+                <label>Fee Amount</label>
+
+                <input
+                    type="number"
+                    id="feeAmount"
+                    placeholder="Enter Fee Amount">
+
+                <label>Payment Mode</label>
+
+                <select id="paymentMode">
+
+                    <option>Cash</option>
+
+                    <option>UPI</option>
+
+                    <option>Card</option>
+
+                    <option>Bank Transfer</option>
+
+                </select>
+
+                <label>Remarks</label>
+
+                <textarea
+                    id="remarks"
+                    rows="3"
+                    placeholder="Enter Remarks"></textarea>
+
+                <button id="collectFeeBtn">
+
+                    💰 Collect Fee
+
+                </button>
+
+            </div>
+
+        </div>
+
+                <!-- Fee Collection Table -->
+
+        <table id="feeTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>Member ID</th>
+
+                    <th>Name</th>
+
+                    <th>Plan</th>
+
+                    <th>Fee</th>
+
+                    <th>Payment Mode</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            </tbody>
+
+        </table>
+
+                <br><br>
+
+        <h2 class="history-title">📜 Payment History</h2>
+
+        <table id="historyTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>Receipt No</th>
+                    <th>Member ID</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Mode</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Receipt</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="historyBody">
+
+            </tbody>
+
+        </table>
+
     </div>
+    <!-- main-content -->
 
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<div class="search-box">
-
-    <input type="text"
-     id="searchMember"
-     placeholder="🔍 Search by Member ID / Name / Mobile">
-
-    <button id="searchBtn">Search</button>
-
-    <button id="refreshBtn">🔄 Refresh</button>
-
-</div>
-
-
-
-<div id="memberDetails" class="member-card" style="display:none;">
-
-    <h2>Member Details</h2>
-
-    <p><strong>Member ID :</strong> <span id="dMemberId"></span></p>
-
-    <p><strong>Name :</strong> <span id="dName"></span></p>
-
-    <p><strong>Mobile :</strong> <span id="dMobile"></span></p>
-
-    <p><strong>Plan :</strong> <span id="dPlan"></span></p>
-
-    <p><strong>Current Expiry :</strong> <span id="dExpiry"></span></p>
-
-    <p><strong>Status :</strong> <span id="dStatus"></span></p>
-
-    <hr>
-
-    <label>Fee Amount</label>
-
-    <input type="number" id="feeAmount">
-
-    <label>Payment Mode</label>
-
-    <select id="paymentMode">
-
-        <option>Cash</option>
-        <option>UPI</option>
-        <option>Card</option>
-        <option>Bank Transfer</option>
-
-    </select>
-
-    <label>Remarks</label>
-
-    <textarea id="remarks"></textarea>
-
-    <button id="collectFeeBtn">
-        💰 Collect Fee
-    </button>
-
-</div>
-
-<table id="feeTable">
-
-<thead>
-
-<tr>
-
-<th>Member ID</th>
-<th>Name</th>
-<th>Plan</th>
-<th>Fee</th>
-<th>Payment Mode</th>
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-</tbody>
-
-</table>
-
-<br><br>
-
-<h2>Payment History</h2>
-
-<table id="historyTable">
-
-<thead>
-
-<tr>
-
-<th>Receipt No</th>
-<th>Member ID</th>
-<th>Name</th>
-<th>Amount</th>
-<th>Mode</th>
-<th>Date</th>
-<th>Time</th>
-<th>Receipt</th>
-
-</tr>
-
-</thead>
-
-<tbody id="historyBody">
-
-</tbody>
-
-</table>
-
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="common.js"></script>
-<script src="fee-collection.js"></script>
-<script src="sidebar.js"></script>
+    <script src="common.js"></script>
+    <script src="fee-collection.js"></script>
+    <script src="sidebar.js"></script>
 
 </body>
+
 </html>

@@ -87,7 +87,7 @@ color:white;
     top: 15px;
     z-index: 100;
     background: #f4f7fc;
-    padding-bottom: 12px;
+    padding-bottom: 0px;
 }
 
 .hero-banner{
@@ -98,8 +98,9 @@ color:white;
     background:#ffffff;
     border-radius:18px;
 
-    padding:20px 30px;
-    margin-bottom:18px;
+    padding:15px 30px;
+    
+    margin-bottom:10px;
 
     box-shadow:0 8px 25px rgba(0,0,0,.08);
 
@@ -112,7 +113,7 @@ color:white;
 .hero-left h2{
 
     margin:0;
-    font-size:42px;
+    font-size:38px;
     font-weight:700;
     color:#1565c0;
 
@@ -127,135 +128,159 @@ color:white;
 }
 
 /* =====================================
-   Search Section
+   Hero Search
 ===================================== */
 
-.search-box{
+.hero-banner{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
 
+.hero-search{
     display:flex;
     align-items:center;
     gap:12px;
-
-    background:#ffffff;
-
-    padding:18px 20px;
-
-    border-radius:16px;
-
-    margin-bottom:20px;
-
-    box-shadow:0 6px 20px rgba(0,0,0,.08);
-
-    
-transition: all .30s ease;
-
+    flex-wrap:wrap;
 }
 
-.search-box:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:0 8px 24px rgba(0,0,0,.10);
-
-}
-
-.search-box input{
-
+.search-input-group{
     flex:1;
-
-    padding:9px 13px;
-
-    font-size:15px;
-
-    border:1px solid #dbe2ea;
-
-    border-radius:10px;
-
-    outline:none;
-
-}
-
-.search-box input:focus{
-
-    border-color:#1565c0;
-
-}
-
-.search-box button{
-
-    padding:13px 22px;
-
-    border-radius:10px;
-
-    font-size:15px;
-
-    font-weight:600;
-
-}
-
-/* Search & Refresh Buttons Same Size */
-
-#searchBtn,
-#refreshBtn{
-
-    width:120px;
-    height:50px;
+    min-width:350px;
+    height:40px;
 
     display:flex;
     align-items:center;
-    justify-content:center;
 
-    padding:0;
+    background:#fff;
+    border:1px solid #dbe2ea;
+    border-radius:12px;
 
-    font-size:15px;
-    font-weight:600;
-
-    border-radius:10px;
-
+    padding:0 15px;
 }
 
-/* =====================================
-   Search & Refresh Buttons
-===================================== */
+.search-icon{
+    margin-right:10px;
+    font-size:18px;
+}
 
-#searchBtn,
-#refreshBtn{
+.search-input-group input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:transparent;
+    font-size:14px;
+}
 
-    background:#10b8d9;
+.search-input-group:focus-within{
+    border-color:#1565c0;
+    box-shadow:0 0 0 3px rgba(21,101,192,.15);
+}
 
-    color:#fff;
+.search-btn,
+.refresh-btn{
+
+    height:40px;
+
+    min-width:95px;
+
+    padding:0 18px;
 
     border:none;
 
-    height:34px;
+    border-radius:8px;
 
-    min-width:90px;
-
-    padding:0 14px;
-
-    border-radius:6px;
+    color:#fff;
 
     font-size:14px;
 
     font-weight:600;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
-    gap:5px;
+    gap:6px;
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:all .3s ease;
+}
+
+.search-btn{
+    background:#1565c0;
+}
+
+.refresh-btn{
+    background:#10b8d9;
+}
+
+.search-btn:hover{
+    background:#0d47a1;
+    transform:translateY(-2px);
+}
+
+.refresh-btn:hover{
+    background:#0891b2;
+    transform:translateY(-2px);
+}
+
+/* =====================================
+   Table Row Hover Effect
+===================================== */
+
+#feeTable tbody tr,
+#historyTable tbody tr{
+
+    transition:all .25s ease;
 
 }
 
-#searchBtn:hover,
-#refreshBtn:hover{
+#feeTable tbody tr:hover,
+#historyTable tbody tr:hover{
 
-    background:#0aa2c0;
+    background:#eef8ff;
+
+    transform:scale(1.002);
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 
 }
+
+/* =====================================
+   Print Button Hover
+===================================== */
+
+.print-btn{
+
+    transition:all .25s ease;
+
+}
+
+.print-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 5px 12px rgba(13,202,240,.35);
+
+}
+
+/* =====================================
+   Collect Button Hover
+===================================== */
+
+#collectFeeBtn,
+#feeTable button{
+
+    transition:all .25s ease;
+
+}
+
+#collectFeeBtn:hover,
+#feeTable button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 5px 12px rgba(0,188,212,.35);
+
+}
+
