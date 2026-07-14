@@ -3,25 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Settings - RR Technologies Gym Pro</title>
 
     <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="settings.css">
 </head>
+
 <body>
 
     <!-- Sidebar -->
     <div id="sidebarContainer"></div>
 
     <!-- Main Content -->
-    <div class="main-content">
+    <main class="main-content">
 
-        <h1>⚙️ Gym Settings</h1>
+        <!-- Hero Banner -->
+        <section class="settings-hero">
 
-        <div class="form-container">
+            <div class="hero-left">
+
+                <div class="hero-icon">
+                    ⚙️
+                </div>
+
+                <div>
+
+                    <h1>Gym Settings</h1>
+
+                    <p>
+                        Configure your Gym Information, Branding,
+                        Backup & Restore Settings
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Main Card -->
+
+        <section class="settings-card">
 
             <form id="settingsForm">
+
+                <h2 class="section-title">
+                    🏋 Gym Information
+                </h2>
 
                 <label>Gym Name</label>
                 <input type="text" id="gymName">
@@ -39,65 +70,98 @@
                 <textarea id="address"></textarea>
 
                 <label>Receipt Prefix</label>
-                <input type="text" id="receiptPrefix" value="RCPT">
+                <input
+                    type="text"
+                    id="receiptPrefix"
+                    value="RCPT">
 
                 <label>Currency</label>
 
                 <select id="currency">
-                    <option value="₹">Indian Rupee (₹)</option>
-                    <option value="$">US Dollar ($)</option>
-                    <option value="€">Euro (€)</option>
+
+                    <option value="₹">
+                        Indian Rupee (₹)
+                    </option>
+
+                    <option value="$">
+                        US Dollar ($)
+                    </option>
+
+                    <option value="€">
+                        Euro (€)
+                    </option>
+
                 </select>
 
-                <br><br>
+                <hr>
 
-                <div class="form-group">
+                <h2 class="section-title">
 
-                    <label for="gymLogo">Gym Logo</label>
+                    🖼 Gym Branding
+
+                </h2>
+
+                <div class="logo-section">
+
+                    <label for="gymLogo">
+                        Upload Gym Logo
+                    </label>
 
                     <input
                         type="file"
                         id="gymLogo"
                         accept="image/*">
 
-                    <br><br>
-
                     <img
                         id="logoPreview"
                         src=""
-                        alt="Logo Preview"
-                        style="
-                            width:120px;
-                            height:120px;
-                            object-fit:contain;
-                            border:1px solid #ccc;
-                            border-radius:10px;
-                            padding:8px;
-                            background:#fff;
-                        ">
+                        alt="Logo Preview">
 
                 </div>
 
-                <br>
+                <div class="button-group">
 
-                <button type="submit">
-                    💾 Save Settings
-                </button>
+                    <button
+                        type="submit"
+                        class="save-btn">
 
-                <button type="reset">
-                    🔄 Reset
-                </button>
+                        💾 Save Settings
+
+                    </button>
+
+                    <button
+                        type="reset"
+                        class="reset-btn">
+
+                        🔄 Reset
+
+                    </button>
+
+                </div>
 
             </form>
 
-            <hr style="margin:35px 0;">
+        </section>
 
-            <h2>💾 Data Backup & Restore</h2>
+
+        <!-- Backup Card -->
+
+        <section class="settings-card">
+
+            <h2 class="section-title">
+
+                💾 Data Backup & Restore
+
+            </h2>
 
             <div class="backup-section">
 
-                <button id="backupBtn" class="backup-btn">
+                <button
+                    id="backupBtn"
+                    class="backup-btn">
+
                     💾 Backup Data
+
                 </button>
 
                 <br><br>
@@ -117,16 +181,16 @@
 
             </div>
 
-        </div>
+        </section>
 
-    </div>
+    </main>
 
     <!-- Scripts -->
 
     <script src="sidebar.js"></script>
 
     <script src="common.js"></script>
-
+    
     <script src="settings.js"></script>
 
 </body>

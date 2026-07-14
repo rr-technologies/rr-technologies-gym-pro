@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - RR Technologies Gym Pro</title>
+
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebarContainer"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Hero -->
+        <!-- ===========================
+     SETTINGS HERO BANNER
+============================ -->
+<div class="hero-banner">
+
+    <div class="hero-left">
+
+        <div class="hero-logo-box">
+            <img id="heroGymLogo" src="images/logo.png" alt="Gym Logo">
+        </div>
+
+        <div class="hero-text">
+            <h1 id="heroGymName">RR Technologies Gym Pro</h1>
+            <p>Professional Gym Management System</p>
+        </div>
+
+    </div>
+
+    <button class="save-top-btn" id="saveTopBtn">
+        💾 Save Settings
+    </button>
+
+</div>
+
+<div class="settings-card">
+
+    <h2>🏋️ Gym Information</h2>
+
+    <div class="settings-grid">
+
+        <!-- Logo -->
+        <div class="form-group full">
+            <label>Gym Logo</label>
+
+            <div class="logo-upload">
+
+                <img id="logoPreview"
+                     src="images/logo.png"
+                     alt="Logo">
+
+                <div class="logo-buttons">
+                    <input type="file"
+                           id="gymLogo"
+                           accept="image/*">
+
+                    <button
+                        type="button"
+                        class="remove-logo"
+                        id="removeLogo">
+                        Remove Logo
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Gym Name -->
+        <div class="form-group">
+            <label>Gym Name</label>
+            <input
+                type="text"
+                id="gymName"
+                placeholder="Enter Gym Name">
+        </div>
+
+        <!-- Owner -->
+        <div class="form-group">
+            <label>Owner Name</label>
+            <input
+                type="text"
+                id="ownerName"
+                placeholder="Owner Name">
+        </div>
+
+        <!-- Mobile -->
+        <div class="form-group">
+            <label>Mobile Number</label>
+            <input
+                type="text"
+                id="mobile">
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label>Email</label>
+            <input
+                type="email"
+                id="email">
+        </div>
+
+        <!-- Address -->
+        <div class="form-group full">
+            <label>Address</label>
+
+            <textarea
+                id="address"
+                rows="4"></textarea>
+        </div>
+
+    </div>
+
+</div>
+
+            <!-- Backup -->
+
+            <div class="backup-section">
+
+                <h2>💾 Data Backup & Restore</h2>
+
+                <div class="backup-row">
+
+                    <button
+                        id="backupBtn"
+                        class="backup-btn">
+
+                        💾 Backup Data
+
+                    </button>
+
+                    <input
+                        type="file"
+                        id="restoreFile"
+                        accept=".json">
+
+                    <button
+                        id="restoreBtn"
+                        class="restore-btn">
+
+                        📂 Restore Data
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+   
+    <script src="sidebar.js"></script>
+
+    <script src="common.js"></script>
+
+    <script src="settings.js"></script>
+
+</body>
+</html>

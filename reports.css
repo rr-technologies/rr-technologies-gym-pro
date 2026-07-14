@@ -11,18 +11,26 @@
 
 /* ================= Main Content ================= */
 
+html,
+body{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+}
+
 .main-content{
     margin-left:250px;
     padding:30px;
-    min-height:100vh;
+    height:100vh;
+    overflow-y:auto;
+    overflow-x:hidden;
     background:#f4f7fc;
+    scroll-behavior:smooth;
 }
 
-.main-content h1{
-    font-size:42px;
-    color:#1f2937;
-    margin-bottom:30px;
-}
+
 
 .main-content h2{
     color:#1f2937;
@@ -35,31 +43,46 @@
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:20px;
-    margin-bottom:30px;
+
 }
 
 .card{
-    background:#fff;
-    border-radius:14px;
+
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:18px;
     padding:25px;
-    box-shadow:0 6px 18px rgba(0,0,0,.08);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
     transition:.3s;
+     min-height:140px;
+
 }
 
 .card:hover{
-    transform:translateY(-4px);
+
+    transform:translateY(-6px) scale(1.02);
+    background:rgba(255,255,255,.25);
+
 }
 
 .card h3{
-    color:#555;
-    font-size:16px;
-    margin-bottom:20px;
+
+    color:#fff;
+    font-size:18px;
+    margin-bottom:15px;
+
 }
 
 .card h2{
-    color:#06b6d4;
-    font-size:42px;
+
+    color:#fff;
+    font-size:46px;
     margin:0;
+
 }
 
 /* ================= Filter Box ================= */
@@ -269,4 +292,44 @@
 
 }
 
+}
+
+/* ==========================================
+   Reports Hero Banner
+========================================== */
+
+.reports-hero{
+    background:linear-gradient(135deg,#2563eb,#0ea5e9);
+    border-radius:20px;
+    padding:25px 30px;  
+    margin-bottom:30px;
+    color:#fff;
+    box-shadow:0 12px 30px rgba(37,99,235,.25);
+}
+
+.hero-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.hero-title h1{
+     margin:0 0 8px 0;
+    font-size:42px;
+    color:#fff;
+}
+
+.hero-title p{
+    margin-top:8px;
+    font-size:18px;
+    color:#eaf4ff;
+}
+
+.hero-date{
+    text-align:right;
+    font-size:17px;
+    font-weight:600;
+    color:#fff;
 }

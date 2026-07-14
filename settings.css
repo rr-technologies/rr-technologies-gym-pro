@@ -1,5 +1,7 @@
 /* ==========================================
-   RR Technologies Gym Pro - Settings
+   RR Technologies Gym Pro
+   Settings Page - Premium UI
+   Part 1
 ========================================== */
 
 *{
@@ -9,50 +11,115 @@
     font-family:Arial, Helvetica, sans-serif;
 }
 
-/* ================= Main Content ================= */
+html,
+body{
+    height:100%;
+    overflow-x:hidden;
+    background:#eef3f9;
+}
+
+/* ===========================
+   Main Content
+=========================== */
 
 .main-content{
     margin-left:250px;
     padding:30px;
     min-height:100vh;
-    background:#f4f7fc;
+    overflow-y:auto;
+    background:#eef3f9;
 }
 
-.main-content h1{
-    font-size:42px;
+/* ===========================
+   Hero Banner
+=========================== */
+
+.settings-hero{
+    background:linear-gradient(135deg,#2563eb,#06b6d4);
+    color:#fff;
+    border-radius:18px;
+    padding:25px 30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:25px;
+    box-shadow:0 12px 30px rgba(37,99,235,.25);
+    transition:.35s;
+}
+
+.settings-hero:hover{
+    transform:translateY(-4px);
+    box-shadow:0 18px 40px rgba(37,99,235,.35);
+}
+
+.hero-left{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.hero-icon{
+    width:70px;
+    height:70px;
+    border-radius:16px;
+    background:rgba(255,255,255,.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    backdrop-filter:blur(8px);
+}
+
+.settings-hero h1{
+    font-size:34px;
+    margin-bottom:8px;
+}
+
+.settings-hero p{
+    opacity:.95;
+    font-size:15px;
+}
+
+/* ===========================
+   Card
+=========================== */
+
+.settings-card{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    margin-bottom:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.settings-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 18px 35px rgba(0,0,0,.12);
+}
+
+.section-title{
+    font-size:22px;
     color:#1f2937;
     margin-bottom:25px;
+    padding-bottom:10px;
+    border-bottom:2px solid #e5e7eb;
 }
 
-.main-content h2{
-    color:#1f2937;
-    margin-bottom:20px;
-}
-
-/* ================= Form ================= */
-
-.form-container{
-
-    background:#fff;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 6px 18px rgba(0,0,0,.08);
-
-}
+/* ===========================
+   Form
+=========================== */
 
 #settingsForm{
-
     display:flex;
     flex-direction:column;
-    gap:15px;
-
+    gap:16px;
 }
 
 #settingsForm label{
-
-    font-weight:bold;
+    font-weight:600;
     color:#374151;
-
+    margin-top:6px;
 }
 
 #settingsForm input,
@@ -60,154 +127,298 @@
 #settingsForm textarea{
 
     width:100%;
-    padding:12px;
+    padding:13px 15px;
     border:1px solid #d1d5db;
-    border-radius:8px;
+    border-radius:10px;
+    background:#fff;
     font-size:15px;
+    transition:.30s;
     outline:none;
-    transition:.3s;
-
 }
 
 #settingsForm textarea{
-
-    min-height:100px;
+    min-height:110px;
     resize:vertical;
+}
 
+#settingsForm input:hover,
+#settingsForm select:hover,
+#settingsForm textarea:hover{
+
+    border-color:#2563eb;
 }
 
 #settingsForm input:focus,
 #settingsForm select:focus,
 #settingsForm textarea:focus{
 
-    border-color:#06b6d4;
-    box-shadow:0 0 8px rgba(6,182,212,.2);
-
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
 }
 
-/* ================= Logo ================= */
+/* ===========================
+   Logo
+=========================== */
 
-.form-group{
+.logo-section{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
 
-    margin-top:10px;
-
+#gymLogo{
+    padding:10px;
+    background:#f8fafc;
 }
 
 #logoPreview{
 
-    width:120px;
-    height:120px;
+    width:140px;
+    height:140px;
     object-fit:contain;
-    border:1px solid #ddd;
-    border-radius:12px;
-    padding:8px;
+    border-radius:16px;
+    border:2px dashed #cbd5e1;
+    padding:12px;
     background:#fff;
-    margin-top:10px;
-
+    transition:.30s;
 }
 
-/* ================= Buttons ================= */
+#logoPreview:hover{
+
+    transform:scale(1.05);
+    box-shadow:0 10px 25px rgba(37,99,235,.20);
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.button-group{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.button-group button{
+    flex:1;
+    min-width:180px;
+}
 
 button{
-
     border:none;
-    border-radius:8px;
-    padding:12px 20px;
+    border-radius:10px;
+    padding:14px 22px;
     color:#fff;
     font-size:15px;
-    font-weight:bold;
+    font-weight:600;
     cursor:pointer;
-    transition:.3s;
-    margin-top:10px;
+    transition:all .3s ease;
+    letter-spacing:.3px;
 }
 
+.save-btn,
 button[type="submit"]{
-
-    background:#06b6d4;
-
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
 }
 
+.save-btn:hover,
 button[type="submit"]:hover{
-
-    background:#0891b2;
-
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(37,99,235,.35);
 }
 
+.reset-btn,
 button[type="reset"]{
-
-    background:#6b7280;
-
+    background:linear-gradient(135deg,#6b7280,#4b5563);
 }
 
+.reset-btn:hover,
 button[type="reset"]:hover{
-
-    background:#4b5563;
-
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(107,114,128,.35);
 }
 
-/* ================= Backup & Restore ================= */
+/* ===========================
+   Divider
+=========================== */
+
+hr{
+    border:none;
+    border-top:1px solid #e5e7eb;
+    margin:30px 0;
+}
+
+/* ===========================
+   Backup Section
+=========================== */
 
 .backup-section{
-
-    margin-top:20px;
-    padding:25px;
     background:#f8fafc;
-    border-radius:12px;
-    border:1px solid #e5e7eb;
+    border:1px solid #dbe4ee;
+    border-radius:15px;
+    padding:25px;
+    transition:.3s;
+}
 
+.backup-section:hover{
+    box-shadow:0 12px 25px rgba(0,0,0,.08);
+}
+
+.backup-section input[type="file"]{
+    width:100%;
+    padding:12px;
+    background:#fff;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    margin:15px 0;
 }
 
 .backup-btn{
-
-    background:#0f766e;
-
+    background:linear-gradient(135deg,#059669,#047857);
 }
 
 .backup-btn:hover{
-
-    background:#115e59;
-
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(5,150,105,.35);
 }
 
 .restore-btn{
-
-    background:#2563eb;
-
+    background:linear-gradient(135deg,#f59e0b,#d97706);
 }
 
 .restore-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(245,158,11,.35);
+}
 
+/* ===========================
+   Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#e5e7eb;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#2563eb;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
     background:#1d4ed8;
-
 }
 
-#restoreFile{
+/* ===========================
+   Smooth Animation
+=========================== */
 
-    margin:15px 0;
-
+input,
+textarea,
+select,
+button,
+.settings-card,
+.settings-hero{
+    transition:all .3s ease;
 }
 
-/* ================= Responsive ================= */
+/* ===========================
+   Responsive
+=========================== */
 
-@media(max-width:768px){
+@media (max-width:992px){
 
 .main-content{
-
     margin-left:0;
     padding:20px;
+}
+
+.settings-hero{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:18px;
+}
+
+.hero-left{
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.settings-card{
+    padding:20px;
+}
+
+.button-group{
+    flex-direction:column;
+}
+
+.button-group button{
+    width:100%;
+}
+
+#logoPreview{
+    width:120px;
+    height:120px;
+}
 
 }
 
-.form-container{
+@media (max-width:768px){
 
-    padding:20px;
+.settings-hero h1{
+    font-size:28px;
+}
 
+.settings-hero p{
+    font-size:14px;
+}
+
+.section-title{
+    font-size:20px;
 }
 
 button{
-
     width:100%;
-
 }
 
 }
+
+@media (max-width:480px){
+
+.main-content{
+    padding:15px;
+}
+
+.settings-card{
+    padding:15px;
+}
+
+.settings-hero{
+    padding:20px;
+}
+
+.hero-icon{
+    width:55px;
+    height:55px;
+    font-size:28px;
+}
+
+.settings-hero h1{
+    font-size:24px;
+}
+
+#settingsForm input,
+#settingsForm select,
+#settingsForm textarea{
+    font-size:14px;
+}
+
+}
+
+/* ===========================
+   End
+=========================== */

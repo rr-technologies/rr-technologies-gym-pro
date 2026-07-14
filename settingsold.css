@@ -1,0 +1,444 @@
+/* ==========================================
+   RR Technologies Gym Pro - Settings
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ================= Main Content ================= */
+
+.main-content{
+    margin-left:250px;
+    padding:30px;
+    min-height:100vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+    background:#f4f7fc;
+    scroll-behavior:smooth;
+}
+
+.main-content h1{
+    font-size:42px;
+    color:#1f2937;
+    margin-bottom:25px;
+}
+
+.main-content h2{
+    color:#1f2937;
+    margin-bottom:20px;
+}
+
+/* ================= Form ================= */
+
+.form-container{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:35px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+    border:1px solid #e5e7eb;
+
+}
+
+#settingsForm{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    column-gap:40px;
+
+    row-gap:20px;
+
+}
+#settingsForm label{
+
+    font-weight:bold;
+    color:#374151;
+
+}
+
+#settingsForm input,
+#settingsForm select,
+#settingsForm textarea{
+
+    width:100%;
+    max-width:none;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+    transition:.3s;
+
+}
+
+#settingsForm textarea{
+
+    min-height:100px;
+    resize:vertical;
+
+}
+
+#settingsForm input:focus,
+#settingsForm select:focus,
+#settingsForm textarea:focus{
+
+    border-color:#06b6d4;
+    box-shadow:0 0 8px rgba(6,182,212,.2);
+
+}.form-group{
+
+    grid-column:1 / span 2;
+
+    text-align:center;
+
+    margin-top:10px;
+
+}
+
+button[type="submit"],
+button[type="reset"]{
+
+    width:220px;
+
+}
+
+button[type="submit"]{
+
+    margin-right:15px;
+
+}
+
+/* ================= Logo ================= */
+
+.form-group{
+
+    margin-top:10px;
+
+}
+
+#logoPreview{
+
+    width:180px;
+
+    height:180px;
+
+    object-fit:contain;
+
+    border:2px dashed #cbd5e1;
+
+    border-radius:18px;
+
+    padding:15px;
+
+    background:#fff;
+
+    margin-top:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+/* ================= Buttons ================= */
+
+button{
+
+    border:none;
+    border-radius:8px;
+   padding:14px 24px;
+    color:#fff;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+    margin-top:10px;
+    font-size:16px;
+}
+
+button[type="submit"]{
+
+    background:#06b6d4;
+
+}
+
+button[type="submit"]:hover{
+
+    background:#0891b2;
+
+}
+
+button[type="reset"]{
+
+    background:#6b7280;
+
+}
+
+button[type="reset"]:hover{
+
+    background:#4b5563;
+
+}
+
+/* ================= Backup & Restore ================= */
+
+.backup-section{
+
+    margin-top:20px;
+    padding:25px;
+    background:#f8fafc;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+
+}
+
+.backup-btn{
+
+    background:#0f766e;
+
+}
+
+.backup-btn:hover{
+
+    background:#115e59;
+
+}
+
+.restore-btn{
+
+    background:#2563eb;
+
+}
+
+.restore-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+#restoreFile{
+
+    margin:15px 0;
+
+}
+
+/* ================= Responsive ================= */
+
+@media(max-width:768px){
+
+.main-content{
+
+    margin-left:0;
+    padding:20px;
+
+}
+
+.form-container{
+
+    padding:20px;
+
+}
+
+button{
+
+    width:100%;
+
+}
+
+}
+
+/* ==========================================
+   Settings Hero Banner
+========================================== */
+
+.settings-hero{
+
+    background:linear-gradient(135deg,#2563eb,#0ea5e9);
+
+    border-radius:20px;
+
+    padding:25px 30px;
+
+    margin-bottom:30px;
+
+    color:#fff;
+
+    box-shadow:0 12px 30px rgba(37,99,235,.25);
+
+}
+
+.settings-hero h1{
+
+    margin:0 0 8px;
+
+    color:#fff;
+
+    font-size:42px;
+
+}
+
+.settings-hero p{
+
+    margin:0;
+
+    color:#eaf4ff;
+
+    font-size:18px;
+
+}
+
+.settings-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:25px 40px;
+
+}
+
+.settings-grid label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+}
+
+.settings-grid input,
+.settings-grid select,
+.settings-grid textarea{
+
+    width:100%;
+
+}
+
+.form-group{
+
+    grid-column:2;
+
+    text-align:center;
+
+}
+
+.form-group input{
+
+    width:100%;
+
+}
+
+button[type="submit"]{
+
+    width:100%;
+
+}
+
+button[type="reset"]{
+
+    width:100%;
+
+}
+
+/* ==========================
+   SETTINGS HERO
+========================== */
+
+.hero-banner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:25px 30px;
+    margin-bottom:25px;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:#fff;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.hero-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.hero-logo-box{
+    width:80px;
+    height:80px;
+
+    border-radius:16px;
+    background:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.hero-logo-box img{
+    width:65px;
+    height:65px;
+    object-fit:contain;
+}
+
+.hero-text h1{
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.hero-text p{
+    opacity:.9;
+    font-size:15px;
+}
+
+.save-top-btn{
+    border:none;
+    padding:12px 24px;
+
+    border-radius:10px;
+
+    background:#22c55e;
+    color:#fff;
+
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.save-top-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* ==========================
+   SETTINGS PAGE WIDTH
+========================== */
+
+.form-container{
+    max-width:1000px;
+    margin:30px auto;
+}
+
+.settings-header{
+    margin-bottom:25px;
+}
+
+.settings-header h1{
+    font-size:46px;
+    font-weight:700;
+}
+
+.settings-card{
+    border-radius:18px;
+}

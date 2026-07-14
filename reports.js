@@ -157,26 +157,48 @@ document.getElementById("refreshReportBtn").addEventListener("click", function (
 
     });
 
-// ============================
-// Summary
+        // ============================
+// Excel Export
 // ============================
 
-let total = 0;
+document.getElementById("excelReportBtn").addEventListener("click", function () {
 
-currentReport.forEach(record => {
-    total += Number(record.amount);
+    if (currentReport.length === 0) {
+        alert("No data available to export.");
+        return;
+    }
+
+    let csv =
+        "Receipt No,Member ID,Member Name,Amount,Payment Mode,Date\n";
+
+    currentReport.forEach(record => {
+
+        csv +=
+            `"${record.receiptNo}",` +
+            `"${record.memberId}",` +
+            `"${record.memberName}",` +
+            `"${record.amount}",` +
+            `"${record.mode}",` +
+            `"${record.date}"\n`;
+
+    });
+
+    const blob = new Blob([csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = "Collection_Report.csv";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
 });
-
-const finalY = doc.lastAutoTable.finalY + 15;
-
-doc.setFontSize(14);
-doc.setTextColor(0, 0, 0);
-doc.text("Summary", 14, finalY);
-
-doc.setFontSize(11);
-doc.text("Total Records : " + currentReport.length, 14, finalY + 10);
-doc.text("Total Collection : ₹" + total, 14, finalY + 20);
-
-    doc.save("Collection_Report.pdf");
 
 });
