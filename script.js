@@ -11,6 +11,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const togglePassword = document.getElementById("togglePassword");
 
+
+    /* =========================
+   Load Gym Branding
+========================== */
+
+const loginLogo = document.getElementById("loginLogo");
+const loginTitle = document.querySelector(".logo-section h1");
+
+const settings = JSON.parse(localStorage.getItem("gymSettings")) || {};
+
+// Load uploaded logo
+if (loginLogo) {
+    if (settings.logo) {
+        loginLogo.src = settings.logo;
+    } else {
+        loginLogo.src = "images/logo.png";
+    }
+}
+
+// Load gym name
+if (loginTitle && settings.gymName) {
+    loginTitle.textContent = settings.gymName;
+}
+    
     /* =========================
        Show / Hide Password
     ========================== */

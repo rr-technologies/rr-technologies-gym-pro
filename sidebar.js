@@ -6,38 +6,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             document.getElementById("sidebarContainer").innerHTML = data;
 
-            // =========================
-            // Load Gym Settings
-            // =========================
+            loadGymSettings();
 
-            const settings = JSON.parse(localStorage.getItem("gymSettings")) || {};
-
-            const logo = document.getElementById("sidebarLogo");
-            const name = document.getElementById("sidebarGymName");
-
-            if (logo) {
-                logo.src = settings.logo || "logo.png";
-            }
-
-            if (name) {
-                name.innerHTML = (settings.gymName || "RR Technologies Gym Pro")
-                    .replace(" Gym Pro", "<br>Gym Pro");
-            }
-
-            // =========================
-            // Active Menu Highlight
-            // =========================
-
+            // Active Menu
             const currentPage = window.location.pathname.split("/").pop();
 
             document.querySelectorAll(".sidebar a").forEach(link => {
 
-                const href = link.getAttribute("href");
-
-                if (href === currentPage) {
+                if (link.getAttribute("href") === currentPage) {
                     link.classList.add("active");
-                } else {
-                    link.classList.remove("active");
                 }
 
             });
@@ -45,3 +22,33 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 });
+
+// =========================
+// Load Gym Settings
+// =========================
+
+function loadGymSettings() {
+
+    const settings = JSON.parse(localStorage.getItem("gymSettings")) || {};
+
+    const logo = document.getElementById("sidebarLogo");
+    const name = document.getElementById("sidebarGymName");
+
+    if (logo) {
+        logo.src = settings.logo || "logo.png";
+    }
+
+    if (name) {
+        name.innerHTML = (settings.gymName || "RR Technologies Gym Pro")
+            .replace(" Gym Pro", "<br>Gym Pro");
+    }
+
+}
+
+// =========================
+// Global Refresh Function
+// =========================
+
+window.refreshSidebarBranding = function () {
+    loadGymSettings();
+};

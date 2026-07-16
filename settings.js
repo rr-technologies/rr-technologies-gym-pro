@@ -1,68 +1,114 @@
-document.addEventListener("DOMContentLoaded", function () {
+// =============================================
+// RR Technologies Gym Pro
+// Settings Module (Clean Version)
+// Part 1
+// =============================================
 
-    // ===========================
+document.addEventListener("DOMContentLoaded", () => {
+
+    // ==========================
     // DOM Elements
-    // ===========================
+    // ==========================
 
     const form = document.getElementById("settingsForm");
+
+    const gymName = document.getElementById("gymName");
+    const ownerName = document.getElementById("ownerName");
+    const mobile = document.getElementById("mobile");
+    const email = document.getElementById("email");
+    const address = document.getElementById("address");
+    const receiptPrefix = document.getElementById("receiptPrefix");
+    const currency = document.getElementById("currency");
 
     const logoInput = document.getElementById("gymLogo");
     const logoPreview = document.getElementById("logoPreview");
 
+
+
+    // ==========================
+    // Default Settings
+    // ==========================
+
+    const defaultSettings = {
+
+        gymName: "RR Technologies Gym Pro",
+
+        ownerName: "",
+
+        mobile: "",
+
+        email: "",
+
+        address: "",
+
+        receiptPrefix: "RCPT",
+
+        currency: "₹",
+
+        logo: "logo.png"
+
+    };
+
+    let settings = {
+        ...defaultSettings,
+        ...(JSON.parse(localStorage.getItem("gymSettings")) || {})
+    };
+
+    // ==========================
+    // Apply Branding
+    // ==========================
+
+    function updateBranding(data) {
+
     const sidebarLogo = document.getElementById("sidebarLogo");
     const sidebarGymName = document.getElementById("sidebarGymName");
 
-    // ===========================
-    // Load Saved Settings
-    // ===========================
-
-    const settings = JSON.parse(localStorage.getItem("gymSettings")) || {};
-
-    document.getElementById("gymName").value = settings.gymName || "";
-    document.getElementById("ownerName").value = settings.ownerName || "";
-    document.getElementById("mobile").value = settings.mobile || "";
-    document.getElementById("email").value = settings.email || "";
-    document.getElementById("address").value = settings.address || "";
-    document.getElementById("receiptPrefix").value = settings.receiptPrefix || "RCPT";
-    document.getElementById("currency").value = settings.currency || "₹";
-
-    // ===========================
-    // Load Logo
-    // ===========================
-
-    if (settings.logo) {
-
-        logoPreview.src = settings.logo;
-
-        if (sidebarLogo) {
-            sidebarLogo.src = settings.logo;
-        }
-
-    } else {
-
-        logoPreview.src = "logo.png";
-
-        if (sidebarLogo) {
-            sidebarLogo.src = "logo.png";
-        }
-
+    if (logoPreview) {
+        logoPreview.src = data.logo || "logo.png";
     }
 
-    // ===========================
-    // Load Gym Name
-    // ===========================
+    if (sidebarLogo) {
+        sidebarLogo.src = data.logo || "logo.png";
+    }
+    
 
     if (sidebarGymName) {
 
         sidebarGymName.innerHTML =
-            (settings.gymName || "RR Technologies Gym Pro")
-            .replace(" Gym Pro", "<br>Gym Pro");
+            (data.gymName || "RR Technologies Gym Pro")
+                .replace(" Gym Pro", "<br>Gym Pro");
+    }
+
+}
+
+
+        // ==========================
+    // Load Settings
+    // ==========================
+
+    function loadSettings() {
+
+        gymName.value = settings.gymName;
+        ownerName.value = settings.ownerName;
+        mobile.value = settings.mobile;
+        email.value = settings.email;
+        address.value = settings.address;
+        receiptPrefix.value = settings.receiptPrefix;
+        currency.value = settings.currency;
+
+        updateBranding(settings);
+
+        if (window.refreshSidebarBranding) {
+    window.refreshSidebarBranding();
+}
 
     }
 
-    // ===========================
-    // Preview Selected Logo
-    // ===========================
+    loadSettings();
+
+    // ==========================
+    // Logo Preview
+    // ==========================
 
     logoInput.addEventListener("change", function () {
 
@@ -74,7 +120,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         reader.onload = function (e) {
 
-            logoPreview.src = e.target.result;
+            settings.logo = e.target.result;
+
+            logoPreview.src = settings.logo;
 
         };
 
@@ -82,106 +130,62 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-    // ===========================
+    // ==========================
     // Save Settings
-    // ===========================
+    // ==========================
 
     form.addEventListener("submit", function (e) {
 
         e.preventDefault();
 
-        const gymSettings = {
+        settings.gymName = gymName.value.trim();
+        settings.ownerName = ownerName.value.trim();
+        settings.mobile = mobile.value.trim();
+        settings.email = email.value.trim();
+        settings.address = address.value.trim();
+        settings.receiptPrefix = receiptPrefix.value.trim();
+        settings.currency = currency.value;
 
-            gymName: document.getElementById("gymName").value.trim(),
+        localStorage.setItem(
+            "gymSettings",
+            JSON.stringify(settings)
+        );
 
-            ownerName: document.getElementById("ownerName").value.trim(),
+        updateBranding(settings);
 
-            mobile: document.getElementById("mobile").value.trim(),
+    
 
-            email: document.getElementById("email").value.trim(),
+// Sidebar load complete ayina tarvata malli update cheyyi
+setTimeout(() => {
+    updateBranding(settings);
+}, 200);
 
-            address: document.getElementById("address").value.trim(),
-
-            receiptPrefix: document.getElementById("receiptPrefix").value.trim(),
-
-            currency: document.getElementById("currency").value,
-
-            logo: settings.logo || ""
-
-        };
-
-        const file = logoInput.files[0];
-
-        if (file) {
-
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-
-                gymSettings.logo = e.target.result;
-
-                localStorage.setItem(
-                    "gymSettings",
-                    JSON.stringify(gymSettings)
-                );
-
-                if (sidebarLogo) {
-                    sidebarLogo.src = gymSettings.logo;
-                }
-
-                if (sidebarGymName) {
-
-                    sidebarGymName.innerHTML =
-                        gymSettings.gymName.replace(
-                            " Gym Pro",
-                            "<br>Gym Pro"
-                        );
-
-                }
-
-                logoPreview.src = gymSettings.logo;
-
-                alert("✅ Settings Saved Successfully!");
-
-            };
-
-            reader.readAsDataURL(file);
-
-        } else {
-
-            localStorage.setItem(
-                "gymSettings",
-                JSON.stringify(gymSettings)
-            );
-
-            if (sidebarGymName) {
-
-                sidebarGymName.innerHTML =
-                    gymSettings.gymName.replace(
-                        " Gym Pro",
-                        "<br>Gym Pro"
-                    );
-
-            }
-
-            if (sidebarLogo) {
-
-                sidebarLogo.src =
-                    gymSettings.logo || "logo.png";
-
-            }
-
-            alert("✅ Settings Saved Successfully!");
-
-        }
+alert("✅ Settings Saved Successfully!");
 
     });
 
-});
+        // ==========================
+    // Reset Form
+    // ==========================
 
-// ===========================
+    form.addEventListener("reset", function () {
+
+        setTimeout(() => {
+
+            settings = { ...defaultSettings };
+
+            loadSettings();
+
+        }, 0);
+
+    });
+
+}); // DOMContentLoaded End
+
+
+// ==========================
 // Backup Data
-// ===========================
+// ==========================
 
 document.getElementById("backupBtn").addEventListener("click", function () {
 
@@ -236,29 +240,24 @@ document.getElementById("backupBtn").addEventListener("click", function () {
 
     alert("✅ Backup Downloaded Successfully!");
 
+
 });
 
-
-// ===========================
+// ==========================
 // Restore Data
-// ===========================
+// ==========================
 
 document.getElementById("restoreBtn").addEventListener("click", function () {
 
     const file = document.getElementById("restoreFile").files[0];
 
     if (!file) {
-
         alert("⚠ Please select a backup file.");
-
         return;
-
     }
 
     if (!confirm("Restore backup?\n\nCurrent data will be replaced.")) {
-
         return;
-
     }
 
     const reader = new FileReader();
@@ -270,11 +269,8 @@ document.getElementById("restoreBtn").addEventListener("click", function () {
             const backup = JSON.parse(e.target.result);
 
             if (!backup.version) {
-
                 alert("❌ Invalid Gym Pro Backup File!");
-
                 return;
-
             }
 
             localStorage.setItem(
@@ -307,15 +303,11 @@ document.getElementById("restoreBtn").addEventListener("click", function () {
                 backup.lastMemberId || "1000"
             );
 
-            alert(
-                "✅ Backup Restored Successfully!\n\nApplication will reload now."
-            );
+            alert("✅ Backup Restored Successfully!\n\nApplication will reload now.");
 
             location.reload();
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(error);
 
