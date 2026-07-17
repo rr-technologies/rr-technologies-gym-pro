@@ -327,3 +327,12 @@ alert("Membership Renewed Successfully!");
 
 }
 
+const refreshBtn = document.getElementById("refreshBtn");
+
+if (refreshBtn) {
+    refreshBtn.addEventListener("click", function () {
+        const searchInput = document.getElementById("searchMember");
+searchInput.value = "";
+searchInput.dispatchEvent(new Event("input"));
+    });
+}

@@ -63,7 +63,10 @@ body{
 }
 
 .search-box{
-    flex: 1;
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
 .search-box input{
@@ -76,6 +79,25 @@ body{
     border-radius: 10px;
 
     font-size: 16px;
+}
+
+.refresh-btn{
+    height:46px;
+    padding:0 18px;
+    border:none;
+    border-radius:10px;
+    background:#1565c0;
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+    white-space:nowrap;
+}
+
+.refresh-btn:hover{
+    background:#0d47a1;
+    transform:translateY(-2px);
 }
 
 

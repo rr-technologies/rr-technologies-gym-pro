@@ -1,0 +1,25 @@
+{
+  "name": "rr-technologies-gym-pro",
+  "version": "1.0.0",
+  "description": "RR Technologies Gym Pro",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rr-technologies/rr-technologies-gym-pro.git"
+  },
+  "keywords": [],
+  "author": "RR Technologies",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rr-technologies/rr-technologies-gym-pro/issues"
+  },
+  "homepage": "https://github.com/rr-technologies/rr-technologies-gym-pro#readme",
+  "devDependencies": {
+    "electron": "^43.1.1",
+    "electron-builder": "^26.15.3"
+  }
+}
