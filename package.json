@@ -4,8 +4,9 @@
   "description": "RR Technologies Gym Pro",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
-  },
+  "start": "electron .",
+  "dist": "electron-builder"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rr-technologies/rr-technologies-gym-pro.git"
