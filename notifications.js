@@ -154,7 +154,7 @@ function getRemainingDays(expiryDate) {
 
     if (!expiryDate) return null;
 
-    const today = new Date();
+    const today = currentTestDate ? new Date(currentTestDate) : new Date();
     today.setHours(0, 0, 0, 0);
 
     const expiry = new Date(expiryDate);
@@ -181,6 +181,11 @@ selectedDate.setHours(0, 0, 0, 0);
 let expiring3 = 0;
 let tomorrow = 0;
 let expired = 0;
+
+let list7HTML = "";
+let list3HTML = "";
+let listTomorrowHTML = "";
+let listExpiredHTML = "";
 
     console.log("Total Members :", members.length);
 
@@ -227,20 +232,52 @@ if (diffDays === 0) {
 
     expiring7++;
 
+    list7HTML += `
+        <div class="member-card">
+            <h4>${member.memberId} - ${member.name}</h4>
+            <p>Mobile : ${member.mobile}</p>
+            <p>Expiry : ${member.expiryDate}</p>
+        </div>
+    `;
+
 }
 else if (days === 3) {
 
     expiring3++;
+
+    list3HTML += `
+        <div class="member-card">
+            <h4>${member.memberId} - ${member.name}</h4>
+            <p>Mobile : ${member.mobile}</p>
+            <p>Expiry : ${member.expiryDate}</p>
+        </div>
+    `;
 
 }
 else if (days === 1) {
 
     tomorrow++;
 
+    listTomorrowHTML += `
+        <div class="member-card">
+            <h4>${member.memberId} - ${member.name}</h4>
+            <p>Mobile : ${member.mobile}</p>
+            <p>Expiry : ${member.expiryDate}</p>
+        </div>
+    `;
+
 }
 else if (days < 0) {
 
     expired++;
+
+    listExpiredHTML += `
+        <div class="member-card">
+            <h4>${member.memberId} - ${member.name}</h4>
+            <p>Mobile : ${member.mobile}</p>
+            <p>Expiry : ${member.expiryDate}</p>
+        </div>
+    `;
 
 }
 
@@ -262,5 +299,10 @@ document.getElementById("count7Days").textContent = expiring7;
 document.getElementById("count3Days").textContent = expiring3;
 document.getElementById("countTomorrow").textContent = tomorrow;
 document.getElementById("countExpired").textContent = expired;
+
+document.getElementById("list7Days").innerHTML = list7HTML;
+document.getElementById("list3Days").innerHTML = list3HTML;
+document.getElementById("listTomorrow").innerHTML = listTomorrowHTML;
+document.getElementById("listExpired").innerHTML = listExpiredHTML;
 
 }
