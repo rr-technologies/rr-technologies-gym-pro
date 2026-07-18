@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RR Technologies - Notifications</title>
+
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="notifications.css">
+</head>
+<body>
+
+<div id="sidebarContainer"></div>
+
+<div class="main-content">
+
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+
+        <div class="hero-logo">
+            <img id="dashboardLogo"
+                 src="images/logo.png"
+                  alt="Gym Logo">
+        </div>
+
+        <div class="hero-text">
+
+            <h1>🔔 Notifications</h1>
+
+            <h2 id="notificationGymName">
+                RR Technologies Gym Pro
+            </h2>
+
+            <p>
+                Manage Expiry Alerts & Member Notifications
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Greeting -->
+    <div class="greeting-card">
+
+        <h2 id="greetingText">
+            👋 Good Morning
+        </h2>
+
+        <p id="dateTimeText">
+            Sunday • 13 July 2026 • 06:55 PM
+        </p>
+
+    </div>
+
+    <!-- Test Date Panel -->
+<div class="test-date-card">
+
+    <h3>🧪 Test Notifications</h3>
+
+    <div class="test-date-row">
+
+        <label>
+            <input type="checkbox"
+                   id="useToday"
+                   checked>
+
+            Use Today's Date
+        </label>
+
+        <input
+            type="date"
+            id="testDate">
+
+        <button
+            id="applyTestDate">
+            Apply
+        </button>
+
+    </div>
+
+</div>
+
+    <!-- Summary Cards -->
+
+    <div class="summary-cards">
+
+        <div class="summary-card yellow">
+            <h3>🟡 Expiring in 7 Days</h3>
+            <h2 id="count7Days">0</h2>
+        </div>
+
+        <div class="summary-card orange">
+            <h3>🟠 Expiring in 3 Days</h3>
+            <h2 id="count3Days">0</h2>
+        </div>
+
+        <div class="summary-card red">
+            <h3>🔴 Expiring Tomorrow</h3>
+            <h2 id="countTomorrow">0</h2>
+        </div>
+
+        <div class="summary-card gray">
+            <h3>⛔ Expired Members</h3>
+            <h2 id="countExpired">0</h2>
+        </div>
+
+    </div>
+
+    <!-- Notifications Accordion -->
+
+    <div class="notification-container">
+
+        <!-- 7 Days -->
+
+        <div class="accordion">
+
+            <button class="accordion-header">
+
+                🟡 Expiring in 7 Days
+
+                <span id="badge7">0</span>
+
+            </button>
+
+            <div class="accordion-body">
+
+                <div id="list7Days"></div>
+
+            </div>
+
+        </div>
+
+        <!-- 3 Days -->
+
+        <div class="accordion">
+
+            <button class="accordion-header">
+
+                🟠 Expiring in 3 Days
+
+                <span id="badge3">0</span>
+
+            </button>
+
+            <div class="accordion-body">
+
+                <div id="list3Days"></div>
+
+            </div>
+
+        </div>
+
+        <!-- Tomorrow -->
+
+        <div class="accordion">
+
+            <button class="accordion-header">
+
+                🔴 Expiring Tomorrow
+
+                <span id="badgeTomorrow">0</span>
+
+            </button>
+
+            <div class="accordion-body">
+
+                <div id="listTomorrow"></div>
+
+            </div>
+
+        </div>
+
+        <!-- Expired -->
+
+        <div class="accordion">
+
+            <button class="accordion-header">
+
+                ⛔ Expired Members
+
+                <span id="badgeExpired">0</span>
+
+            </button>
+
+            <div class="accordion-body">
+
+                <div id="listExpired"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="sidebar.js"></script>
+<script src="common.js"></script>
+<script src="notifications.js"></script>
+
+</body>
+</html>

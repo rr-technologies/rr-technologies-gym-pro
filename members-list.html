@@ -98,6 +98,57 @@
 
         </div>
 
+        <!-- ==========================
+     WhatsApp Modal
+========================== -->
+
+<div id="whatsappModal" class="whatsapp-modal">
+
+    <div class="whatsapp-box">
+
+        <h2>📱 Send WhatsApp</h2>
+
+        <label>
+            <input type="radio" name="waType" value="welcome" checked>
+            Welcome Message
+        </label>
+
+        <label>
+            <input type="radio" name="waType" value="due">
+            Fee Due Reminder
+        </label>
+
+        <label>
+            <input type="radio" name="waType" value="renew">
+            Renewal Success
+        </label>
+
+        <label>
+            <input type="radio" name="waType" value="custom">
+            Custom Message
+        </label>
+
+        <textarea
+            id="customMessage"
+            placeholder="Type your custom message..."
+            style="display:none;"></textarea>
+
+        <div class="wa-buttons">
+
+            <button id="sendWhatsAppBtn">
+                📤 Send
+            </button>
+
+            <button id="closeWhatsAppBtn">
+                ❌ Cancel
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+        
     </div>
 
     <script src="common.js"></script>

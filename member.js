@@ -124,6 +124,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             fee: document.getElementById("fee").value,
 
+            testDate: document.getElementById("testDate").value,
+
             paymentStatus: "Unpaid",
 
             address: document.getElementById("address").value

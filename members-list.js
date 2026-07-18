@@ -106,6 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <button onclick="renewMember(${originalIndex})">🔄 Renew</button>
 
                     <button onclick="deleteMember(${originalIndex})">🗑 Delete</button>
+
+                    <button onclick="openWhatsAppModal(${originalIndex})">💬 WhatsApp</button>
+
                </td>
 
                 </tr>
@@ -326,6 +329,120 @@ window.location.reload();
 alert("Membership Renewed Successfully!");
 
 }
+
+// ===================================
+// WhatsApp Modal
+// ===================================
+
+let selectedMember = null;
+
+window.openWhatsAppModal = function(index){
+
+    const members = JSON.parse(localStorage.getItem("members")) || [];
+
+    selectedMember = members[index];
+
+    document.getElementById("whatsappModal").style.display = "flex";
+
+}
+
+document.getElementById("closeWhatsAppBtn").addEventListener("click", function(){
+
+    document.getElementById("whatsappModal").style.display = "none";
+
+});
+
+// Show / Hide Custom Message
+
+document.querySelectorAll('input[name="waType"]').forEach(radio => {
+
+    radio.addEventListener("change", function () {
+
+        document.getElementById("customMessage").style.display =
+            this.value === "custom"
+                ? "block"
+                : "none";
+
+    });
+
+});
+
+// ===================================
+// Send WhatsApp
+// ===================================
+
+document.getElementById("sendWhatsAppBtn").addEventListener("click", function () {
+
+    if (!selectedMember) return;
+
+    const type = document.querySelector('input[name="waType"]:checked').value;
+
+    let message = "";
+
+    switch (type) {
+
+        case "welcome":
+
+            message =
+`Hello ${selectedMember.name},
+
+Welcome to RR Technologies Gym! 💪
+
+We are excited to have you with us.
+
+Thank you!
+
+- RR Technologies Gym`;
+
+            break;
+
+        case "due":
+
+            message =
+`Hello ${selectedMember.name},
+
+Your gym membership fee is pending.
+
+Please visit the gym and renew your membership.
+
+Thank you!
+
+- RR Technologies Gym`;
+
+            break;
+
+        case "renew":
+
+            message =
+`Hello ${selectedMember.name},
+
+Your gym membership has been renewed successfully. ✅
+
+Thank you for continuing your fitness journey with us.
+
+- RR Technologies Gym`;
+
+            break;
+
+        case "custom":
+
+            message =
+document.getElementById("customMessage").value.trim();
+
+            if (!message) {
+                alert("Please enter your custom message.");
+                return;
+            }
+
+            break;
+
+    }
+
+    sendWhatsApp(selectedMember.mobile, message);
+
+    document.getElementById("whatsappModal").style.display = "none";
+
+});
 
 const refreshBtn = document.getElementById("refreshBtn");
 

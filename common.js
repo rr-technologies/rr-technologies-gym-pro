@@ -52,3 +52,37 @@ function getGymSettings() {
 function saveGymSettings(settings) {
     localStorage.setItem("gymSettings", JSON.stringify(settings));
 }
+
+// =======================================
+// WhatsApp Helper
+// =======================================
+
+function cleanMobileNumber(number) {
+
+    if (!number) return "";
+
+    // Remove spaces, +, -, etc.
+    number = number.toString().replace(/\D/g, "");
+
+    // Add India country code if missing
+    if (number.length === 10) {
+        number = "91" + number;
+    }
+
+    return number;
+}
+
+function sendWhatsApp(number, message) {
+
+    const mobile = cleanMobileNumber(number);
+
+    if (!mobile) {
+        alert("Invalid mobile number.");
+        return;
+    }
+
+    const url =
+        `https://wa.me/${mobile}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank");
+}

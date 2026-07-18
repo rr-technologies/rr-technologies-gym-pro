@@ -1,0 +1,425 @@
+/* ==========================================
+   RR Technologies Gym Pro
+   Notifications Page
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+}
+
+/* ==========================================
+   Main Content
+========================================== */
+
+.main-content{
+    margin-left:250px;
+    padding:30px;
+    min-height:100vh;
+}
+
+/* ==========================================
+   Hero Banner
+========================================== */
+
+.hero-banner{
+
+    display:flex;
+    align-items:center;
+    gap:30px;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    transition:all .35s ease;
+
+}
+
+.hero-banner:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.18);
+
+}
+
+.hero-logo img{
+
+    width:170px;
+    height:170px;
+
+    object-fit:contain;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:12px;
+
+    box-shadow:0 12px 28px rgba(0,0,0,.15);
+
+    transition:all .35s ease;
+
+}
+
+.hero-logo img:hover{
+
+    transform:scale(1.06);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.22);
+
+}
+
+.hero-text h1{
+    font-size:32px;
+    color:#1e88e5;
+    margin-bottom:10px;
+}
+
+.hero-text h2{
+    font-size:52px;
+    color:#1565c0;
+    margin-bottom:10px;
+}
+
+.hero-text p{
+    font-size:20px;
+    color:#666;
+}
+
+/* ==========================================
+   Greeting Card
+========================================== */
+
+.greeting-card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    transition:all .35s ease;
+
+}
+
+.greeting-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.18);
+
+}
+
+.greeting-card h2{
+    color:#1565c0;
+    font-size:42px;
+    margin-bottom:8px;
+}
+
+.greeting-card p{
+    color:#555;
+    font-size:24px;
+}
+
+/* ==========================================
+   Summary Cards
+========================================== */
+
+.summary-cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.summary-card{
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.summary-card:hover{
+    transform:translateY(-6px);
+}
+
+.summary-card h3{
+    font-size:20px;
+    margin-bottom:12px;
+}
+
+.summary-card h2{
+    font-size:42px;
+    color:#222;
+}
+
+.yellow{
+    border-left:8px solid #fbc02d;
+}
+
+.orange{
+    border-left:8px solid #fb8c00;
+}
+
+.red{
+    border-left:8px solid #e53935;
+}
+
+.gray{
+    border-left:8px solid #616161;
+}
+
+/* ==========================================
+   Accordion
+========================================== */
+
+.notification-container{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.accordion{
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.accordion-header{
+    width:100%;
+    background:#1565c0;
+    color:#fff;
+    border:none;
+    outline:none;
+    padding:20px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    font-size:22px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.accordion-header:hover{
+    background:#0d47a1;
+}
+
+.accordion-header span{
+    background:#fff;
+    color:#1565c0;
+    padding:5px 14px;
+    border-radius:50px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.accordion-body{
+    display:none;
+    padding:20px;
+    background:#fafafa;
+}
+
+.accordion.active .accordion-body{
+    display:block;
+}
+
+/* ==========================================
+   Notification Member Card
+========================================== */
+
+.member-card{
+    background:#fff;
+    border-radius:15px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.member-card:hover{
+    transform:translateY(-3px);
+}
+
+.member-name{
+    font-size:22px;
+    font-weight:bold;
+    color:#1565c0;
+    margin-bottom:8px;
+}
+
+.member-info{
+    font-size:17px;
+    color:#555;
+    line-height:30px;
+}
+
+.member-actions{
+    margin-top:15px;
+}
+
+.member-actions button{
+    padding:10px 18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:bold;
+    margin-right:10px;
+    transition:.3s;
+}
+
+.whatsapp-btn{
+    background:#25D366;
+    color:#fff;
+}
+
+.whatsapp-btn:hover{
+    background:#1ebc5a;
+}
+
+.renew-btn{
+    background:#ff9800;
+    color:#fff;
+}
+
+.renew-btn:hover{
+    background:#f57c00;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:1200px){
+
+.summary-cards{
+    grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:768px){
+
+.main-content{
+    margin-left:0;
+    padding:15px;
+}
+
+.hero-banner{
+    flex-direction:column;
+    text-align:center;
+}
+
+.hero-text h2{
+    font-size:34px;
+}
+
+.summary-cards{
+    grid-template-columns:1fr;
+}
+
+.greeting-card h2{
+    font-size:30px;
+}
+
+.greeting-card p{
+    font-size:18px;
+}
+
+}
+
+/* ==========================================
+   Test Date Card
+========================================== */
+
+.test-date-card{
+    background:#fff;
+    border-radius:20px;
+    padding:20px 25px;
+    margin-bottom:25px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.test-date-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.test-date-card h3{
+    color:#1565c0;
+    margin-bottom:18px;
+}
+
+.test-date-row{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.test-date-row label{
+    font-weight:600;
+}
+
+.test-date-row input[type="date"]{
+
+    padding:10px 15px;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    font-size:15px;
+}
+
+#applyTestDate{
+
+    background:#1565c0;
+
+    color:#fff;
+
+    border:none;
+
+    padding:10px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+#applyTestDate:hover{
+
+    background:#0d47a1;
+
+    transform:translateY(-2px);
+
+}
