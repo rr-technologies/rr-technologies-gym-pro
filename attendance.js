@@ -30,16 +30,16 @@ document.addEventListener("DOMContentLoaded", function () {
             '<option value="">-- Select Member --</option>';
 
         members
-            .filter(member => member.status === "Active")
-            .forEach(member => {
+    .filter(member => member.status !== "Expired")
+    .forEach(member => {
 
-            memberSelect.innerHTML += `
-                <option value="${member.memberId}">
-                    ${member.memberId} - ${member.name}
-                </option>
-            `;
+        memberSelect.innerHTML += `
+            <option value="${member.memberId}">
+                ${member.memberId} - ${member.name}
+            </option>
+        `;
 
-        });
+    });
 
     }
 
@@ -143,13 +143,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const member = members.find(m => m.memberId === memberId);
 
-        if (!member || member.status !== "Active") {
+     if (!member) {
 
-    alert("Only active members can mark attendance.");
+    alert("Member not found.");
 
     return;
 
 }
+
+if (member.status === "Expired") {
+
+    alert("Expired members cannot mark attendance.");
+
+    return;
+
+}
+
+
 
         const now = new Date();
 
@@ -243,5 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
     loadAttendance();
 
     memberIdInput.focus();
+
+    
 
 });

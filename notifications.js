@@ -300,6 +300,11 @@ document.getElementById("count3Days").textContent = expiring3;
 document.getElementById("countTomorrow").textContent = tomorrow;
 document.getElementById("countExpired").textContent = expired;
 
+document.getElementById("badge7").textContent = expiring7;
+document.getElementById("badge3").textContent = expiring3;
+document.getElementById("badgeTomorrow").textContent = tomorrow;
+document.getElementById("badgeExpired").textContent = expired;
+
 document.getElementById("list7Days").innerHTML = list7HTML;
 document.getElementById("list3Days").innerHTML = list3HTML;
 document.getElementById("listTomorrow").innerHTML = listTomorrowHTML;

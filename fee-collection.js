@@ -325,7 +325,7 @@ localStorage.setItem("members", JSON.stringify(members));
 
                     <td>${record.mode}</td>
 
-                    <td>${record.date.split("-").reverse().join("-")}</td>
+                    <td>${formatDate(record.date)}</td>
 
                     <td>${record.time}</td>
            

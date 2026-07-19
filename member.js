@@ -11,6 +11,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const memberForm = document.getElementById("memberForm");
 
+    // ===============================
+// Membership Plan Change
+// ===============================
+
+const membership = document.getElementById("membership");
+const customDaysContainer = document.getElementById("customDaysContainer");
+
+membership.addEventListener("change", function () {
+
+    if (this.value === "Custom Days") {
+
+        customDaysContainer.style.display = "block";
+
+    } else {
+
+        customDaysContainer.style.display = "none";
+        document.getElementById("customDays").value = "";
+
+    }
+
+});
+
     // Generate Member ID on page load
     generateMemberId();
 
@@ -26,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ============================
     // Calculate Expiry Date
     // ============================
-    function calculateExpiryDate(joiningDate, plan) {
+    function calculateExpiryDate(joiningDate, plan, customDays = 0) {
 
         let expiry = new Date(joiningDate);
 
@@ -46,6 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
             case "12 Months":
                 expiry.setFullYear(expiry.getFullYear() + 1);
                 break;
+
+            case "Custom Days":
+
+    expiry.setDate(expiry.getDate() + Number(customDays));
+    break;
+
         }
 
         return expiry.toISOString().split("T")[0];
@@ -99,39 +127,46 @@ document.addEventListener("DOMContentLoaded", function () {
         const membershipPlan =
             document.getElementById("membership").value;
 
+            const customDays =
+            document.getElementById("customDays")?.value || 0;
+
+            console.log("Plan :", membershipPlan);
+            console.log("Custom Days :", customDays);
+
         const expiryDate =
-            calculateExpiryDate(joiningDate, membershipPlan);
+            calculateExpiryDate(joiningDate, membershipPlan, customDays);
 
         const member = {
 
-            memberId: document.getElementById("memberId").value,
+    memberId: document.getElementById("memberId").value,
 
-            name: document.getElementById("fullName").value,
+    name: document.getElementById("fullName").value,
 
-            mobile: document.getElementById("mobile").value,
+    mobile: document.getElementById("mobile").value,
 
-            age: document.getElementById("age").value,
+    age: document.getElementById("age").value,
 
-            gender: document.getElementById("gender").value,
+    gender: document.getElementById("gender").value,
 
-            plan: membershipPlan,
+    plan: membershipPlan,
 
-            joiningDate: joiningDate,
+    customDays: customDays,
 
-            expiryDate: expiryDate,
+    joiningDate: joiningDate,
 
-            status: getMemberStatus(expiryDate),
+    expiryDate: expiryDate,
 
-            fee: document.getElementById("fee").value,
+    status: getMemberStatus(expiryDate),
 
-            testDate: document.getElementById("testDate").value,
+    fee: document.getElementById("fee").value,
 
-            paymentStatus: "Unpaid",
+    testDate: document.getElementById("testDate").value,
 
-            address: document.getElementById("address").value
+    paymentStatus: "Unpaid",
 
-        };
+    address: document.getElementById("address").value
 
+};
         if (currentEditIndex !== null) {
 
             members[Number(currentEditIndex)] = member;
