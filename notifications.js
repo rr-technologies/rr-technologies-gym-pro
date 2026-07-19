@@ -7,6 +7,19 @@
 
 let currentTestDate = new Date();
 
+function formatDate(dateString) {
+
+    if (!dateString) return "";
+
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -183,7 +196,11 @@ let tomorrow = 0;
 let expired = 0;
 
 let list7HTML = "";
+let list6HTML = "";
+let list5HTML = "";
+let list4HTML = "";
 let list3HTML = "";
+let list2HTML = "";
 let listTomorrowHTML = "";
 let listExpiredHTML = "";
 
@@ -236,7 +253,40 @@ if (diffDays === 0) {
         <div class="member-card">
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
-            <p>Expiry : ${member.expiryDate}</p>
+            <p>Expiry : ${formatDate(member.expiryDate)}</p>
+        </div>
+    `;
+
+}
+else if (days === 6) {
+
+    list6HTML += `
+        <div class="member-card">
+            <h4>${member.memberId} - ${member.name}</h4>
+            <p>Mobile : ${member.mobile}</p>
+            <p>Expiry : ${formatDate(member.expiryDate)}</p>
+        </div>
+    `;
+
+}
+else if (days === 5) {
+
+    list5HTML += `
+        <div class="member-card">
+            <h4>${member.memberId} - ${member.name}</h4>
+            <p>Mobile : ${member.mobile}</p>
+            <p>Expiry : ${formatDate(member.expiryDate)}</p>
+        </div>
+    `;
+
+}
+else if (days === 4) {
+
+    list4HTML += `
+        <div class="member-card">
+            <h4>${member.memberId} - ${member.name}</h4>
+            <p>Mobile : ${member.mobile}</p>
+            <p>Expiry : ${formatDate(member.expiryDate)}</p>
         </div>
     `;
 
@@ -249,7 +299,18 @@ else if (days === 3) {
         <div class="member-card">
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
-            <p>Expiry : ${member.expiryDate}</p>
+            <p>Expiry : ${formatDate(member.expiryDate)}</p>
+        </div>
+    `;
+
+}
+else if (days === 2) {
+
+    list2HTML += `
+        <div class="member-card">
+            <h4>${member.memberId} - ${member.name}</h4>
+            <p>Mobile : ${member.mobile}</p>
+            <p>Expiry : ${formatDate(member.expiryDate)}</p>
         </div>
     `;
 
@@ -262,7 +323,7 @@ else if (days === 1) {
         <div class="member-card">
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
-            <p>Expiry : ${member.expiryDate}</p>
+            <p>Expiry : ${formatDate(member.expiryDate)}</p>
         </div>
     `;
 
@@ -275,7 +336,7 @@ else if (days < 0) {
         <div class="member-card">
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
-            <p>Expiry : ${member.expiryDate}</p>
+            <p>Expiry : ${formatDate(member.expiryDate)}</p>
         </div>
     `;
 
@@ -300,13 +361,21 @@ document.getElementById("count3Days").textContent = expiring3;
 document.getElementById("countTomorrow").textContent = tomorrow;
 document.getElementById("countExpired").textContent = expired;
 
-document.getElementById("badge7").textContent = expiring7;
-document.getElementById("badge3").textContent = expiring3;
+document.getElementById("badge7").textContent = list7HTML ? 1 : 0;
+document.getElementById("badge6").textContent = list6HTML ? 1 : 0;
+document.getElementById("badge5").textContent = list5HTML ? 1 : 0;
+document.getElementById("badge4").textContent = list4HTML ? 1 : 0;
+document.getElementById("badge3").textContent = list3HTML ? 1 : 0;
+document.getElementById("badge2").textContent = list2HTML ? 1 : 0;
 document.getElementById("badgeTomorrow").textContent = tomorrow;
 document.getElementById("badgeExpired").textContent = expired;
 
 document.getElementById("list7Days").innerHTML = list7HTML;
+document.getElementById("list6Days").innerHTML = list6HTML;
+document.getElementById("list5Days").innerHTML = list5HTML;
+document.getElementById("list4Days").innerHTML = list4HTML;
 document.getElementById("list3Days").innerHTML = list3HTML;
+document.getElementById("list2Days").innerHTML = list2HTML;
 document.getElementById("listTomorrow").innerHTML = listTomorrowHTML;
 document.getElementById("listExpired").innerHTML = listExpiredHTML;
 
