@@ -33,6 +33,52 @@ membership.addEventListener("change", function () {
 
 });
 
+// ===============================
+// Payment Calculation
+// ===============================
+
+const totalFeeInput = document.getElementById("totalFee");
+const advancePaidInput = document.getElementById("advancePaid");
+const balanceAmountInput = document.getElementById("balanceAmount");
+const balanceDueDateContainer = document.getElementById("balanceDueDateContainer");
+const balanceDueDateInput = document.getElementById("balanceDueDate");
+
+function calculateBalance() {
+
+    const total = Number(totalFeeInput.value) || 0;
+    const paid = Number(advancePaidInput.value) || 0;
+
+    if (paid > total) {
+
+        alert("Advance Paid cannot be greater than Total Fee.");
+        advancePaidInput.value = total;
+
+    }
+
+    const finalPaid = Number(advancePaidInput.value) || 0;
+
+    const balance = total - finalPaid;
+
+    balanceAmountInput.value = balance;
+
+    if (balance > 0) {
+
+        balanceDueDateContainer.style.display = "block";
+        balanceDueDateInput.required = true;
+
+    } else {
+
+        balanceDueDateContainer.style.display = "none";
+        balanceDueDateInput.required = false;
+        balanceDueDateInput.value = "";
+
+    }
+
+}
+
+totalFeeInput.addEventListener("input", calculateBalance);
+advancePaidInput.addEventListener("input", calculateBalance);
+
     // Generate Member ID on page load
     generateMemberId();
 
@@ -98,7 +144,14 @@ membership.addEventListener("change", function () {
             document.getElementById("gender").value = member.gender;
             document.getElementById("membership").value = member.plan;
             document.getElementById("joiningDate").value = member.joiningDate;
-            document.getElementById("fee").value = member.fee;
+            document.getElementById("totalFee").value = member.totalFee || member.fee || 0;
+document.getElementById("advancePaid").value = member.paidAmount || 0;
+document.getElementById("balanceAmount").value = member.balanceAmount || 0;
+
+if ((member.balanceAmount || 0) > 0) {
+    balanceDueDateContainer.style.display = "block";
+    document.getElementById("balanceDueDate").value = member.balanceDueDate || "";
+}
             document.getElementById("address").value = member.address;
 
         }
@@ -158,11 +211,24 @@ membership.addEventListener("change", function () {
 
     status: getMemberStatus(expiryDate),
 
-    fee: document.getElementById("fee").value,
+    totalFee: Number(document.getElementById("totalFee").value),
+
+    fee: Number(document.getElementById("totalFee").value),
+
+paidAmount: Number(document.getElementById("advancePaid").value),
+
+balanceAmount: Number(document.getElementById("balanceAmount").value),
+
+balanceDueDate: document.getElementById("balanceDueDate").value,
+
+paymentStatus:
+    Number(document.getElementById("balanceAmount").value) === 0
+        ? "Paid"
+        : "Partial",
 
     testDate: document.getElementById("testDate").value,
 
-    paymentStatus: "Unpaid",
+    
 
     address: document.getElementById("address").value
 
@@ -178,6 +244,49 @@ membership.addEventListener("change", function () {
         } else {
 
             members.push(member);
+
+            // ===============================
+// Save Advance Payment History
+// ===============================
+
+if (member.paidAmount > 0) {
+
+    let feeHistory =
+        JSON.parse(localStorage.getItem("feeHistory")) || [];
+
+    const now = new Date();
+
+    const receiptNo = "RCPT" + Date.now();
+
+    const payment = {
+
+        receiptNo: receiptNo,
+
+        memberId: member.memberId,
+
+        memberName: member.name,
+
+        amount: member.paidAmount,
+
+        mode: "Cash",
+
+        date: joiningDate,
+
+        time: now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        })
+
+    };
+
+    feeHistory.push(payment);
+
+    localStorage.setItem(
+        "feeHistory",
+        JSON.stringify(feeHistory)
+    );
+
+}
 
             localStorage.setItem("lastMemberId", document.getElementById("memberId").value.replace("RR", ""));
 

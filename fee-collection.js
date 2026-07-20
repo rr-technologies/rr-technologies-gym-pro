@@ -40,7 +40,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const keyword = search.toLowerCase().trim();
 
-        members.forEach((member, index) => {    
+        members.forEach((member, index) => {
+
+            // ===========================
+// Auto Fix Payment Status
+// ===========================
+
+if ((member.balanceAmount || 0) > 0) {
+
+    member.paymentStatus = "Partial";
+
+} else {
+
+    member.paymentStatus = "Paid";
+
+}
 
             //console.log("Keyword:", keyword);
             //console.log(member.memberId, member.name, member.mobile);
@@ -49,9 +63,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Search lekapothe Paid members hide
 if (keyword === "") {
 
-    if (member.paymentStatus === "Paid") {
-        return;
-    }
+    if (member.paymentStatus === "Paid" && (member.balanceAmount || 0) === 0) {
+    return;
+}
 
 } else {
 
@@ -75,7 +89,13 @@ if (keyword === "") {
 
                     <td>${member.plan}</td>
 
-                    <td>₹${member.fee}</td>
+                    <td>
+₹${
+    member.balanceAmount > 0
+        ? member.balanceAmount
+        : (member.totalFee || member.fee || 0)
+}
+</td>
 
                     <td>
 
@@ -93,9 +113,9 @@ if (keyword === "") {
 
                     <td>
 
-                       ${member.paymentStatus === "Paid"
-
-? `
+                       ${member.paymentStatus === "Paid" &&
+ (member.balanceAmount || 0) === 0
+    ? `
 
 <div class="paid-action">
 
@@ -158,6 +178,26 @@ function getMemberStatus(expiryDate) {
 
         const member = members[index];
 
+        const remainingAmount =
+    member.balanceAmount > 0
+        ? member.balanceAmount
+        : (member.totalFee || member.fee || 0);
+
+const collectAmount = Number(
+    prompt(
+        `Remaining Balance : ₹${remainingAmount}\n\nEnter Collect Amount`
+    )
+);
+
+if (!collectAmount || collectAmount <= 0) {
+    return;
+}
+
+if (collectAmount > remainingAmount) {
+    alert("Collected amount cannot be greater than remaining balance.");
+    return;
+}
+
         const paymentMode =
             document.getElementById("mode" + index).value;
 
@@ -187,13 +227,13 @@ function getMemberStatus(expiryDate) {
 
         );
 
-        if (alreadyPaid) {
+        if (alreadyPaid && (member.balanceAmount || 0) <= 0) {
 
-            alert("Fee already collected today.");
+    alert("Fee already collected today.");
 
-            return;
+    return;
 
-        }
+}
 
         const payment = {
 
@@ -203,7 +243,7 @@ function getMemberStatus(expiryDate) {
 
             memberName: member.name,
 
-            amount: Number(member.fee),
+            amount: collectAmount,
 
             mode: paymentMode,
 
@@ -215,10 +255,21 @@ function getMemberStatus(expiryDate) {
 
         feeHistory.push(payment);
 
+        // Update Remaining Balance
+member.balanceAmount = remainingAmount - collectAmount;
+
         saveFeeHistory(feeHistory);
 
         // Update Payment Status
-member.paymentStatus = "Paid";
+if ((member.balanceAmount || 0) > 0) {
+
+    member.paymentStatus = "Partial";
+
+} else {
+
+    member.paymentStatus = "Paid";
+
+}
 
 members[index] = member;
 
@@ -262,7 +313,7 @@ localStorage.setItem("members", JSON.stringify(members));
         let todayCollection =
             Number(localStorage.getItem("todayCollection")) || 0;
 
-        todayCollection += Number(member.fee);
+        todayCollection += Number(payment.amount);
 
         localStorage.setItem(
             "todayCollection",
@@ -276,7 +327,7 @@ localStorage.setItem("members", JSON.stringify(members));
             "Fee Collected Successfully!\n\n" +
             "Receipt : " + receiptNo +
             "\nMember : " + member.name +
-            "\nAmount : ₹" + member.fee +
+            "\nAmount : ₹" + payment.amount +
             "\nMode : " + paymentMode
         );
 

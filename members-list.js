@@ -90,13 +90,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <td style="white-space:nowrap;">${member.plan}</td>
 
-                    <td>₹${String(member.fee).replace("₹","")}</td>
+                    <td>₹${member.totalFee || member.fee || 0}</td>
 
                     <td>${formatDate(member.joiningDate)}</td>
 
                     <td>${member.expiryDate ? formatDate(member.expiryDate) : "-"}</td>
 
-                    <td>${member.paymentStatus || "unpaid"}</td>
+                    <td>
+${
+    member.paymentStatus === "Paid"
+        ? "🟢 Paid"
+        : member.paymentStatus === "Partial"
+        ? "🟡 Partial"
+        : "🔴 Unpaid"
+}
+</td>
 
                     <td>${getMemberStatus(member.expiryDate)}</td>
 
@@ -278,7 +286,11 @@ member.expiryDate =
     today.getFullYear();
     
     // Update Member Details
-member.fee = fee;
+member.fee = Number(fee);
+member.totalFee = Number(fee);
+member.paidAmount = Number(fee);
+member.balanceAmount = 0;
+member.balanceDueDate = "";
 member.paymentStatus = "Paid";
 member.status = "Active";
 
