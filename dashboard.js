@@ -21,7 +21,7 @@ if (dashboardGymName && gymSettings.gymName) {
 // Dashboard Hero Logo
 const dashboardLogo = document.getElementById("dashboardLogo");
 if (dashboardLogo) {
-    dashboardLogo.src = gymSettings.logo || "images/logo.PNG";
+    dashboardLogo.src = gymSettings.logo || "images/logo.png"
 }
 
     // Load Data

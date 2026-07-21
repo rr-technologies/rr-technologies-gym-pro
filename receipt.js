@@ -32,7 +32,7 @@ if (gymEmail) {
 }
 
 if (receiptLogo) {
-    receiptLogo.src = gymSettings.logo || "logo.png";
+    receiptLogo.src = gymSettings.logo || "images/logo.png"
 }
 
 // Find Receipt

@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (gymSettings.logo) {
         logo.src = gymSettings.logo;
     } else {
-        logo.src = "logo.png";
+        logo.src = "images/logo.png";
     }
 
     // ==========================

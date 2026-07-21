@@ -35,7 +35,7 @@ function loadGymSettings() {
     const name = document.getElementById("sidebarGymName");
 
     if (logo) {
-        logo.src = settings.logo || "logo.png";
+        logo.src = settings.logo || "images/logo.png";
     }
 
     if (name) {

@@ -228,7 +228,8 @@ paymentStatus:
 
     testDate: document.getElementById("testDate").value,
 
-    
+    paymentHistory: [],
+
 
     address: document.getElementById("address").value
 
@@ -279,7 +280,15 @@ if (member.paidAmount > 0) {
 
     };
 
-    feeHistory.push(payment);
+    member.paymentHistory.push({
+    ...payment,
+    type: "Registration"
+});
+
+    feeHistory.push({
+    ...payment,
+    type: "Registration"
+});
 
     localStorage.setItem(
         "feeHistory",

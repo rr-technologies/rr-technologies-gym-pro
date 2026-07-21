@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         currency: "₹",
 
-        logo: "logo.png"
+        logo: "images/logo.png"
 
     };
 

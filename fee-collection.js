@@ -89,13 +89,11 @@ if (keyword === "") {
 
                     <td>${member.plan}</td>
 
-                    <td>
-₹${
-    member.balanceAmount > 0
-        ? member.balanceAmount
-        : (member.totalFee || member.fee || 0)
-}
-</td>
+                  <td>₹${member.totalFee || member.fee || 0}</td>
+
+                  <td>₹${member.paidAmount || 0}</td>
+
+                  <td>₹${member.balanceAmount || 0}</td>
 
                     <td>
 
@@ -256,6 +254,8 @@ if (collectAmount > remainingAmount) {
         feeHistory.push(payment);
 
         // Update Remaining Balance
+member.paidAmount = (member.paidAmount || 0) + collectAmount;
+
 member.balanceAmount = remainingAmount - collectAmount;
 
         saveFeeHistory(feeHistory);
