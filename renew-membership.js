@@ -114,3 +114,85 @@ function calculateNewExpiry() {
         `${day}-${month}-${year}`;
 
 }
+
+// ===========================
+// Save Renewal
+// ===========================
+
+document.getElementById("renewBtn").addEventListener("click", saveRenewal);
+
+function saveRenewal() {
+
+    const renewMemberId = localStorage.getItem("renewMemberId");
+
+    const renewPlan = document.getElementById("renewPlan").value;
+
+    const renewalFee = document.getElementById("renewFee").value.trim();
+
+    const paymentMode = document.getElementById("paymentMode").value;
+
+    const remarks = document.getElementById("remarks").value.trim();
+
+    const newExpiry = document.getElementById("newExpiry").value;
+
+    if (!renewPlan) {
+
+        alert("Please Select Renewal Plan");
+
+        return;
+
+    }
+
+    if (!renewalFee || Number(renewalFee) <= 0) {
+
+        alert("Please Enter Renewal Fee");
+
+        return;
+
+    }
+
+    if (!paymentMode) {
+
+        alert("Please Select Payment Mode");
+
+        return;
+
+    }
+
+    if (!newExpiry) {
+
+        alert("New Expiry Date Not Generated");
+
+        return;
+
+    }
+
+    // ===========================
+// Update Member
+// ===========================
+
+const members = JSON.parse(localStorage.getItem("members")) || [];
+
+const index = members.findIndex(m => m.memberId === renewMemberId);
+
+if (index !== -1) {
+
+    members[index].plan = planText;
+
+    members[index].fee = renewalFee;
+
+    members[index].expiryDate = newExpiry;
+
+    members[index].status = "Active";
+
+    localStorage.setItem("members", JSON.stringify(members));
+
+    console.log(members[index]);
+
+}
+
+    alert("Renewal Saved Successfully!");
+
+window.location.href = "members-list.html";
+
+}
