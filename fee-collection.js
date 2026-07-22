@@ -323,6 +323,7 @@ localStorage.setItem("members", JSON.stringify(members));
         loadMembers();
         loadHistory();
 
+
         alert(
             "Fee Collected Successfully!\n\n" +
             "Receipt : " + receiptNo +
@@ -454,5 +455,20 @@ window.printReceipt = function(receiptNo) {
     );
 
 };  
+
+// ===========================
+// Commercial Renewal Mode
+// ===========================
+
+const renewMode = localStorage.getItem("renewMode");
+const renewMemberId = localStorage.getItem("renewMemberId");
+
+if (renewMode === "true" && renewMemberId) {
+
+    document.getElementById("searchMember").value = renewMemberId;
+
+    loadMembers(renewMemberId);
+
+}
 
 });

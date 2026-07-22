@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RR Technologies - Renew Membership</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="renew-membership.css">
+</head>
+
+<body>
+
+    <div id="sidebarContainer"></div>
+
+    <div class="main-content">
+
+        <!-- ========================= -->
+        <!-- Sticky Header -->
+        <!-- ========================= -->
+
+        <div class="sticky-header">
+
+            <div class="hero-banner">
+
+                <div class="hero-left">
+
+                    <h2>Renew Membership</h2>
+
+                    <p>
+                        Manage Member Renewal & Payment Records
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- Member Details Card -->
+        <!-- ========================= -->
+
+        <div class="member-card">
+
+            <h2>👤 Member Details</h2>
+
+            <div class="member-info">
+
+                <div class="form-group">
+                    <label>Member ID</label>
+                    <input type="text" id="memberId" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Member Name</label>
+                    <input type="text" id="memberName" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="text" id="memberMobile" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Current Plan</label>
+                    <input type="text" id="currentPlan" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Current Expiry</label>
+                    <input type="text" id="currentExpiry" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <input type="text" id="memberStatus" readonly>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- Renewal Form -->
+        <!-- ========================= -->
+
+        <div class="renew-card">
+
+            <h2>🔄 Renewal Details</h2>
+
+            <div class="renew-form">
+
+                <div class="form-group">
+
+                    <label>Renew Plan</label>
+
+                    <select id="renewPlan">
+
+                        <option value="">Select Plan</option>
+
+                        <option value="1">1 Month</option>
+
+                        <option value="3">3 Months</option>
+
+                        <option value="6">6 Months</option>
+
+                        <option value="12">12 Months</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Renewal Fee</label>
+
+                    <input
+                        type="number"
+                        id="renewFee"
+                        placeholder="Enter Renewal Fee">
+
+                </div>
+
+                                <div class="form-group">
+
+                    <label>Payment Mode</label>
+
+                    <select id="paymentMode">
+
+                        <option value="Cash">Cash</option>
+
+                        <option value="UPI">UPI</option>
+
+                        <option value="Card">Card</option>
+
+                        <option value="Bank Transfer">Bank Transfer</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Remarks</label>
+
+                    <textarea
+                        id="remarks"
+                        rows="4"
+                        placeholder="Enter Remarks"></textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>New Expiry Date</label>
+
+                    <input
+                        type="text"
+                        id="newExpiry"
+                        readonly>
+
+                </div>
+
+                <button id="renewBtn" class="renew-btn">
+
+                    Save Renewal
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- main-content -->
+
+    <script src="common.js"></script>
+    <script src="renew-membership.js"></script>
+    <script src="sidebar.js"></script>
+
+</body>
+
+</html>

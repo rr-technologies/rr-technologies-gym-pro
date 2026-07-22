@@ -204,140 +204,19 @@ window.renewMember = function(index) {
     const members = JSON.parse(localStorage.getItem("members")) || [];
     const member = members[index];
 
-    const plan = prompt(`Renew Membership
-
-1 = 1 Month
-3 = 3 Months
-6 = 6 Months
-12 = 12 Months
-
-Enter Plan (1/3/6/12):`);
-
-    if (plan === null) return;
-
-    if (!["1", "3", "6", "12"].includes(plan)) {
-
-        alert("Invalid Plan Selected!");
-
+    if (!member) {
+        alert("Member not found.");
         return;
     }
 
-    const fee = prompt("Enter Renewal Fee");
+    // Renewal information save
+    localStorage.setItem("renewMemberId", member.memberId);
+    localStorage.setItem("renewMode", "true");
 
-if (fee === null) return;
-
-const paymentMode = prompt(`
-
-Payment Mode
-
-1 = Cash
-2 = UPI
-3 = Card
-
-Enter (1/2/3):
-
-`);
-
-if (paymentMode === null) return;
-
-if (!["1", "2", "3"].includes(paymentMode)) {
-    alert("Invalid Payment Mode!");
-    return;
-}
-
-let mode = "";
-
-if (paymentMode === "1") {
-    mode = "Cash";
-} else if (paymentMode === "2") {
-    mode = "UPI";
-} else {
-    mode = "Card";
-}
-
-// Update Plan
-if (plan === "1") {
-    member.plan = "1 Month";
-} else if (plan === "3") {
-    member.plan = "3 Months";
-} else if (plan === "6") {
-    member.plan = "6 Months";
-} else {
-    member.plan = "12 Months";
-
-}
-
-// Update Expiry Date
-const today = new Date();
-
-if (plan === "1") {
-    today.setMonth(today.getMonth() + 1);
-} else if (plan === "3") {
-    today.setMonth(today.getMonth() + 3);
-} else if (plan === "6") {
-    today.setMonth(today.getMonth() + 6);
-} else {
-    today.setFullYear(today.getFullYear() + 1);
-}
-
-member.expiryDate = today.toISOString().split("T")[0];
-    
-    // Update Member Details
-member.fee = Number(fee);
-member.totalFee = Number(fee);
-member.paidAmount = Number(fee);
-member.balanceAmount = 0;
-member.balanceDueDate = "";
-member.paymentStatus = "Paid";
-member.status = "Active";
-
-const feeHistory = JSON.parse(localStorage.getItem("feeHistory")) || [];
-
-const now = new Date();
-
-const receiptNo = "RCPT" + Date.now();
-
-const date =
-    String(now.getDate()).padStart(2, "0") + "-" +
-    String(now.getMonth() + 1).padStart(2, "0") + "-" +
-    now.getFullYear();
-
-const time = now.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit"
-});
-
-const payment = {
-    receiptNo: receiptNo,
-    memberId: member.memberId,
-    memberName: member.name,
-    amount: fee,
-    mode: mode,
-    date: date,
-    time: time
+    // Fee Collection page open
+    window.location.href = "renew-membership.html";
 };
 
-feeHistory.push(payment);
-
-localStorage.setItem(
-    "feeHistory",
-    JSON.stringify(feeHistory)
-);
-
-member.paymentStatus = "Paid";
-
-members[index] = member;
-
-localStorage.setItem(
-    "members",
-    JSON.stringify(members)
-);
-
-window.location.reload();
-
-alert("Membership Renewed Successfully!");
-
-}
 
 // ===================================
 // WhatsApp Modal

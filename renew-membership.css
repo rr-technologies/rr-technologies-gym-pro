@@ -1,0 +1,285 @@
+/* =======================================
+   RR Technologies Gym Pro
+   Renew Membership CSS
+======================================= */
+
+.main-content{
+    margin-left:250px;
+    padding:20px;
+    background:#f5f7fb;
+    min-height:100vh;
+}
+
+/* ===========================
+   Sticky Header
+=========================== */
+
+.sticky-header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:#f5f7fb;
+    padding-bottom:15px;
+}
+
+/* ===========================
+   Hero Banner
+=========================== */
+
+.hero-banner{
+
+    display:flex;
+    align-items:center;
+
+    padding:35px 40px;
+
+    border-radius:25px;
+
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+
+    color:#fff;
+
+    box-shadow:0 15px 35px rgba(37,99,235,.25);
+
+    margin-bottom:25px;
+
+}
+
+.hero-left h2{
+
+    margin:0;
+
+    font-size:46px;
+
+    font-weight:700;
+
+    color:#fff;
+
+}
+
+.hero-left p{
+
+    margin-top:12px;
+
+    font-size:18px;
+
+    color:#eef6ff;
+
+}
+
+/* ===========================
+   Member Card
+=========================== */
+
+.member-card,
+.renew-card{
+
+    background:#fff;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+}
+
+.member-card h2,
+.renew-card h2{
+
+    margin-bottom:20px;
+
+    color:#0d6efd;
+
+    font-size:22px;
+
+    border-left:5px solid #0d6efd;
+
+    padding-left:12px;
+
+}
+
+/* ===========================
+   Grid Layout
+=========================== */
+
+.member-info,
+.renew-form{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px;
+
+}
+
+/* ===========================
+   Form Group
+=========================== */
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.form-group label{
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+    color:#333;
+
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+
+    width:100%;
+
+    padding:12px 14px;
+
+    border:1px solid #dcdcdc;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    outline:none;
+
+    box-sizing:border-box;
+
+}
+
+.form-group textarea{
+
+    resize:vertical;
+
+    min-height:100px;
+
+}
+
+/* ===========================
+   Focus Effects
+=========================== */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+
+    border-color:#0d6efd;
+
+    box-shadow:0 0 0 3px rgba(13,110,253,.15);
+
+}
+
+/* ===========================
+   Read Only Inputs
+=========================== */
+
+input[readonly]{
+
+    background:#f8f9fa;
+
+    color:#495057;
+
+    cursor:not-allowed;
+
+    font-weight:600;
+
+}
+
+/* ===========================
+   Full Width Fields
+=========================== */
+
+.form-group:has(textarea),
+.form-group:has(#newExpiry){
+
+    grid-column:1 / -1;
+
+}
+
+/* ===========================
+   Renew Button
+=========================== */
+
+.renew-btn{
+
+    grid-column:1 / -1;
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.renew-btn:hover{
+
+    background:linear-gradient(135deg,#1d4ed8,#0ea5e9);
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 25px rgba(37,99,235,.30);
+
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:768px){
+
+    .main-content{
+
+        margin-left:0;
+
+        padding:15px;
+
+    }
+
+    .member-info,
+    .renew-form{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .hero-banner{
+
+        padding:18px;
+
+    }
+
+    .hero-left h2{
+
+        font-size:22px;
+
+    }
+
+}
