@@ -280,10 +280,7 @@ if (plan === "1") {
     today.setFullYear(today.getFullYear() + 1);
 }
 
-member.expiryDate =
-    String(today.getDate()).padStart(2, "0") + "-" +
-    String(today.getMonth() + 1).padStart(2, "0") + "-" +
-    today.getFullYear();
+member.expiryDate = today.toISOString().split("T")[0];
     
     // Update Member Details
 member.fee = Number(fee);
