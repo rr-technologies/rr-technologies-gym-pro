@@ -127,6 +127,9 @@ function saveRenewal() {
 
     const renewPlan = document.getElementById("renewPlan").value;
 
+    const planText =
+document.getElementById("renewPlan").selectedOptions[0].text;
+
     const renewalFee = document.getElementById("renewFee").value.trim();
 
     const paymentMode = document.getElementById("paymentMode").value;
@@ -179,11 +182,20 @@ if (index !== -1) {
 
     members[index].plan = planText;
 
-    members[index].fee = renewalFee;
+    members[index].fee = Number(renewalFee);
 
-    members[index].expiryDate = newExpiry;
+members[index].totalFee = Number(renewalFee);
+
+    const parts = newExpiry.split("-");
+
+members[index].expiryDate =
+`${parts[2]}-${parts[1]}-${parts[0]}`;
 
     members[index].status = "Active";
+
+    members[index].paymentStatus = "Paid";
+
+members[index].lastPaymentDate = new Date().toISOString().split("T")[0];
 
     localStorage.setItem("members", JSON.stringify(members));
 
