@@ -276,37 +276,7 @@ members[index] = member;
 saveMembers(members);
 
 
-        // ===========================
-// Renew Membership
-// ===========================
 
-let expiry = new Date(member.expiryDate);
-
-switch (member.plan) {
-
-    case "1 Month":
-        expiry.setMonth(expiry.getMonth() + 1);
-        break;
-
-    case "3 Months":
-        expiry.setMonth(expiry.getMonth() + 3);
-        break;
-
-    case "6 Months":
-        expiry.setMonth(expiry.getMonth() + 6);
-        break;
-
-    case "12 Months":
-        expiry.setFullYear(expiry.getFullYear() + 1);
-        break;
-}
-
-member.expiryDate = expiry.toISOString().split("T")[0];
-member.status = getMemberStatus(member.expiryDate);
-
-members[index] = member;
-
-localStorage.setItem("members", JSON.stringify(members));
 
         // Dashboard Collection
 
@@ -409,6 +379,8 @@ localStorage.setItem("members", JSON.stringify(members));
 
     const latest = payments[payments.length - 1];
 
+
+
     window.open(
     "receipt.html?receipt=" + latest.receiptNo,
     "_blank"
@@ -468,6 +440,9 @@ if (renewMode === "true" && renewMemberId) {
     document.getElementById("searchMember").value = renewMemberId;
 
     loadMembers(renewMemberId);
+
+    localStorage.removeItem("renewMode");
+localStorage.removeItem("renewMemberId");
 
 }
 

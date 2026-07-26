@@ -186,6 +186,9 @@ if (index !== -1) {
 
 members[index].totalFee = Number(renewalFee);
 
+members[index].paidAmount = Number(renewalFee);
+members[index].balanceAmount = 0;
+
     const parts = newExpiry.split("-");
 
 members[index].expiryDate =
@@ -198,6 +201,71 @@ members[index].expiryDate =
 members[index].lastPaymentDate = new Date().toISOString().split("T")[0];
 
     localStorage.setItem("members", JSON.stringify(members));
+
+    // ===========================
+// Save Renewal Fee History
+// ===========================
+
+let feeHistory =
+    JSON.parse(localStorage.getItem("feeHistory")) || [];
+
+const now = new Date();
+
+const receiptNo = "RCPT" + Date.now();
+
+const payment = {
+
+    receiptNo: receiptNo,
+
+    memberId: members[index].memberId,
+
+    memberName: members[index].name,
+
+    amount: Number(renewalFee),
+
+    mode: paymentMode,
+
+    date:
+        String(now.getDate()).padStart(2, "0") + "-" +
+        String(now.getMonth() + 1).padStart(2, "0") + "-" +
+        now.getFullYear(),
+
+    time: now.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    })
+
+};
+
+feeHistory.push(payment);
+
+localStorage.setItem(
+    "feeHistory",
+    JSON.stringify(feeHistory)
+);
+
+// ===========================
+// Dashboard Collection
+// ===========================
+
+let todayCollection =
+    Number(localStorage.getItem("todayCollection")) || 0;
+
+todayCollection += Number(renewalFee);
+
+localStorage.setItem(
+    "todayCollection",
+    todayCollection
+);
+
+// ===========================
+// Open Receipt
+// ===========================
+
+window.open(
+    "receipt.html?receipt=" + receiptNo,
+    "_blank"
+);
 
     console.log(members[index]);
 

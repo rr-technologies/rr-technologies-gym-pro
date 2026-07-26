@@ -189,6 +189,10 @@ if ((member.balanceAmount || 0) > 0) {
         const expiryDate =
             calculateExpiryDate(joiningDate, membershipPlan, customDays);
 
+            console.log("Joining:", joiningDate);
+console.log("Plan:", membershipPlan);
+console.log("Expiry:", expiryDate);
+
         const member = {
 
     memberId: document.getElementById("memberId").value,

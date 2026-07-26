@@ -44,11 +44,16 @@ const today =
 
     records.forEach(record => {
 
+        console.log("Today:", today);
+console.log("Record Date:", record.date);
+
         totalCollection += Number(record.amount);
 
-        if (record.date === today) {
-            todayCollection += Number(record.amount);
-        }
+        let recordDate = formatDate(record.date);
+
+if (recordDate === today) {
+    todayCollection += Number(record.amount);
+}
 
         reportBody.innerHTML += `
             <tr>
@@ -57,7 +62,7 @@ const today =
                 <td>${record.memberName}</td>
                 <td>₹${record.amount}</td>
                 <td>${record.mode}</td>
-                <td>${record.date}</td>
+                <td>${formatDate(record.date)}</td>
             </tr>
         `;
 
