@@ -153,13 +153,16 @@ document.getElementById("refreshReportBtn").addEventListener("click", function (
 
     document.getElementById("printReportBtn").addEventListener("click", function () {
 
+        console.log(currentReport);
+
         localStorage.setItem(
-            "printReportData",
-            JSON.stringify(currentReport)
-        );
+    "printReportData",
+    JSON.stringify(currentReport)
+);
 
-        window.open("print-report.html", "_blank");
-
+setTimeout(() => {
+    window.open("print-report.html", "_blank");
+}, 200);
     });
 
         // ============================

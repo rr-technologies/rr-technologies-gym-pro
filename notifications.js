@@ -11,11 +11,31 @@ function formatDate(dateString) {
 
     if (!dateString) return "";
 
-    const date = new Date(dateString);
+    let day, month, year;
 
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
+    // DD-MM-YYYY
+    if (/^\d{2}-\d{2}-\d{4}$/.test(dateString)) {
+
+        const parts = dateString.split("-");
+
+        day = parts[0];
+        month = parts[1];
+        year = parts[2];
+
+    }
+    // YYYY-MM-DD
+    else if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+
+        const parts = dateString.split("-");
+
+        year = parts[0];
+        month = parts[1];
+        day = parts[2];
+
+    }
+    else {
+        return dateString;
+    }
 
     return `${day}-${month}-${year}`;
 }
@@ -170,8 +190,27 @@ function getRemainingDays(expiryDate) {
     const today = currentTestDate ? new Date(currentTestDate) : new Date();
     today.setHours(0, 0, 0, 0);
 
-    const expiry = new Date(expiryDate);
-    expiry.setHours(0, 0, 0, 0);
+    const parts = expiryDate.split("-");
+
+let expiry;
+
+if (parts[0].length === 4) {
+    // YYYY-MM-DD
+    expiry = new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
+    );
+} else {
+    // DD-MM-YYYY
+    expiry = new Date(
+        Number(parts[2]),
+        Number(parts[1]) - 1,
+        Number(parts[0])
+    );
+}
+
+expiry.setHours(0, 0, 0, 0);
 
     const diff = expiry.getTime() - today.getTime();
 
@@ -190,8 +229,12 @@ function loadNotifications(){
     const selectedDate = new Date(currentTestDate);
 selectedDate.setHours(0, 0, 0, 0);
 
-    let expiring7 = 0;
+ let expiring7 = 0;
+let expiring6 = 0;
+let expiring5 = 0;
+let expiring4 = 0;
 let expiring3 = 0;
+let expiring2 = 0;
 let tomorrow = 0;
 let expired = 0;
 
@@ -249,6 +292,8 @@ if (diffDays === 0) {
 
     expiring7++;
 
+    console.log("Adding :", member.memberId, member.name);
+
     list7HTML += `
         <div class="member-card">
             <h4>${member.memberId} - ${member.name}</h4>
@@ -259,6 +304,8 @@ if (diffDays === 0) {
 
 }
 else if (days === 6) {
+
+    expiring6++;
 
     list6HTML += `
         <div class="member-card">
@@ -271,6 +318,8 @@ else if (days === 6) {
 }
 else if (days === 5) {
 
+    expiring5++;
+
     list5HTML += `
         <div class="member-card">
             <h4>${member.memberId} - ${member.name}</h4>
@@ -281,6 +330,8 @@ else if (days === 5) {
 
 }
 else if (days === 4) {
+
+    expiring4++;
 
     list4HTML += `
         <div class="member-card">
@@ -305,6 +356,8 @@ else if (days === 3) {
 
 }
 else if (days === 2) {
+
+    expiring2++;
 
     list2HTML += `
         <div class="member-card">
@@ -361,12 +414,12 @@ document.getElementById("count3Days").textContent = expiring3;
 document.getElementById("countTomorrow").textContent = tomorrow;
 document.getElementById("countExpired").textContent = expired;
 
-document.getElementById("badge7").textContent = list7HTML ? 1 : 0;
-document.getElementById("badge6").textContent = list6HTML ? 1 : 0;
-document.getElementById("badge5").textContent = list5HTML ? 1 : 0;
-document.getElementById("badge4").textContent = list4HTML ? 1 : 0;
-document.getElementById("badge3").textContent = list3HTML ? 1 : 0;
-document.getElementById("badge2").textContent = list2HTML ? 1 : 0;
+document.getElementById("badge7").textContent = expiring7;
+document.getElementById("badge6").textContent = expiring6;
+document.getElementById("badge5").textContent = expiring5;
+document.getElementById("badge4").textContent = expiring4;
+document.getElementById("badge3").textContent = expiring3;
+document.getElementById("badge2").textContent = expiring2;
 document.getElementById("badgeTomorrow").textContent = tomorrow;
 document.getElementById("badgeExpired").textContent = expired;
 

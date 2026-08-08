@@ -1,104 +1,104 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    // ==========================
-    // Gym Settings
-    // ==========================
-    const gymSettings =
-        JSON.parse(localStorage.getItem("gymSettings")) || {};
+    // ======================================
+    // Load Gym Settings
+    // ======================================
+    const settings = JSON.parse(localStorage.getItem("gymSettings")) || {};
 
-    // Gym Name
-    if (gymSettings.gymName) {
-        document.getElementById("gymName").textContent =
-            gymSettings.gymName;
+    const gymName = document.getElementById("gymName");
+    const gymLogo = document.getElementById("gymLogo");
+
+    if (gymName) {
+        gymName.textContent = settings.gymName || "RR Technologies Gym Pro";
     }
 
-    // Gym Logo
-    const logo = document.getElementById("gymLogo");
-
-    if (gymSettings.logo) {
-        logo.src = gymSettings.logo;
-    } else {
-        logo.src = "images/logo.png";
+    if (gymLogo) {
+        gymLogo.src = settings.logo || "images/logo.png";
     }
 
-    // ==========================
+    // ======================================
     // Print Date
-    // ==========================
+    // ======================================
     const now = new Date();
 
-    const date =
-        now.toLocaleDateString("en-GB").replace(/\//g, "-");
-
-    const time =
+    document.getElementById("reportDate").textContent =
+        "Printed : " +
+        now.toLocaleDateString("en-GB").replace(/\//g, "-") +
+        " " +
         now.toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit"
         });
 
-    document.getElementById("reportDate").textContent =
-        `Printed : ${date} ${time}`;
-
-    // ==========================
+    // ======================================
     // Load Report Data
-    // ==========================
-    const records =
-        JSON.parse(localStorage.getItem("printReportData")) || [];
+    // ======================================
+    let records = [];
 
-    const tbody =
-        document.getElementById("printBody");
+    try {
+        records = JSON.parse(localStorage.getItem("printReportData")) || [];
+    } catch (e) {
+        records = [];
+    }
 
-    let totalCollection = 0;
+    console.log("PRINT RECORDS :", records);
+
+    const tbody = document.getElementById("printBody");
 
     tbody.innerHTML = "";
 
+    let totalAmount = 0;
+
     records.forEach(record => {
 
-        totalCollection += Number(record.amount);
+        const receiptNo = record.receiptNo || "";
+        const memberId = record.memberId || "";
+        const memberName =
+            record.memberName ||
+            record.name ||
+            "";
+
+        const amount = Number(record.amount || 0);
+
+        const mode =
+            record.mode ||
+            record.paymentMode ||
+            "";
+
+        const date = record.date || "";
+
+        totalAmount += amount;
 
         tbody.innerHTML += `
             <tr>
-                <td>${record.receiptNo}</td>
-                <td>${record.memberId}</td>
-                <td>${record.memberName}</td>
-                <td><b>₹${Number(record.amount).toLocaleString("en-IN")}</b></td>
-                <td>${record.mode}</td>
-                <td>${record.date}</td>
+                <td>${receiptNo}</td>
+                <td>${memberId}</td>
+                <td>${memberName}</td>
+                <td><b>₹${amount.toLocaleString("en-IN")}</b></td>
+                <td>${mode}</td>
+                <td>${date}</td>
             </tr>
         `;
-
     });
 
-    // ==========================
-    // Summary
-    // ==========================
-    document.getElementById("totalRecords").textContent =
-        records.length;
-
+    document.getElementById("totalRecords").textContent = records.length;
     document.getElementById("totalAmount").textContent =
-        totalCollection.toLocaleString("en-IN");
+        totalAmount.toLocaleString("en-IN");
 
-    // ==========================
-    // Print
-    // ==========================
-    function startPrint() {
-
-        setTimeout(() => {
-
+    // ======================================
+    // Auto Print
+    // ======================================
+    function printReport() {
+        setTimeout(function () {
             window.print();
-
-        }, 400);
-
+        }, 500);
     }
 
-    if (logo.complete) {
-
-        startPrint();
-
+    if (gymLogo.complete) {
+        printReport();
     } else {
-
-        logo.onload = startPrint;
-        logo.onerror = startPrint;
-
+        gymLogo.onload = printReport;
+        gymLogo.onerror = printReport;
     }
 
 });

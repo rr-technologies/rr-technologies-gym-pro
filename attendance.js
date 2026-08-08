@@ -29,18 +29,15 @@ document.addEventListener("DOMContentLoaded", function () {
         memberSelect.innerHTML =
             '<option value="">-- Select Member --</option>';
 
-        members
-    .filter(member => member.status !== "Expired")
-    .forEach(member => {
+        members.forEach(member => {
 
-        memberSelect.innerHTML += `
-            <option value="${member.memberId}">
-                ${member.memberId} - ${member.name}
-            </option>
-        `;
+    memberSelect.innerHTML += `
+        <option value="${member.memberId}">
+            ${member.memberId} - ${member.name}
+        </option>
+    `;
 
-    });
-
+});
     }
 
     // ==========================
@@ -151,14 +148,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 }
 
-if (member.status === "Expired") {
+const today = new Date();
+today.setHours(0, 0, 0, 0);
 
+const expiry = new Date(member.expiryDate);
+expiry.setHours(0, 0, 0, 0);
+
+if (expiry < today) {
     alert("Expired members cannot mark attendance.");
-
     return;
-
 }
-
 
 
         const now = new Date();

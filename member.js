@@ -31,7 +31,71 @@ membership.addEventListener("change", function () {
 
     }
 
+     updateExpiryDate();
+
 });
+
+// ================================
+// Auto Expiry Date
+// ================================
+
+const joiningDateInput = document.getElementById("joiningDate");
+const expiryDateInput = document.getElementById("expiryDate");
+
+function updateExpiryDate() {
+
+    if (!joiningDateInput.value || !membership.value) {
+        expiryDateInput.value = "";
+        return;
+    }
+
+    let expiry = new Date(joiningDateInput.value);
+
+    switch (membership.value) {
+
+        case "1 Month":
+            expiry.setMonth(expiry.getMonth() + 1);
+            break;
+
+        case "3 Months":
+            expiry.setMonth(expiry.getMonth() + 3);
+            break;
+
+        case "6 Months":
+            expiry.setMonth(expiry.getMonth() + 6);
+            break;
+
+        case "12 Months":
+            expiry.setFullYear(expiry.getFullYear() + 1);
+            break;
+
+        default:
+
+    if (membership.value === "Custom Days") {
+
+        const customDays = Number(document.getElementById("customDays").value) || 0;
+
+        expiry.setDate(expiry.getDate() + customDays);
+
+    }
+
+    break;
+
+    }
+
+    const day = String(expiry.getDate()).padStart(2, "0");
+    const month = String(expiry.getMonth() + 1).padStart(2, "0");
+    const year = expiry.getFullYear();
+
+    expiryDateInput.value = `${day}-${month}-${year}`;
+}
+
+joiningDateInput.addEventListener("change", updateExpiryDate);
+
+membership.addEventListener("change", updateExpiryDate);
+
+document.getElementById("customDays")
+    .addEventListener("input", updateExpiryDate);
 
 // ===============================
 // Payment Calculation
@@ -96,7 +160,26 @@ advancePaidInput.addEventListener("input", calculateBalance);
     // ============================
     function calculateExpiryDate(joiningDate, plan, customDays = 0) {
 
-        let expiry = new Date(joiningDate);
+        let expiry;
+
+const parts = joiningDate.split("-");
+
+if (parts[0].length === 4) {
+    // YYYY-MM-DD
+    expiry = new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
+    );
+    
+} else {
+    // DD-MM-YYYY
+    expiry = new Date(
+        Number(parts[2]),
+        Number(parts[1]) - 1,
+        Number(parts[0])
+    );
+}
 
         switch (plan) {
             case "1 Month":
@@ -122,7 +205,12 @@ advancePaidInput.addEventListener("input", calculateBalance);
 
         }
 
-        return expiry.toISOString().split("T")[0];
+        const day = String(expiry.getDate()).padStart(2, "0");
+const month = String(expiry.getMonth() + 1).padStart(2, "0");
+const year = expiry.getFullYear();
+
+return `${day}-${month}-${year}`;
+
     }
 
     // ============================
@@ -175,7 +263,7 @@ if ((member.balanceAmount || 0) > 0) {
             localStorage.getItem("editMemberIndex");
 
         const joiningDate =
-            document.getElementById("joiningDate").value;
+    document.getElementById("joiningDate").value;
 
         const membershipPlan =
             document.getElementById("membership").value;
@@ -230,7 +318,7 @@ paymentStatus:
         ? "Paid"
         : "Partial",
 
-    testDate: document.getElementById("testDate").value,
+    
 
     paymentHistory: [],
 

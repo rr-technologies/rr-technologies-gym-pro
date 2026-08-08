@@ -27,7 +27,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        const expiry = new Date(expiryDate);
+        let expiry;
+
+const parts = expiryDate.split("-");
+
+if (parts[0].length === 4) {
+    // YYYY-MM-DD
+    expiry = new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
+    );
+} else {
+    // DD-MM-YYYY
+    expiry = new Date(
+        Number(parts[2]),
+        Number(parts[1]) - 1,
+        Number(parts[0])
+    );
+}
         expiry.setHours(0, 0, 0, 0);
 
         const diffDays = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
@@ -92,9 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <td>₹${member.totalFee || member.fee || 0}</td>
 
+                    <td>${member.balanceDueDate ? formatDate(member.balanceDueDate) : "-"}</td>
+
                     <td>${formatDate(member.joiningDate)}</td>
 
-                    <td>${member.expiryDate ? formatDate(member.expiryDate) : "-"}</td>
+                    <td>${member.expiryDate}</td>
 
                     <td>
 ${

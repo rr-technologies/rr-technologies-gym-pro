@@ -181,11 +181,33 @@ function getMemberStatus(expiryDate) {
         ? member.balanceAmount
         : (member.totalFee || member.fee || 0);
 
-const collectAmount = Number(
+    const collectAmount = Number(
     prompt(
         `Remaining Balance : ₹${remainingAmount}\n\nEnter Collect Amount`
     )
 );
+
+if (!collectAmount || collectAmount <= 0) {
+    return;
+}
+
+
+if (collectAmount <= 0) {
+    alert("Please enter fee amount.");
+    return;
+}
+
+const paymentMode =
+    document.getElementById("mode" + index).value;
+    
+
+    if (!paymentMode) {
+    alert("Please select payment mode.");
+    return;
+}
+
+const remarks =
+    document.getElementById("remarks").value;
 
 if (!collectAmount || collectAmount <= 0) {
     return;
@@ -196,8 +218,7 @@ if (collectAmount > remainingAmount) {
     return;
 }
 
-        const paymentMode =
-            document.getElementById("mode" + index).value;
+
 
         const now = new Date();
 

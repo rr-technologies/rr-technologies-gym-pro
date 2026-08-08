@@ -189,10 +189,17 @@ members[index].totalFee = Number(renewalFee);
 members[index].paidAmount = Number(renewalFee);
 members[index].balanceAmount = 0;
 
-    const parts = newExpiry.split("-");
+    // Save expiry date in DD-MM-YYYY format
+const parts = newExpiry.split("-");
 
-members[index].expiryDate =
-`${parts[2]}-${parts[1]}-${parts[0]}`;
+if (parts[0].length === 4) {
+    // YYYY-MM-DD → DD-MM-YYYY
+    members[index].expiryDate =
+        `${parts[2]}-${parts[1]}-${parts[0]}`;
+} else {
+    // Already DD-MM-YYYY
+    members[index].expiryDate = newExpiry;
+}
 
     members[index].status = "Active";
 

@@ -7,7 +7,19 @@ function formatDate(dateString) {
 
     if (!dateString) return "";
 
-    if (dateString.includes("-") && dateString.split("-")[0].length === 4) {
+    // Already DD-MM-YYYY
+    if (
+        dateString.includes("-") &&
+        dateString.split("-")[0].length === 2
+    ) {
+        return dateString;
+    }
+
+    // YYYY-MM-DD
+    if (
+        dateString.includes("-") &&
+        dateString.split("-")[0].length === 4
+    ) {
 
         const [year, month, day] = dateString.split("-");
 
