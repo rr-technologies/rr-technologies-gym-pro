@@ -151,7 +151,15 @@ document.addEventListener("DOMContentLoaded", function () {
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 
-const expiry = new Date(member.expiryDate);
+// Check Expiry Date - DD-MM-YYYY
+const expiryParts = member.expiryDate.split("-");
+
+const expiry = new Date(
+    Number(expiryParts[2]),
+    Number(expiryParts[1]) - 1,
+    Number(expiryParts[0])
+);
+
 expiry.setHours(0, 0, 0, 0);
 
 if (expiry < today) {
