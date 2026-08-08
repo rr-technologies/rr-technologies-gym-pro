@@ -218,9 +218,126 @@ expiry.setHours(0, 0, 0, 0);
 
 }
 
-// =======================================
-// Load Notifications
-// =======================================
+// ==========================================
+// WhatsApp Reminder
+// ==========================================
+
+function openWhatsAppApp(memberId, days) {
+
+    const members = getMembers();
+
+    const member = members.find(m => m.memberId === memberId);
+
+    if (!member) {
+        alert("Member details not found.");
+        return;
+    }
+
+    let mobile = member.mobile || member.mobileNumber || "";
+
+    if (!mobile) {
+        alert("Mobile number not available for this member.");
+        return;
+    }
+
+    // Remove spaces and special characters
+    mobile = mobile.replace(/\D/g, "");
+
+    // Add India country code
+    if (mobile.length === 10) {
+        mobile = "91" + mobile;
+    }
+
+    const name = member.name || member.fullName || "Member";
+
+    let message = "";
+
+if (days === 7) {
+    message =
+        `Hello ${name},\n\n` +
+        `This is a reminder from RR Technologies Gym.\n` +
+        `Your gym membership will expire in 7 days.\n` +
+        `Expiry Date: ${formatDate(member.expiryDate)}\n\n` +
+        `Please renew your membership to continue your workouts.\n\n` +
+        `Thank you.`;
+}
+
+if (days === 6) {
+    message =
+        `Hello ${name},\n\n` +
+        `This is a reminder from RR Technologies Gym.\n` +
+        `Your gym membership will expire in 6 days.\n` +
+        `Expiry Date: ${formatDate(member.expiryDate)}\n\n` +
+        `Please renew your membership to continue your workouts.\n\n` +
+        `Thank you.`;
+}
+
+if (days === 5) {
+    message =
+        `Hello ${name},\n\n` +
+        `This is a reminder from RR Technologies Gym.\n` +
+        `Your gym membership will expire in 5 days.\n` +
+        `Expiry Date: ${formatDate(member.expiryDate)}\n\n` +
+        `Please renew your membership to continue your workouts.\n\n` +
+        `Thank you.`;
+}
+
+if (days === 4) {
+    message =
+        `Hello ${name},\n\n` +
+        `This is a reminder from RR Technologies Gym.\n` +
+        `Your gym membership will expire in 4 days.\n` +
+        `Expiry Date: ${formatDate(member.expiryDate)}\n\n` +
+        `Please renew your membership to continue your workouts.\n\n` +
+        `Thank you.`;
+}
+
+if (days === 3) {
+    message =
+        `Hello ${name},\n\n` +
+        `This is a reminder from RR Technologies Gym.\n` +
+        `Your gym membership will expire in 3 days.\n` +
+        `Expiry Date: ${formatDate(member.expiryDate)}\n\n` +
+        `Please renew your membership to continue your workouts.\n\n` +
+        `Thank you.`;
+}
+
+if (days === 2) {
+    message =
+        `Hello ${name},\n\n` +
+        `This is a reminder from RR Technologies Gym.\n` +
+        `Your gym membership will expire in 2 days.\n` +
+        `Expiry Date: ${formatDate(member.expiryDate)}\n\n` +
+        `Please renew your membership to continue your workouts.\n\n` +
+        `Thank you.`;
+}
+
+if (days === 1) {
+    message =
+        `Hello ${name},\n\n` +
+        `This is a reminder from RR Technologies Gym.\n` +
+        `Your gym membership expires tomorrow.\n` +
+        `Expiry Date: ${formatDate(member.expiryDate)}\n\n` +
+        `Please renew your membership to continue your workouts.\n\n` +
+        `Thank you.`;
+}
+
+if (days === 0) {
+    message =
+        `Hello ${name},\n\n` +
+        `This is a reminder from RR Technologies Gym.\n` +
+        `Your gym membership has expired.\n` +
+        `Expiry Date: ${formatDate(member.expiryDate)}\n\n` +
+        `Please renew your membership to continue your workouts.\n\n` +
+        `Thank you.`;
+}
+
+    const whatsappURL =
+        `https://wa.me/${mobile}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappURL, "_blank");
+}
+
 
 function loadNotifications(){
 
@@ -299,6 +416,10 @@ if (diffDays === 0) {
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
             <p>Expiry : ${formatDate(member.expiryDate)}</p>
+<button class="whatsapp-btn" onclick="openWhatsAppApp('${member.memberId}', 7)">
+    📱 WhatsApp
+</button>
+
         </div>
     `;
 
@@ -312,6 +433,10 @@ else if (days === 6) {
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
             <p>Expiry : ${formatDate(member.expiryDate)}</p>
+<button class="whatsapp-btn" onclick="openWhatsAppApp('${member.memberId}', 6)">
+    📱 WhatsApp
+</button>
+
         </div>
     `;
 
@@ -325,6 +450,10 @@ else if (days === 5) {
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
             <p>Expiry : ${formatDate(member.expiryDate)}</p>
+<button class="whatsapp-btn" onclick="openWhatsAppApp('${member.memberId}', 5)">
+    📱 WhatsApp
+</button>
+
         </div>
     `;
 
@@ -338,6 +467,10 @@ else if (days === 4) {
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
             <p>Expiry : ${formatDate(member.expiryDate)}</p>
+<button class="whatsapp-btn" onclick="openWhatsAppApp('${member.memberId}', 4)">
+    📱 WhatsApp
+</button>
+
         </div>
     `;
 
@@ -351,6 +484,10 @@ else if (days === 3) {
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
             <p>Expiry : ${formatDate(member.expiryDate)}</p>
+<button class="whatsapp-btn" onclick="openWhatsAppApp('${member.memberId}', 3)">
+    📱 WhatsApp
+</button>
+
         </div>
     `;
 
@@ -364,6 +501,10 @@ else if (days === 2) {
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
             <p>Expiry : ${formatDate(member.expiryDate)}</p>
+<button class="whatsapp-btn" onclick="openWhatsAppApp('${member.memberId}', 2)">
+    📱 WhatsApp
+</button>
+
         </div>
     `;
 
@@ -377,6 +518,10 @@ else if (days === 1) {
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
             <p>Expiry : ${formatDate(member.expiryDate)}</p>
+<button class="whatsapp-btn" onclick="openWhatsAppApp('${member.memberId}', 1)">
+    📱 WhatsApp
+</button>
+
         </div>
     `;
 
@@ -390,6 +535,10 @@ else if (days < 0) {
             <h4>${member.memberId} - ${member.name}</h4>
             <p>Mobile : ${member.mobile}</p>
             <p>Expiry : ${formatDate(member.expiryDate)}</p>
+<button class="whatsapp-btn" onclick="openWhatsAppApp('${member.memberId}', 0)">
+    📱 WhatsApp
+</button>
+
         </div>
     `;
 
