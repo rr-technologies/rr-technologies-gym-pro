@@ -331,13 +331,31 @@ saveMembers(members);
     // Payment History
     // ===========================
 
-    function loadHistory() {
+    function loadHistory(searchValue = "") {
 
          feeHistory = getFeeHistory();
 
+         const search = searchValue.trim().toLowerCase();
+
+const filteredHistory = search
+    ? feeHistory.filter(record =>
+        String(record.memberId || "").toLowerCase().includes(search) ||
+        String(record.memberName || "").toLowerCase().includes(search) ||
+        String(record.receiptNo || "").toLowerCase().includes(search)
+    )
+    : feeHistory;
+
+    const printMemberHistoryBtn =
+    document.getElementById("printMemberHistoryBtn");
+
+if (printMemberHistoryBtn) {
+    printMemberHistoryBtn.style.display =
+        search ? "inline-block" : "none";
+}
+
         historyBody.innerHTML = "";
 
-        if (feeHistory.length === 0) {
+        if (filteredHistory.length === 0) {
 
             historyBody.innerHTML = `
                 <tr>
@@ -350,7 +368,7 @@ saveMembers(members);
             return;
         }
 
-        const latestHistory = [...feeHistory].reverse();
+        const latestHistory = [...filteredHistory].reverse();
 
         latestHistory.forEach(record => {
 
@@ -413,16 +431,454 @@ saveMembers(members);
 
 };
 
+// ==========================================
+// PRINT COMPLETE MEMBER PAYMENT HISTORY
+// ==========================================
+
+// ========================================
+// PRINT COMPLETE MEMBER PAYMENT HISTORY
+// ========================================
+
+function printMemberHistory() {
+
+    const searchValue = document
+        .getElementById("searchMember")
+        .value
+        .trim()
+        .toLowerCase();
+
+    if (!searchValue) {
+        alert("Please search a Member ID first.");
+        return;
+    }
+
+    const allHistory = getFeeHistory();
+
+    const memberHistory = allHistory.filter(record =>
+        String(record.memberId || "")
+            .toLowerCase() === searchValue
+    );
+
+    if (memberHistory.length === 0) {
+        alert("No payment history found for this member.");
+        return;
+    }
+
+    const memberId = memberHistory[0].memberId;
+    const memberName = memberHistory[0].memberName || "-";
+
+    // ----------------------------------------
+    // FIND MEMBER MOBILE NUMBER
+    // ----------------------------------------
+
+    const members = JSON.parse(
+        localStorage.getItem("members") || "[]"
+    );
+
+    const member = members.find(m =>
+        String(m.memberId || "").toLowerCase() ===
+        String(memberId || "").toLowerCase()
+    );
+
+    const memberMobile = member
+        ? (member.mobile || member.mobileNumber || "")
+        : "";
+
+    // ----------------------------------------
+    // TOTAL PAID
+    // ----------------------------------------
+
+    const totalPaid = memberHistory.reduce(
+        (total, record) =>
+            total + (Number(record.amount) || 0),
+        0
+    );
+
+    // ----------------------------------------
+    // TABLE ROWS
+    // ----------------------------------------
+
+    const rows = [...memberHistory]
+        .reverse()
+        .map(record => `
+            <tr>
+                <td>${record.receiptNo || "-"}</td>
+                <td>${formatDate(record.date)}</td>
+                <td>${record.time || "-"}</td>
+                <td>${record.mode || "-"}</td>
+                <td>₹${record.amount || 0}</td>
+            </tr>
+        `)
+        .join("");
+
+    // ----------------------------------------
+    // GYM SETTINGS
+    // ----------------------------------------
+
+    const settings = JSON.parse(
+        localStorage.getItem("gymSettings") || "{}"
+    );
+
+    const gymName =
+        settings.gymName ||
+        "RR Technologies Gym Pro";
+
+    const logo =
+        settings.logo ||
+        settings.gymLogo ||
+        "images/logo.png";
+
+    // ----------------------------------------
+    // WHATSAPP MESSAGE
+    // ----------------------------------------
+
+    const whatsappMessage =
+        `Hello ${memberName},
+
+Here is your payment history from ${gymName}.
+
+Member ID: ${memberId}
+Total Transactions: ${memberHistory.length}
+Total Paid: ₹${totalPaid}
+
+Thank you for being a member of ${gymName}.`;
+
+    const whatsappUrl =
+        "https://wa.me/" +
+        (memberMobile
+            ? memberMobile.replace(/\D/g, "")
+            : "") +
+        "?text=" +
+        encodeURIComponent(whatsappMessage);
+
+    // ----------------------------------------
+    // OPEN PRINT WINDOW
+    // ----------------------------------------
+
+    const printWindow = window.open(
+        "",
+        "_blank",
+        "width=900,height=700"
+    );
+
+    if (!printWindow) {
+        alert("Please allow pop-ups for this website.");
+        return;
+    }
+
+    // ----------------------------------------
+    // PRINT PAGE
+    // ----------------------------------------
+
+    printWindow.document.write(`
+        <!DOCTYPE html>
+
+        <html>
+        <head>
+
+            <title>Member Payment History</title>
+
+            <meta charset="UTF-8">
+
+            <style>
+
+                * {
+                    box-sizing: border-box;
+                }
+
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 30px;
+                    color: #222;
+                    background: white;
+                }
+
+                .header {
+                    text-align: center;
+                    margin-bottom: 25px;
+                }
+
+                .logo {
+                    width: 95px;
+                    height: 95px;
+                    object-fit: contain;
+                    border-radius: 12px;
+                    margin-bottom: 10px;
+                }
+
+                .header h1 {
+                    margin: 5px 0;
+                    font-size: 28px;
+                }
+
+                .header p {
+                    margin: 5px 0 20px;
+                    font-size: 16px;
+                }
+
+                .line {
+                    border-top: 2px solid #1976d2;
+                    margin: 15px 0 25px;
+                }
+
+                .member-info {
+                    border: 1px solid #ccc;
+                    padding: 15px;
+                    margin-bottom: 20px;
+                    border-radius: 8px;
+                    background: #fafafa;
+                    font-size: 15px;
+                    line-height: 1.6;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+
+                th,
+                td {
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    text-align: center;
+                }
+
+                th {
+                    background: #f1f1f1;
+                    font-weight: bold;
+                }
+
+                .total {
+                    text-align: right;
+                    margin-top: 20px;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+                .footer {
+                    text-align: center;
+                    margin-top: 35px;
+                    font-size: 14px;
+                }
+
+                /* BUTTONS */
+
+                .buttons {
+                    display: flex;
+                    justify-content: center;
+                    gap: 15px;
+                    margin-top: 35px;
+                }
+
+                .buttons button {
+                    border: none;
+                    padding: 12px 22px;
+                    border-radius: 7px;
+                    font-size: 15px;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+
+                .print-btn {
+                    background: #10b8d4;
+                    color: white;
+                }
+
+                .share-btn {
+                    background: #10b8d4;
+                    color: white;
+                }
+
+                .close-btn {
+                    background: #10b8d4;
+                    color: white;
+                }
+
+                .buttons button:hover {
+                    opacity: 0.85;
+                }
+
+                @media print {
+
+                    body {
+                        padding: 20px;
+                    }
+
+                    .buttons {
+                        display: none;
+                    }
+
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <div class="header">
+
+                <img
+                    src="${logo}"
+                    class="logo"
+                    onerror="this.style.display='none';"
+                >
+
+                <h1>${gymName}</h1>
+
+                <p>Member Payment History</p>
+
+                <div class="line"></div>
+
+            </div>
+
+
+            <div class="member-info">
+
+                <strong>Member ID:</strong>
+                ${memberId}
+                <br>
+
+                <strong>Member Name:</strong>
+                ${memberName}
+                <br>
+
+                <strong>Mobile:</strong> 
+                ${memberMobile}
+                <br>
+
+                <strong>Total Transactions:</strong>
+                ${memberHistory.length}
+
+            </div>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Receipt No</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Payment Mode</th>
+                        <th>Amount</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${rows}
+
+                </tbody>
+
+            </table>
+
+
+            <div class="total">
+                Total Paid: ₹${totalPaid}
+            </div>
+
+
+            <div class="footer">
+
+                Thank you for being a member of ${gymName}.
+
+            </div>
+
+
+            <!-- THREE BUTTONS -->
+
+            <div class="buttons">
+
+                <button
+                    class="print-btn"
+                    onclick="window.print()">
+                    🖨️ Print
+                </button>
+
+                <button
+                    class="share-btn"
+                    onclick="shareCustomer();"
+                    🟢 Share to Customer
+                </button>
+
+                <button
+                    class="close-btn"
+                    onclick="window.close()">
+                    ✖ Close
+                </button>
+
+            </div>
+
+            <script>
+function shareCustomer() {
+
+    let mobile = '${memberMobile}'.replace(/\D/g, '');
+
+    if (!mobile) {
+        alert('Customer mobile number not found.');
+        return;
+    }
+
+    if (mobile.startsWith('0')) {
+        mobile = mobile.substring(1);
+    }
+
+    if (mobile.length === 10) {
+        mobile = '91' + mobile;
+    }
+
+    const message =
+        'Hello ${memberName},\n\n' +
+        'Here is your payment history from ${gymName}.\n\n' +
+        'Member ID: ${memberId}\n' +
+        'Member Name: ${memberName}\n' +
+        'Mobile: ${memberMobile}\n' +
+        'Total Transactions: ${memberHistory.length}\n' +
+        'Total Paid: ₹${totalPaid}\n\n' +
+        'Thank you for being a member of ${gymName}.';
+
+    const url =
+        'https://wa.me/' +
+        mobile +
+        '?text=' +
+        encodeURIComponent(message);
+
+    window.location.href = url;
+}
+</script>
+
+</body>
+
+</html>
+
+    `);
+
+    printWindow.document.close();
+}
+
+
+// Make function available to HTML button
+window.printMemberHistory = printMemberHistory;
+
+window.printMemberHistory = printMemberHistory;
+
     loadMembers();
  loadHistory();
 
 document.getElementById("searchBtn").addEventListener("click", function () {
 
+    const searchValue = document
+        .getElementById("searchMember")
+        .value
+        .trim();
 
+    loadMembers(searchValue);
+    loadHistory(searchValue);
 
-    loadMembers(document.getElementById("searchMember").value);
-
-    
 });
 
 document.getElementById("refreshBtn").addEventListener("click", function () {
@@ -435,9 +891,16 @@ document.getElementById("refreshBtn").addEventListener("click", function () {
 });
 
 document.getElementById("searchMember").addEventListener("keyup", function (e) {
+
     if (e.key === "Enter") {
-        loadMembers(this.value);
+
+        const searchValue = this.value.trim();
+
+        loadMembers(searchValue);
+        loadHistory(searchValue);
+
     }
+
 });
 
 window.printReceipt = function(receiptNo) {

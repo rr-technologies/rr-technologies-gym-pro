@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Products - RR Trinetra Billing</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    color: #1f2937;
+}
+
+.topbar {
+    height: 70px;
+    background: linear-gradient(135deg, #111827, #1e3a8a);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+}
+
+.brand h1 {
+    font-size: 22px;
+}
+
+.brand p {
+    font-size: 12px;
+    opacity: 0.75;
+    margin-top: 4px;
+}
+
+.back-btn {
+    color: white;
+    text-decoration: none;
+    background: rgba(255,255,255,0.12);
+    padding: 10px 16px;
+    border-radius: 8px;
+}
+
+.container {
+    padding: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    margin-bottom: 18px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.field input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+.field input:focus {
+    border-color: #2563eb;
+}
+
+.button-row {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    border: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-save {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-reset {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.btn-save:hover {
+    background: #1d4ed8;
+}
+
+.search-box {
+    width: 350px;
+    max-width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+thead {
+    background: #111827;
+    color: white;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+.price {
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.stock-good {
+    color: #15803d;
+    font-weight: bold;
+}
+
+.stock-low {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.action-btn {
+    border: none;
+    padding: 7px 11px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.edit-btn {
+    background: #f59e0b;
+    color: white;
+}
+
+.delete-btn {
+    background: #dc2626;
+    color: white;
+}
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+}
+
+@media (max-width: 1000px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        height: auto;
+        padding: 15px;
+        gap: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        <h1>RR Trinetra Focus and Services</h1>
+        <p>Product Management</p>
+    </div>
+
+    <a href="billing.html" class="back-btn">
+        ← Billing
+    </a>
+
+</header>
+
+
+<main class="container">
+
+    <!-- ADD PRODUCT -->
+
+    <section class="card">
+
+        <h2 id="formTitle">Add New Product</h2>
+
+        <div class="form-grid">
+
+            <div class="field">
+                <label>Product Name *</label>
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="Enter product name">
+            </div>
+
+            <div class="field">
+                <label>Barcode</label>
+                <input
+                    type="text"
+                    id="barcode"
+                    placeholder="Scan / enter barcode">
+            </div>
+
+            <div class="field">
+                <label>HSN Code</label>
+                <input
+                    type="text"
+                    id="hsn"
+                    placeholder="Enter HSN">
+            </div>
+
+            <div class="field">
+                <label>Purchase Price</label>
+                <input
+                    type="number"
+                    id="purchasePrice"
+                    placeholder="0.00"
+                    min="0">
+            </div>
+
+            <div class="field">
+                <label>Selling Price *</label>
+                <input
+                    type="number"
+                    id="sellingPrice"
+                    placeholder="0.00"
+                    min="0">
+            </div>
+
+            <div class="field">
+                <label>GST %</label>
+                <input
+                    type="number"
+                    id="gst"
+                    placeholder="18"
+                    min="0">
+            </div>
+
+            <div class="field">
+                <label>Opening Stock</label>
+                <input
+                    type="number"
+                    id="stock"
+                    placeholder="0"
+                    min="0">
+            </div>
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="btn btn-save"
+                onclick="saveProduct()">
+                💾 Save Product
+            </button>
+
+            <button
+                class="btn btn-reset"
+                onclick="resetForm()">
+                Reset
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRODUCT LIST -->
+
+    <section class="card">
+
+        <h2>Product List</h2>
+
+        <input
+            type="text"
+            id="searchProduct"
+            class="search-box"
+            placeholder="🔍 Search product or barcode..."
+            oninput="displayProducts()">
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Product</th>
+                        <th>Barcode</th>
+                        <th>HSN</th>
+                        <th>Purchase</th>
+                        <th>Selling</th>
+                        <th>GST</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="productTableBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+let products =
+    JSON.parse(localStorage.getItem("rrProducts")) || [];
+
+let editIndex = -1;
+
+
+// SAVE PRODUCT
+
+function saveProduct() {
+
+    const name =
+        document.getElementById("productName").value.trim();
+
+    const barcode =
+        document.getElementById("barcode").value.trim();
+
+    const hsn =
+        document.getElementById("hsn").value.trim();
+
+    const purchasePrice =
+        Number(document.getElementById("purchasePrice").value) || 0;
+
+    const sellingPrice =
+        Number(document.getElementById("sellingPrice").value) || 0;
+
+    const gst =
+        Number(document.getElementById("gst").value) || 0;
+
+    const stock =
+        Number(document.getElementById("stock").value) || 0;
+
+
+    if (!name) {
+
+        alert("Please enter product name.");
+
+        return;
+    }
+
+
+    if (sellingPrice <= 0) {
+
+        alert("Please enter selling price.");
+
+        return;
+    }
+
+
+    const product = {
+
+        id:
+            editIndex === -1
+                ? Date.now()
+                : products[editIndex].id,
+
+        name,
+        barcode,
+        hsn,
+        purchasePrice,
+        sellingPrice,
+        gst,
+        stock
+
+    };
+
+
+    if (editIndex === -1) {
+
+        products.push(product);
+
+        alert("Product added successfully.");
+
+    } else {
+
+        products[editIndex] = product;
+
+        alert("Product updated successfully.");
+
+    }
+
+
+    localStorage.setItem(
+        "rrProducts",
+        JSON.stringify(products)
+    );
+
+
+    resetForm();
+
+    displayProducts();
+}
+
+
+// DISPLAY PRODUCTS
+
+function displayProducts() {
+
+    const tbody =
+        document.getElementById("productTableBody");
+
+    const search =
+        document
+            .getElementById("searchProduct")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    const filtered =
+        products.filter(product =>
+
+            product.name
+                .toLowerCase()
+                .includes(search)
+
+            ||
+
+            product.barcode
+                .toLowerCase()
+                .includes(search)
+
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    if (filtered.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9" class="empty">
+                    No products found
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    filtered.forEach((product, index) => {
+
+        const originalIndex =
+            products.findIndex(
+                item => item.id === product.id
+            );
+
+
+        const row =
+            document.createElement("tr");
+
+
+        const stockClass =
+            product.stock <= 5
+                ? "stock-low"
+                : "stock-good";
+
+
+        row.innerHTML = `
+
+            <td>${index + 1}</td>
+
+            <td>
+                <strong>${escapeHtml(product.name)}</strong>
+            </td>
+
+            <td>${escapeHtml(product.barcode || "-")}</td>
+
+            <td>${escapeHtml(product.hsn || "-")}</td>
+
+            <td>
+                ₹${product.purchasePrice.toFixed(2)}
+            </td>
+
+            <td class="price">
+                ₹${product.sellingPrice.toFixed(2)}
+            </td>
+
+            <td>
+                ${product.gst}%
+            </td>
+
+            <td class="${stockClass}">
+                ${product.stock}
+            </td>
+
+            <td>
+
+                <button
+                    class="action-btn edit-btn"
+                    onclick="editProduct(${originalIndex})">
+                    Edit
+                </button>
+
+                <button
+                    class="action-btn delete-btn"
+                    onclick="deleteProduct(${originalIndex})">
+                    Delete
+                </button>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+// EDIT
+
+function editProduct(index) {
+
+    const product =
+        products[index];
+
+
+    document.getElementById("productName").value =
+        product.name;
+
+    document.getElementById("barcode").value =
+        product.barcode;
+
+    document.getElementById("hsn").value =
+        product.hsn;
+
+    document.getElementById("purchasePrice").value =
+        product.purchasePrice;
+
+    document.getElementById("sellingPrice").value =
+        product.sellingPrice;
+
+    document.getElementById("gst").value =
+        product.gst;
+
+    document.getElementById("stock").value =
+        product.stock;
+
+
+    editIndex = index;
+
+
+    document.getElementById("formTitle")
+        .innerText = "Edit Product";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// DELETE
+
+function deleteProduct(index) {
+
+    const product =
+        products[index];
+
+
+    const confirmDelete =
+        confirm(
+            `Delete "${product.name}"?`
+        );
+
+
+    if (!confirmDelete) return;
+
+
+    products.splice(index, 1);
+
+
+    localStorage.setItem(
+        "rrProducts",
+        JSON.stringify(products)
+    );
+
+
+    displayProducts();
+
+}
+
+
+// RESET
+
+function resetForm() {
+
+    document.getElementById("productName").value = "";
+    document.getElementById("barcode").value = "";
+    document.getElementById("hsn").value = "";
+    document.getElementById("purchasePrice").value = "";
+    document.getElementById("sellingPrice").value = "";
+    document.getElementById("gst").value = "";
+    document.getElementById("stock").value = "";
+
+
+    editIndex = -1;
+
+
+    document.getElementById("formTitle")
+        .innerText = "Add New Product";
+
+}
+
+
+// HTML SAFETY
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// INITIAL LOAD
+
+displayProducts();
+
+</script>
+
+</body>
+</html>
