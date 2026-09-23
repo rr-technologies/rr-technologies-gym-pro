@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Purchase - RR Trinetra Billing</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+        .topbar {
+            height: 70px;
+            background: linear-gradient(135deg, #111827, #1e3a8a);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+        }
+
+        .brand h1 {
+            font-size: 22px;
+        }
+
+        .brand p {
+            font-size: 12px;
+            opacity: .75;
+            margin-top: 4px;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,.12);
+            padding: 10px 16px;
+            border-radius: 8px;
+        }
+
+        .container {
+            padding: 22px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.07);
+        }
+
+        .card-title {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .top-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2563eb;
+        }
+
+        .product-entry {
+            display: grid;
+            grid-template-columns: 2fr 1.3fr 1fr 1fr 1fr auto;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .add-btn {
+            height: 42px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 0 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        thead {
+            background: #111827;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .remove-btn {
+            border: none;
+            background: #dc2626;
+            color: white;
+            padding: 7px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .empty-row {
+            text-align: center;
+            color: #777;
+            padding: 30px;
+        }
+
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            resize: vertical;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .summary {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .grand-total {
+            border-top: 1px solid #d1d5db;
+            padding-top: 14px;
+            margin-top: 12px;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .save-btn {
+            width: 100%;
+            margin-top: 18px;
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            background: #16a34a;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            background: #15803d;
+        }
+
+        .clear-btn {
+            width: 100%;
+            margin-top: 9px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #e5e7eb;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1100px) {
+            .top-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .product-entry {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .bottom-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .topbar {
+                height: auto;
+                padding: 15px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .top-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-entry {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        <h1>RR Trinetra Focus and Services</h1>
+        <p>Purchase Management</p>
+    </div>
+
+    <a href="billing.html" class="back-btn">
+        ← Billing
+    </a>
+
+</header>
+
+
+<main class="container">
+
+    <!-- PURCHASE INFORMATION -->
+
+    <section class="card">
+
+        <h2 class="card-title">New Purchase</h2>
+
+        <div class="top-grid">
+
+            <div>
+                <label>Supplier / Vendor *</label>
+
+                <input
+                    type="text"
+                    id="supplier"
+                    placeholder="Supplier name">
+            </div>
+
+            <div>
+                <label>Purchase Invoice No.</label>
+
+                <input
+                    type="text"
+                    id="invoiceNo"
+                    placeholder="Supplier invoice number">
+            </div>
+
+            <div>
+                <label>Purchase Date</label>
+
+                <input
+                    type="date"
+                    id="purchaseDate">
+            </div>
+
+            <div>
+                <label>Payment Mode</label>
+
+                <select id="paymentMode">
+
+                    <option value="Credit">
+                        Credit
+                    </option>
+
+                    <option value="Cash">
+                        Cash
+                    </option>
+
+                    <option value="UPI">
+                        UPI
+                    </option>
+
+                    <option value="Bank">
+                        Bank
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRODUCT ENTRY -->
+
+    <section class="card">
+
+        <h2 class="card-title">Add Purchase Items</h2>
+
+        <div class="product-entry">
+
+            <div>
+                <label>Product</label>
+
+                <select id="productSelect">
+                    <option value="">
+                        Select Product
+                    </option>
+                </select>
+            </div>
+
+
+            <div>
+                <label>Purchase Rate</label>
+
+                <input
+                    type="number"
+                    id="purchaseRate"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00">
+            </div>
+
+
+            <div>
+                <label>Quantity</label>
+
+                <input
+                    type="number"
+                    id="quantity"
+                    min="1"
+                    value="1">
+            </div>
+
+
+            <div>
+                <label>GST %</label>
+
+                <input
+                    type="number"
+                    id="gst"
+                    min="0"
+                    value="18">
+            </div>
+
+
+            <div>
+                <label>Amount</label>
+
+                <input
+                    type="text"
+                    id="itemAmount"
+                    value="₹0.00"
+                    readonly>
+            </div>
+
+
+            <button
+                class="add-btn"
+                onclick="addPurchaseItem()">
+
+                + Add
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PURCHASE ITEMS -->
+
+    <section class="card">
+
+        <h2 class="card-title">Purchase Items</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Product</th>
+                        <th>Rate</th>
+                        <th>Qty</th>
+                        <th>GST</th>
+                        <th>Tax</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="purchaseTable">
+
+                    <tr>
+                        <td colspan="8" class="empty-row">
+                            No items added
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- NOTES + SUMMARY -->
+
+    <section class="bottom-section">
+
+        <div class="card">
+
+            <h2 class="card-title">
+                Notes
+            </h2>
+
+            <textarea
+                id="notes"
+                placeholder="Purchase notes..."></textarea>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="summary">
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+
+                    <strong>
+                        ₹<span id="subtotal">0.00</span>
+                    </strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>GST</span>
+
+                    <strong>
+                        ₹<span id="gstTotal">0.00</span>
+                    </strong>
+                </div>
+
+                <div class="summary-row grand-total">
+                    <span>Total</span>
+
+                    <span>
+                        ₹<span id="grandTotal">0.00</span>
+                    </span>
+                </div>
+
+            </div>
+
+
+            <button
+                class="save-btn"
+                onclick="savePurchase()">
+
+                ✓ Save Purchase & Update Stock
+
+            </button>
+
+
+            <button
+                class="clear-btn"
+                onclick="clearPurchase()">
+
+                Clear Purchase
+
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+let products =
+    JSON.parse(localStorage.getItem("rrProducts")) || [];
+
+let purchaseItems = [];
+
+
+// TODAY'S DATE
+
+document.getElementById("purchaseDate").value =
+    new Date().toISOString().split("T")[0];
+
+
+// LOAD PRODUCTS
+
+function loadProducts() {
+
+    const select =
+        document.getElementById("productSelect");
+
+    select.innerHTML = `
+        <option value="">
+            Select Product
+        </option>
+    `;
+
+    products.forEach(product => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = product.id;
+
+        option.textContent =
+            `${product.name} ${
+                product.barcode
+                    ? " - " + product.barcode
+                    : ""
+            }`;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+// PRODUCT SELECT
+
+document
+    .getElementById("productSelect")
+    .addEventListener("change", function () {
+
+        const product =
+            products.find(
+                item =>
+                    item.id == this.value
+            );
+
+        if (!product) return;
+
+        document.getElementById("purchaseRate").value =
+            product.purchasePrice || "";
+
+        document.getElementById("gst").value =
+            product.gst || 0;
+
+        calculateItemAmount();
+
+    });
+
+
+// CALCULATE ITEM
+
+function calculateItemAmount() {
+
+    const rate =
+        Number(
+            document.getElementById("purchaseRate").value
+        ) || 0;
+
+    const qty =
+        Number(
+            document.getElementById("quantity").value
+        ) || 0;
+
+    const gst =
+        Number(
+            document.getElementById("gst").value
+        ) || 0;
+
+    const subtotal =
+        rate * qty;
+
+    const tax =
+        subtotal * gst / 100;
+
+    const total =
+        subtotal + tax;
+
+
+    document.getElementById("itemAmount").value =
+        "₹" + total.toFixed(2);
+
+}
+
+
+document
+    .getElementById("purchaseRate")
+    .addEventListener("input", calculateItemAmount);
+
+document
+    .getElementById("quantity")
+    .addEventListener("input", calculateItemAmount);
+
+document
+    .getElementById("gst")
+    .addEventListener("input", calculateItemAmount);
+
+
+// ADD ITEM
+
+function addPurchaseItem() {
+
+    const productId =
+        document.getElementById("productSelect").value;
+
+    const product =
+        products.find(
+            item => item.id == productId
+        );
+
+    if (!product) {
+
+        alert("Please select a product.");
+
+        return;
+    }
+
+
+    const rate =
+        Number(
+            document.getElementById("purchaseRate").value
+        ) || 0;
+
+    const qty =
+        Number(
+            document.getElementById("quantity").value
+        ) || 0;
+
+    const gst =
+        Number(
+            document.getElementById("gst").value
+        ) || 0;
+
+
+    if (rate <= 0) {
+
+        alert("Please enter purchase rate.");
+
+        return;
+    }
+
+
+    if (qty <= 0) {
+
+        alert("Please enter quantity.");
+
+        return;
+    }
+
+
+    const subtotal =
+        rate * qty;
+
+    const tax =
+        subtotal * gst / 100;
+
+    const total =
+        subtotal + tax;
+
+
+    purchaseItems.push({
+
+        productId: product.id,
+
+        productName: product.name,
+
+        rate,
+
+        qty,
+
+        gst,
+
+        tax,
+
+        subtotal,
+
+        total
+
+    });
+
+
+    renderPurchaseItems();
+
+
+    document.getElementById("productSelect").value = "";
+
+    document.getElementById("purchaseRate").value = "";
+
+    document.getElementById("quantity").value = 1;
+
+    document.getElementById("gst").value = 18;
+
+    document.getElementById("itemAmount").value = "₹0.00";
+
+}
+
+
+// DISPLAY ITEMS
+
+function renderPurchaseItems() {
+
+    const table =
+        document.getElementById("purchaseTable");
+
+    table.innerHTML = "";
+
+
+    if (purchaseItems.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="8" class="empty-row">
+                    No items added
+                </td>
+            </tr>
+        `;
+
+        updateSummary();
+
+        return;
+    }
+
+
+    purchaseItems.forEach((item, index) => {
+
+        const row =
+            document.createElement("tr");
+
+        row.innerHTML = `
+
+            <td>${index + 1}</td>
+
+            <td>
+                <strong>
+                    ${escapeHtml(item.productName)}
+                </strong>
+            </td>
+
+            <td>
+                ₹${item.rate.toFixed(2)}
+            </td>
+
+            <td>
+                ${item.qty}
+            </td>
+
+            <td>
+                ${item.gst}%
+            </td>
+
+            <td>
+                ₹${item.tax.toFixed(2)}
+            </td>
+
+            <td>
+                <strong>
+                    ₹${item.total.toFixed(2)}
+                </strong>
+            </td>
+
+            <td>
+                <button
+                    class="remove-btn"
+                    onclick="removeItem(${index})">
+                    Remove
+                </button>
+            </td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+
+    updateSummary();
+
+}
+
+
+// REMOVE ITEM
+
+function removeItem(index) {
+
+    purchaseItems.splice(index, 1);
+
+    renderPurchaseItems();
+
+}
+
+
+// SUMMARY
+
+function updateSummary() {
+
+    const subtotal =
+        purchaseItems.reduce(
+            (sum, item) =>
+                sum + item.subtotal,
+            0
+        );
+
+    const gstTotal =
+        purchaseItems.reduce(
+            (sum, item) =>
+                sum + item.tax,
+            0
+        );
+
+    const total =
+        subtotal + gstTotal;
+
+
+    document.getElementById("subtotal")
+        .innerText = subtotal.toFixed(2);
+
+    document.getElementById("gstTotal")
+        .innerText = gstTotal.toFixed(2);
+
+    document.getElementById("grandTotal")
+        .innerText = total.toFixed(2);
+
+}
+
+
+// SAVE PURCHASE
+
+function savePurchase() {
+
+    const supplier =
+        document.getElementById("supplier")
+            .value.trim();
+
+    const invoiceNo =
+        document.getElementById("invoiceNo")
+            .value.trim();
+
+    const purchaseDate =
+        document.getElementById("purchaseDate")
+            .value;
+
+    const paymentMode =
+        document.getElementById("paymentMode")
+            .value;
+
+    const notes =
+        document.getElementById("notes")
+            .value.trim();
+
+
+    if (!supplier) {
+
+        alert("Please enter supplier name.");
+
+        return;
+    }
+
+
+    if (purchaseItems.length === 0) {
+
+        alert("Please add at least one product.");
+
+        return;
+    }
+
+
+    const subtotal =
+        purchaseItems.reduce(
+            (sum, item) =>
+                sum + item.subtotal,
+            0
+        );
+
+    const gstTotal =
+        purchaseItems.reduce(
+            (sum, item) =>
+                sum + item.tax,
+            0
+        );
+
+    const total =
+        subtotal + gstTotal;
+
+
+    /*
+        UPDATE INVENTORY STOCK
+    */
+
+    purchaseItems.forEach(item => {
+
+        const product =
+            products.find(
+                p => p.id === item.productId
+            );
+
+        if (product) {
+
+            product.stock =
+                Number(product.stock || 0)
+                + Number(item.qty);
+
+            /*
+                Latest purchase rate
+                is stored in product master
+            */
+
+            product.purchasePrice =
+                item.rate;
+
+        }
+
+    });
+
+
+    localStorage.setItem(
+        "rrProducts",
+        JSON.stringify(products)
+    );
+
+
+    /*
+        SAVE PURCHASE HISTORY
+    */
+
+    const purchases =
+        JSON.parse(
+            localStorage.getItem("rrPurchases")
+        ) || [];
+
+
+    const purchase = {
+
+        purchaseId:
+            "PUR-" + Date.now(),
+
+        supplier,
+
+        invoiceNo,
+
+        purchaseDate,
+
+        paymentMode,
+
+        notes,
+
+        items: purchaseItems,
+
+        subtotal,
+
+        gstTotal,
+
+        total,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    purchases.push(purchase);
+
+
+    localStorage.setItem(
+        "rrPurchases",
+        JSON.stringify(purchases)
+    );
+
+
+    alert(
+        "Purchase saved successfully!\n\n" +
+        "Stock has been updated."
+    );
+
+
+    clearPurchase();
+
+}
+
+
+// CLEAR
+
+function clearPurchase() {
+
+    purchaseItems = [];
+
+    document.getElementById("supplier").value = "";
+
+    document.getElementById("invoiceNo").value = "";
+
+    document.getElementById("notes").value = "";
+
+    document.getElementById("paymentMode").value =
+        "Credit";
+
+    document.getElementById("purchaseDate").value =
+        new Date().toISOString().split("T")[0];
+
+    document.getElementById("productSelect").value = "";
+
+    document.getElementById("purchaseRate").value = "";
+
+    document.getElementById("quantity").value = 1;
+
+    document.getElementById("gst").value = 18;
+
+    document.getElementById("itemAmount").value =
+        "₹0.00";
+
+    renderPurchaseItems();
+
+}
+
+
+// ESCAPE HTML
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// INITIALIZE
+
+loadProducts();
+
+renderPurchaseItems();
+
+</script>
+
+    <script src="sidebar.js"></script>
+
+</body>
+</html>

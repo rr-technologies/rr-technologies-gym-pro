@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payments - RR Trinetra Billing</title>
+
+    <link rel="stylesheet" href="payments.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="brand-logo">RR</div>
+
+            <div class="brand-text">
+                <h2>RR Trinetra</h2>
+                <span>Billing System</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="billing-dashboard.html">
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+            <a href="billing.html">
+                🧾
+                <span>POS Billing</span>
+            </a>
+
+            <a href="products.html">
+                📦
+                <span>Products</span>
+            </a>
+
+            <a href="purchase.html">
+                🛒
+                <span>Purchase</span>
+            </a>
+
+            <a href="inventory.html">
+                📊
+                <span>Inventory</span>
+            </a>
+
+            <div class="nav-divider"></div>
+
+            <a href="customers.html">
+                👥
+                <span>Customers</span>
+            </a>
+
+            <a href="vendors.html">
+                🏢
+                <span>Vendors</span>
+            </a>
+
+            <a href="expenses.html">
+                💰
+                <span>Expenses</span>
+            </a>
+
+            <a href="payments.html" class="active">
+                💳
+                <span>Payments</span>
+            </a>
+
+            <a href="reports.html">
+                📈
+                <span>Reports</span>
+            </a>
+
+            <div class="nav-divider"></div>
+
+            <a href="settings.html">
+                ⚙️
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <span>RR Trinetra Billing v1.0</span>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <header class="page-header">
+
+            <div>
+                <h1>Payments</h1>
+
+                <p>
+                    Track and manage all your business payments
+                </p>
+            </div>
+
+            <button
+                class="refresh-btn"
+                id="refreshPayments"
+                title="Refresh"
+            >
+                ↻
+            </button>
+
+        </header>
+
+
+        <!-- SUMMARY CARDS -->
+        <section class="summary-grid">
+
+            <!-- TOTAL -->
+            <div class="summary-card">
+
+                <div class="summary-icon total-icon">
+                    ₹
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Total Payments</span>
+
+                    <strong id="totalPayments">
+                        ₹0.00
+                    </strong>
+
+                    <small>
+                        All recorded payments
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- CASH -->
+            <div class="summary-card">
+
+                <div class="summary-icon cash-icon">
+                    ₹
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Cash</span>
+
+                    <strong id="cashPayments">
+                        ₹0.00
+                    </strong>
+
+                    <small>
+                        Cash payments
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- UPI -->
+            <div class="summary-card">
+
+                <div class="summary-icon upi-icon">
+                    UPI
+                </div>
+
+                <div class="summary-info">
+
+                    <span>UPI</span>
+
+                    <strong id="upiPayments">
+                        ₹0.00
+                    </strong>
+
+                    <small>
+                        UPI payments
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD -->
+            <div class="summary-card">
+
+                <div class="summary-icon card-icon">
+                    💳
+                </div>
+
+                <div class="summary-info">
+
+                    <span>Card</span>
+
+                    <strong id="cardPayments">
+                        ₹0.00
+                    </strong>
+
+                    <small>
+                        Card payments
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAYMENT LIST -->
+        <section class="payment-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Payment List</h2>
+
+                    <p>
+                        All recorded payment transactions
+                    </p>
+                </div>
+
+
+                <div class="header-actions">
+
+                    <div class="search-box">
+
+                        <span>🔍</span>
+
+                        <input
+                            type="text"
+                            id="paymentSearch"
+                            placeholder="Search customer or bill..."
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="refresh-small"
+                        id="refreshPayments2"
+                        title="Refresh"
+                    >
+                        ↻
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- FILTERS -->
+            <div class="payment-filters">
+
+                <div class="filter-group">
+
+                    <label>Payment Mode</label>
+
+                    <select id="paymentModeFilter">
+
+                        <option value="all">
+                            All Payments
+                        </option>
+
+                        <option value="Cash">
+                            Cash
+                        </option>
+
+                        <option value="UPI">
+                            UPI
+                        </option>
+
+                        <option value="Card">
+                            Card
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>From Date</label>
+
+                    <input
+                        type="date"
+                        id="fromDate"
+                    >
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>To Date</label>
+
+                    <input
+                        type="date"
+                        id="toDate"
+                    >
+
+                </div>
+
+
+                <button
+                    class="clear-filter-btn"
+                    id="clearFilters"
+                >
+                    Clear Filters
+                </button>
+
+            </div>
+
+
+            <!-- TABLE -->
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>S.No</th>
+
+                            <th>Bill No</th>
+
+                            <th>Customer</th>
+
+                            <th>Date</th>
+
+                            <th>Payment Mode</th>
+
+                            <th>Amount</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="paymentTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="empty-row"
+                            >
+                                No payments recorded yet
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+
+            © 2026 RR Trinetra Focus and Services
+
+            <span>•</span>
+
+            Professional Billing System
+
+        </footer>
+
+    </main>
+
+
+    <script src="payments.js"></script>
+
+</body>
+</html>

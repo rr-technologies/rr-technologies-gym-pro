@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Inventory - RR Trinetra Billing</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    color: #1f2937;
+}
+
+.topbar {
+    height: 70px;
+    background: linear-gradient(135deg, #111827, #1e3a8a);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+}
+
+.brand h1 {
+    font-size: 22px;
+}
+
+.brand p {
+    font-size: 12px;
+    opacity: .75;
+    margin-top: 4px;
+}
+
+.back-btn {
+    color: white;
+    text-decoration: none;
+    background: rgba(255,255,255,.12);
+    padding: 10px 16px;
+    border-radius: 8px;
+}
+
+.container {
+    padding: 22px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.07);
+}
+
+.stat-title {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.stat-value {
+    font-size: 27px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.blue {
+    color: #2563eb;
+}
+
+.green {
+    color: #16a34a;
+}
+
+.orange {
+    color: #ea580c;
+}
+
+.red {
+    color: #dc2626;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.07);
+}
+
+.card-title {
+    font-size: 20px;
+    margin-bottom: 18px;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.search-box {
+    width: 350px;
+    max-width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+.refresh-btn {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+thead {
+    background: #111827;
+    color: white;
+}
+
+th,
+td {
+    padding: 13px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+.stock {
+    font-weight: bold;
+}
+
+.stock-good {
+    color: #15803d;
+}
+
+.stock-low {
+    color: #ea580c;
+}
+
+.stock-out {
+    color: #dc2626;
+}
+
+.value {
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.empty {
+    text-align: center;
+    padding: 35px;
+    color: #777;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge-good {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.badge-low {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.badge-out {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.history-table {
+    margin-top: 10px;
+}
+
+@media (max-width: 1000px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .topbar {
+        height: auto;
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+</style>
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        <h1>RR Trinetra Focus and Services</h1>
+        <p>Inventory Management</p>
+    </div>
+
+    <a href="billing.html" class="back-btn">
+        ← Billing
+    </a>
+
+</header>
+
+
+<main class="container">
+
+    <!-- SUMMARY CARDS -->
+
+    <section class="cards">
+
+        <div class="stat-card">
+            <div class="stat-title">
+                Total Products
+            </div>
+
+            <div
+                class="stat-value blue"
+                id="totalProducts">
+                0
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-title">
+                Total Stock
+            </div>
+
+            <div
+                class="stat-value green"
+                id="totalStock">
+                0
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-title">
+                Stock Value
+            </div>
+
+            <div
+                class="stat-value orange"
+                id="stockValue">
+                ₹0.00
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-title">
+                Low / Out of Stock
+            </div>
+
+            <div
+                class="stat-value red"
+                id="lowStock">
+                0
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- INVENTORY -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            Current Inventory
+        </h2>
+
+
+        <div class="toolbar">
+
+            <input
+                type="text"
+                id="searchBox"
+                class="search-box"
+                placeholder="🔍 Search product or barcode..."
+                oninput="displayInventory()">
+
+
+            <button
+                class="refresh-btn"
+                onclick="loadInventory()">
+
+                ↻ Refresh
+
+            </button>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Product</th>
+
+                        <th>Barcode</th>
+
+                        <th>Purchase Rate</th>
+
+                        <th>Selling Price</th>
+
+                        <th>Stock</th>
+
+                        <th>Stock Value</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="inventoryTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- STOCK INFORMATION -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            Stock Information
+        </h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Product</th>
+
+                        <th>Current Stock</th>
+
+                        <th>Purchase Rate</th>
+
+                        <th>Stock Value</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="stockTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+let products = [];
+
+
+// LOAD PRODUCTS
+
+function loadInventory() {
+
+    products =
+        JSON.parse(
+            localStorage.getItem("rrProducts")
+        ) || [];
+
+
+    displayInventory();
+
+    updateSummary();
+
+    displayStock();
+
+}
+
+
+// DISPLAY INVENTORY
+
+function displayInventory() {
+
+    const tbody =
+        document.getElementById("inventoryTable");
+
+    const search =
+        document
+            .getElementById("searchBox")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    const filtered =
+        products.filter(product =>
+
+            product.name
+                .toLowerCase()
+                .includes(search)
+
+            ||
+
+            String(product.barcode || "")
+                .toLowerCase()
+                .includes(search)
+
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    if (filtered.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="empty">
+
+                    No products found
+
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    filtered.forEach((product, index) => {
+
+        const stock =
+            Number(product.stock || 0);
+
+        const purchaseRate =
+            Number(product.purchasePrice || 0);
+
+        const sellingPrice =
+            Number(product.sellingPrice || 0);
+
+        const stockValue =
+            stock * purchaseRate;
+
+
+        let status = "";
+        let statusClass = "";
+        let stockClass = "";
+
+
+        if (stock <= 0) {
+
+            status = "Out of Stock";
+            statusClass = "badge-out";
+            stockClass = "stock-out";
+
+        } else if (stock <= 5) {
+
+            status = "Low Stock";
+            statusClass = "badge-low";
+            stockClass = "stock-low";
+
+        } else {
+
+            status = "In Stock";
+            statusClass = "badge-good";
+            stockClass = "stock-good";
+
+        }
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>${index + 1}</td>
+
+            <td>
+                <strong>
+                    ${escapeHtml(product.name)}
+                </strong>
+            </td>
+
+            <td>
+                ${escapeHtml(product.barcode || "-")}
+            </td>
+
+            <td>
+                ₹${purchaseRate.toFixed(2)}
+            </td>
+
+            <td class="value">
+                ₹${sellingPrice.toFixed(2)}
+            </td>
+
+            <td class="stock ${stockClass}">
+                ${stock}
+            </td>
+
+            <td>
+                ₹${stockValue.toFixed(2)}
+            </td>
+
+            <td>
+                <span class="badge ${statusClass}">
+                    ${status}
+                </span>
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+// SUMMARY
+
+function updateSummary() {
+
+    const totalProducts =
+        products.length;
+
+
+    const totalStock =
+        products.reduce(
+            (sum, product) =>
+                sum +
+                Number(product.stock || 0),
+            0
+        );
+
+
+    const stockValue =
+        products.reduce(
+            (sum, product) =>
+                sum +
+                (
+                    Number(product.stock || 0)
+                    *
+                    Number(product.purchasePrice || 0)
+                ),
+            0
+        );
+
+
+    const lowStock =
+        products.filter(
+            product =>
+                Number(product.stock || 0) <= 5
+        ).length;
+
+
+    document.getElementById("totalProducts")
+        .innerText = totalProducts;
+
+
+    document.getElementById("totalStock")
+        .innerText = totalStock;
+
+
+    document.getElementById("stockValue")
+        .innerText =
+        "₹" + stockValue.toFixed(2);
+
+
+    document.getElementById("lowStock")
+        .innerText = lowStock;
+
+}
+
+
+// STOCK TABLE
+
+function displayStock() {
+
+    const tbody =
+        document.getElementById("stockTable");
+
+    tbody.innerHTML = "";
+
+
+    if (products.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5" class="empty">
+                    No stock available
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    products.forEach((product, index) => {
+
+        const stock =
+            Number(product.stock || 0);
+
+        const purchaseRate =
+            Number(product.purchasePrice || 0);
+
+        const value =
+            stock * purchaseRate;
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>${index + 1}</td>
+
+            <td>
+                <strong>
+                    ${escapeHtml(product.name)}
+                </strong>
+            </td>
+
+            <td>
+                ${stock}
+            </td>
+
+            <td>
+                ₹${purchaseRate.toFixed(2)}
+            </td>
+
+            <td class="value">
+                ₹${value.toFixed(2)}
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+// HTML SAFETY
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// INITIAL LOAD
+
+loadInventory();
+
+</script>
+
+    <script src="sidebar.js"></script>
+
+</body>
+</html>

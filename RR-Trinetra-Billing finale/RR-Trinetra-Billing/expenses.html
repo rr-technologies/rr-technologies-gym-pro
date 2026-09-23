@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Expenses - RR Trinetra Billing</title>
+
+    <link
+        rel="stylesheet"
+        href="expenses.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                RR
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    RR Trinetra
+                </strong>
+
+                <span>
+                    Billing System
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="billing-dashboard.html">
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+
+            <a href="billing.html">
+                🧾
+                <span>POS Billing</span>
+            </a>
+
+
+            <a href="products.html">
+                📦
+                <span>Products</span>
+            </a>
+
+
+            <a href="purchase.html">
+                🛒
+                <span>Purchase</span>
+            </a>
+
+
+            <a href="inventory.html">
+                📊
+                <span>Inventory</span>
+            </a>
+
+
+            <div class="nav-divider"></div>
+
+
+            <a href="customers.html">
+                👥
+                <span>Customers</span>
+            </a>
+
+
+            <a href="vendors.html">
+                🏢
+                <span>Vendors</span>
+            </a>
+
+
+            <a
+                href="expenses.html"
+                class="active"
+            >
+                💰
+                <span>Expenses</span>
+            </a>
+
+
+            <a href="payments.html">
+                💳
+                <span>Payments</span>
+            </a>
+
+
+            <a href="reports.html">
+                📈
+                <span>Reports</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html">
+                ⚙️
+                <span>Settings</span>
+            </a>
+
+            <small>
+                RR Trinetra Billing v1.0
+            </small>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="page-header">
+
+            <div>
+
+                <h1>
+                    Expenses
+                </h1>
+
+                <p>
+                    Track and manage your business expenses
+                </p>
+
+            </div>
+
+
+            <button
+                class="primary-btn"
+                onclick="openExpenseModal()"
+            >
+                + Add Expense
+            </button>
+
+        </header>
+
+
+
+        <!-- =========================
+             SUMMARY CARDS
+        ========================== -->
+
+        <section class="summary-cards">
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon green">
+                    ₹
+                </div>
+
+                <div>
+
+                    <span>
+                        Today's Expenses
+                    </span>
+
+                    <strong id="todayExpenses">
+                        ₹0.00
+                    </strong>
+
+                    <small>
+                        Expenses today
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon blue">
+                    ₹
+                </div>
+
+                <div>
+
+                    <span>
+                        This Month
+                    </span>
+
+                    <strong id="monthExpenses">
+                        ₹0.00
+                    </strong>
+
+                    <small>
+                        Current month
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon orange">
+                    🧾
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Expenses
+                    </span>
+
+                    <strong id="totalExpenses">
+                        ₹0.00
+                    </strong>
+
+                    <small>
+                        All recorded expenses
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon purple">
+                    📋
+                </div>
+
+                <div>
+
+                    <span>
+                        Expense Entries
+                    </span>
+
+                    <strong id="expenseCount">
+                        0
+                    </strong>
+
+                    <small>
+                        Recorded transactions
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             EXPENSE LIST
+        ========================== -->
+
+        <section class="expense-panel">
+
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Expense List
+                    </h2>
+
+                    <p>
+                        All your business expenses
+                    </p>
+
+                </div>
+
+
+                <div class="header-actions">
+
+                    <div class="search-box">
+
+                        <span>
+                            🔍
+                        </span>
+
+                        <input
+                            type="text"
+                            id="expenseSearch"
+                            placeholder="Search expense..."
+                        >
+
+                    </div>
+
+
+                    <button
+    id="refreshExpenses"
+    class="refresh-btn"
+    title="Refresh"
+>
+                    >
+                        ↻
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TABLE -->
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                DATE
+                            </th>
+
+                            <th>
+                                CATEGORY
+                            </th>
+
+                            <th>
+                                DESCRIPTION
+                            </th>
+
+                            <th>
+                                PAYMENT
+                            </th>
+
+                            <th>
+                                AMOUNT
+                            </th>
+
+                            <th>
+                                ACTION
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="expenseTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="empty-row"
+                            >
+
+                                No expenses added yet
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            © 2026 RR Trinetra Focus and Services
+
+            <span>•</span>
+
+            Professional Billing System
+
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         ADD EXPENSE MODAL
+    ========================== -->
+
+    <div
+        class="modal"
+        id="expenseModal"
+    >
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2 id="modalTitle">
+                        Add Expense
+                    </h2>
+
+                    <p>
+                        Enter expense details
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="close-btn"
+                    onclick="closeExpenseModal()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+
+            <form
+    id="expenseForm"
+>
+
+                <input
+                    type="hidden"
+                    id="expenseId"
+                >
+
+
+                <!-- DATE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Date *
+                    </label>
+
+                    <input
+                        type="date"
+                        id="expenseDate"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- CATEGORY -->
+
+                <div class="form-group">
+
+                    <label>
+                        Category *
+                    </label>
+
+                    <select
+                        id="expenseCategory"
+                        required
+                    >
+
+                        <option value="">
+                            Select category
+                        </option>
+
+                        <option value="Rent">
+                            Rent
+                        </option>
+
+                        <option value="Electricity">
+                            Electricity
+                        </option>
+
+                        <option value="Internet">
+                            Internet
+                        </option>
+
+                        <option value="Salary">
+                            Salary
+                        </option>
+
+                        <option value="Travel">
+                            Travel
+                        </option>
+
+                        <option value="Transport">
+                            Transport
+                        </option>
+
+                        <option value="Office">
+                            Office Expenses
+                        </option>
+
+                        <option value="Maintenance">
+                            Maintenance
+                        </option>
+
+                        <option value="Marketing">
+                            Marketing
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <input
+                        type="text"
+                        id="expenseDescription"
+                        placeholder="Enter expense description"
+                    >
+
+                </div>
+
+
+
+                <!-- AMOUNT -->
+
+                <div class="form-group">
+
+                    <label>
+                        Amount *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="expenseAmount"
+                        min="0"
+                        step="0.01"
+                        placeholder="₹ 0.00"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- PAYMENT MODE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Payment Mode *
+                    </label>
+
+                    <select
+                        id="expensePayment"
+                        required
+                    >
+
+                        <option value="">
+                            Select payment mode
+                        </option>
+
+                        <option value="Cash">
+                            Cash
+                        </option>
+
+                        <option value="UPI">
+                            UPI
+                        </option>
+
+                        <option value="Card">
+                            Card
+                        </option>
+
+                        <option value="Bank Transfer">
+                            Bank Transfer
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- NOTES -->
+
+                <div class="form-group">
+
+                    <label>
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="expenseNotes"
+                        rows="3"
+                        placeholder="Additional notes..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- ACTIONS -->
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        onclick="closeExpenseModal()"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+                        Save Expense
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="expenses.js"></script>
+
+</body>
+
+</html>

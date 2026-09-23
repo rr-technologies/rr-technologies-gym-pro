@@ -1,0 +1,156 @@
+/* RR Trinetra Billing - Common Sidebar */
+:root{
+    --rr-sidebar-width:245px;
+    --rr-sidebar-bg:#101a35;
+    --rr-sidebar-bg2:#172b5a;
+    --rr-blue:#2563eb;
+}
+
+body{
+    min-height:100vh;
+}
+
+.rr-app-shell{
+    min-height:100vh;
+}
+
+.rr-app-main{
+    margin-left:var(--rr-sidebar-width);
+    min-height:100vh;
+    min-width:0;
+}
+
+.rr-common-sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:var(--rr-sidebar-width);
+    background:linear-gradient(180deg,var(--rr-sidebar-bg) 0%,var(--rr-sidebar-bg2) 100%);
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    z-index:9999;
+    box-shadow:5px 0 25px rgba(0,0,0,.08);
+}
+
+.rr-sidebar-brand{
+    height:85px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 20px;
+    border-bottom:1px solid rgba(255,255,255,.10);
+    flex-shrink:0;
+}
+
+.rr-brand-logo{
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:11px;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    font-size:16px;
+    font-weight:800;
+    flex-shrink:0;
+}
+
+.rr-sidebar-brand h2{
+    font-size:17px;
+    line-height:20px;
+    margin:0;
+    color:#fff;
+}
+
+.rr-sidebar-brand span{
+    display:block;
+    margin-top:3px;
+    font-size:11px;
+    color:rgba(255,255,255,.60);
+}
+
+.rr-sidebar-nav{
+    flex:1;
+    padding:18px 12px;
+    overflow-y:auto;
+}
+
+.rr-nav-item{
+    height:45px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:0 14px;
+    margin-bottom:5px;
+    border-radius:9px;
+    color:rgba(255,255,255,.72);
+    text-decoration:none;
+    font-size:14px;
+    transition:.2s ease;
+}
+
+.rr-nav-item span:first-child{
+    width:22px;
+    text-align:center;
+    font-size:17px;
+    flex-shrink:0;
+}
+
+.rr-nav-item:hover{
+    background:rgba(255,255,255,.09);
+    color:#fff;
+}
+
+.rr-nav-item.active{
+    background:linear-gradient(90deg,#2563eb,#315fe9);
+    color:#fff;
+    box-shadow:0 5px 15px rgba(37,99,235,.28);
+}
+
+.rr-nav-divider{
+    height:1px;
+    background:rgba(255,255,255,.10);
+    margin:14px 8px;
+}
+
+.rr-sidebar-bottom{
+    padding:12px;
+    border-top:1px solid rgba(255,255,255,.10);
+    flex-shrink:0;
+}
+
+.rr-version{
+    text-align:center;
+    font-size:10px;
+    color:rgba(255,255,255,.35);
+    padding:8px 0 3px;
+}
+
+@media(max-width:900px){
+    :root{--rr-sidebar-width:220px}
+}
+
+@media(max-width:700px){
+    :root{--rr-sidebar-width:72px}
+    .rr-sidebar-brand{
+        justify-content:center;
+        padding:0;
+    }
+    .rr-sidebar-brand > div:last-child,
+    .rr-nav-item span:last-child,
+    .rr-version{
+        display:none;
+    }
+    .rr-nav-item{
+        justify-content:center;
+        padding:0;
+    }
+    .rr-nav-item span:first-child{
+        width:auto;
+    }
+    .rr-sidebar-bottom{
+        padding:10px 8px;
+    }
+}
