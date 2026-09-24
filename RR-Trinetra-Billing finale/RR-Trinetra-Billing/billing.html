@@ -1,1400 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RR Trinetra Billing</title>
+    <title>RR Trinetra Billing</title>
 
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Arial,sans-serif;
-    background:#f4f6f9;
-    color:#1f2937;
-}
-
-.topbar{
-    height:70px;
-    background:linear-gradient(135deg,#111827,#1e3a8a);
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 25px;
-}
-
-.brand h1{
-    font-size:22px;
-}
-
-.brand p{
-    font-size:12px;
-    opacity:.75;
-    margin-top:4px;
-}
-
-.bill-info{
-    text-align:right;
-    font-size:13px;
-    line-height:20px;
-}
-
-.container{
-    display:grid;
-    grid-template-columns:1fr 400px;
-    gap:20px;
-    padding:20px;
-    min-height:calc(100vh - 70px);
-}
-
-.card{
-    background:white;
-    border-radius:14px;
-    padding:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.07);
-}
-
-.search-box{
-    width:100%;
-    padding:15px;
-    border:1px solid #d1d5db;
-    border-radius:10px;
-    font-size:16px;
-    outline:none;
-    margin-bottom:18px;
-}
-
-.search-box:focus{
-    border-color:#2563eb;
-}
-
-.section-title{
-    font-size:20px;
-    margin-bottom:15px;
-}
-
-.product-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-    gap:14px;
-}
-
-.product{
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    padding:16px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.product:hover{
-    transform:translateY(-3px);
-    border-color:#2563eb;
-    box-shadow:0 7px 18px rgba(0,0,0,.1);
-}
-
-.product-name{
-    font-weight:bold;
-    margin-bottom:8px;
-}
-
-.product-price{
-    color:#2563eb;
-    font-weight:bold;
-}
-
-.stock-text{
-    font-size:12px;
-    margin-top:6px;
-    color:#16a34a;
-}
-
-.out-stock{
-    color:#dc2626;
-}
-
-.cart-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.clear-btn{
-    border:none;
-    background:#e5e7eb;
-    padding:7px 12px;
-    border-radius:6px;
-    cursor:pointer;
-}
-
-.cart-items{
-    max-height:400px;
-    overflow-y:auto;
-}
-
-.cart-item{
-    display:grid;
-    grid-template-columns:1fr auto auto;
-    gap:10px;
-    align-items:center;
-    padding:13px 0;
-    border-bottom:1px solid #eee;
-}
-
-.item-name{
-    font-weight:bold;
-}
-
-.item-price{
-    font-size:12px;
-    color:#777;
-    margin-top:4px;
-}
-
-.qty-controls{
-    display:flex;
-    align-items:center;
-    gap:7px;
-}
-
-.qty-btn{
-    width:28px;
-    height:28px;
-    border:none;
-    border-radius:6px;
-    background:#e5e7eb;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.qty-btn:hover{
-    background:#2563eb;
-    color:white;
-}
-
-.empty-cart{
-    text-align:center;
-    color:#888;
-    padding:60px 10px;
-}
-
-.summary{
-    border-top:1px solid #ddd;
-    margin-top:15px;
-    padding-top:15px;
-}
-
-.summary-row{
-    display:flex;
-    justify-content:space-between;
-    margin:10px 0;
-}
-
-.grand-total{
-    font-size:24px;
-    font-weight:bold;
-    margin-top:14px;
-}
-
-.payment-buttons{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    margin-top:15px;
-}
-
-.payment-btn{
-    padding:11px 5px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    background:white;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.payment-btn.active{
-    background:#2563eb;
-    color:white;
-    border-color:#2563eb;
-}
-
-.checkout-btn{
-    width:100%;
-    margin-top:15px;
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    background:#16a34a;
-    color:white;
-    font-size:17px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.checkout-btn:hover{
-    background:#15803d;
-}
-
-.no-products{
-    text-align:center;
-    padding:50px;
-    color:#777;
-}
-
-@media(max-width:950px){
-    .container{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:600px){
-    .topbar{
-        height:auto;
-        padding:15px;
-    }
-
-    .product-grid{
-        grid-template-columns:1fr 1fr;
-    }
-}
-
-/* PRINT */
-
-@media print{
-
-    body{
-        background:white;
-    }
-
-    .topbar,
-    .products-section,
-    .payment-buttons,
-    .checkout-btn,
-    .clear-btn{
-        display:none !important;
-    }
-
-    .container{
-        display:block;
-        padding:0;
-    }
-
-    .cart-section{
-        box-shadow:none;
-        width:100%;
-    }
-}
-</style>
+    <link rel="stylesheet" href="billing.css">
     <link rel="stylesheet" href="sidebar.css">
 </head>
 
 <body>
 
-<header class="topbar">
+<div class="billing-page">
 
-    <div class="brand">
-        <h1>RR Trinetra Focus and Services</h1>
-        <p>Professional Billing System</p>
-    </div>
+    <!-- TOP BAR -->
+    <header class="billing-topbar">
 
-    <div class="bill-info">
         <div>
-            Bill No:
-            <strong id="billNumber"></strong>
+            <div class="page-kicker">POS BILLING</div>
+
+            <h1>New Sale</h1>
+
+            <p>Create and manage customer invoices</p>
         </div>
 
-        <div id="billDate"></div>
-    </div>
+        <div class="bill-meta">
+            <span>Bill No</span>
 
-</header>
+            <strong id="billNumber">BILL-1001</strong>
 
-
-<main class="container">
-
-    <!-- PRODUCTS -->
-
-    <section class="card products-section">
-
-        <h2 class="section-title">
-            Products
-        </h2>
-
-        <input
-            type="text"
-            id="searchBox"
-            class="search-box"
-            placeholder="🔍 Search product or scan barcode...">
-
-        <div
-            id="productGrid"
-            class="product-grid">
+            <small id="billDate"></small>
         </div>
 
-    </section>
+    </header>
 
 
-    <!-- BILL -->
+    <!-- MAIN BILLING AREA -->
+    <main class="billing-layout">
 
-    <section class="card cart-section">
-
-        <div class="cart-title">
-
-            <h2 class="section-title">
-                Current Bill
-            </h2>
-
-            <button
-                class="clear-btn"
-                onclick="clearCart()">
-                Clear
-            </button>
-
-        </div>
+        <!-- LEFT SIDE -->
+        <section class="billing-main">
 
 
-        <div
-            id="cartItems"
-            class="cart-items">
+            <!-- CUSTOMER -->
+            <div class="panel customer-panel">
 
-            <div class="empty-cart">
-                No products added
-            </div>
+                <div class="panel-heading">
 
-        </div>
+                    <div>
+                        <h2>Customer</h2>
+
+                        <p>Select customer for this bill</p>
+                    </div>
+
+                    <a
+                        class="secondary-btn"
+                        href="customers.html"
+                    >
+                        + New Customer
+                    </a>
+
+                </div>
 
 
-        <div class="summary">
+                <div class="customer-row">
 
-            <div class="summary-row">
-                <span>Subtotal</span>
+                    <label for="customerSelect">
+                        Customer
+                    </label>
 
-                <strong>
-                    ₹<span id="subtotal">0.00</span>
-                </strong>
+                    <select id="customerSelect">
+
+                        <option value="">
+                            Walk-in Customer
+                        </option>
+
+                    </select>
+
+                </div>
+
             </div>
 
 
-            <div class="summary-row">
-                <span>GST</span>
 
-                <strong>
-                    ₹<span id="gst">0.00</span>
-                </strong>
+            <!-- PRODUCTS -->
+            <div class="panel products-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h2>Add Products</h2>
+
+                        <p>
+                            Search product or scan barcode
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="product-toolbar">
+
+                    <div class="search-wrap">
+
+                        <span>⌕</span>
+
+                        <input
+                            id="searchBox"
+                            type="text"
+                            placeholder="Search product name, SKU or barcode..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="icon-btn"
+                        id="clearSearch"
+                        title="Clear search"
+                    >
+                        ↻
+                    </button>
+
+                </div>
+
+
+                <div class="quick-filters">
+
+                    <button
+                        class="filter-chip active"
+                        data-filter="all"
+                    >
+                        All Products
+                    </button>
+
+                    <button
+                        class="filter-chip"
+                        data-filter="available"
+                    >
+                        In Stock
+                    </button>
+
+                    <button
+                        class="filter-chip"
+                        data-filter="low"
+                    >
+                        Low Stock
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="productGrid"
+                    class="product-grid"
+                ></div>
+
             </div>
 
 
-            <div class="summary-row grand-total">
 
-                <span>Total</span>
+            <!-- CURRENT BILL -->
+            <div class="panel bill-items-panel">
 
-                <span>
-                    ₹<span id="total">0.00</span>
+                <div class="panel-heading">
+
+                    <div>
+                        <h2>Current Bill</h2>
+
+                        <p>
+                            Review items before payment
+                        </p>
+                    </div>
+
+
+                    <button
+                        class="secondary-btn danger-btn"
+                        id="clearCart"
+                    >
+                        Clear Bill
+                    </button>
+
+                </div>
+
+
+                <div class="table-head">
+
+                    <span>Item</span>
+
+                    <span>Qty</span>
+
+                    <span>Rate</span>
+
+                    <span>Total</span>
+
+                    <span></span>
+
+                </div>
+
+
+                <div
+                    id="cartItems"
+                    class="cart-items"
+                ></div>
+
+
+                <div
+                    id="emptyCart"
+                    class="empty-cart"
+                >
+
+                    <div class="empty-icon">
+                        🛒
+                    </div>
+
+                    <strong>
+                        No products added
+                    </strong>
+
+                    <span>
+                        Select products from above to start the bill.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- RIGHT SIDE -->
+        <aside class="checkout-panel">
+
+
+            <!-- SUMMARY HEADER -->
+            <div class="checkout-title">
+
+                <div>
+
+                    <h2>
+                        Bill Summary
+                    </h2>
+
+                    <p>
+                        Payment & invoice details
+                    </p>
+
+                </div>
+
+
+                <span class="live-dot">
+                    LIVE
                 </span>
 
             </div>
 
 
-            <div class="payment-buttons">
 
-                <button
-                    class="payment-btn active"
-                    onclick="selectPayment(this,'Cash')">
-                    Cash
-                </button>
+            <!-- SUMMARY -->
+            <div class="summary-box">
 
-                <button
-                    class="payment-btn"
-                    onclick="selectPayment(this,'UPI')">
-                    UPI
-                </button>
 
-                <button
-                    class="payment-btn"
-                    onclick="selectPayment(this,'Card')">
-                    Card
-                </button>
+                <div class="summary-line">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong>
+                        ₹<span id="subtotal">0.00</span>
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-line">
+
+                    <span>
+                        Discount
+                    </span>
+
+
+                    <div class="money-input">
+
+                        <span>₹</span>
+
+                        <input
+                            id="discount"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            value="0"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="summary-line">
+
+                    <span>
+                        GST
+                    </span>
+
+                    <strong>
+                        ₹<span id="gst">0.00</span>
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-line">
+
+                    <span>
+                        Round Off
+                    </span>
+
+                    <strong>
+                        ₹<span id="roundOff">0.00</span>
+                    </strong>
+
+                </div>
+
+
+
+                <div class="grand-total-row">
+
+                    <div>
+
+                        <span>
+                            Grand Total
+                        </span>
+
+                        <small>
+                            Payable amount
+                        </small>
+
+                    </div>
+
+
+                    <strong>
+                        ₹<span id="total">0.00</span>
+                    </strong>
+
+                </div>
 
             </div>
+
+
+
+            <!-- PAYMENT -->
+            <div class="payment-section">
+
+                <h3>
+                    Payment Mode
+                </h3>
+
+                <p>
+                    Select payment method
+                </p>
+
+
+                <div class="payment-grid">
+
+                    <button
+                        class="payment-btn active"
+                        data-mode="Cash"
+                    >
+                        💵
+                        <span>Cash</span>
+                    </button>
+
+
+                    <button
+                        class="payment-btn"
+                        data-mode="UPI"
+                    >
+                        📱
+                        <span>UPI</span>
+                    </button>
+
+
+                    <button
+                        class="payment-btn"
+                        data-mode="Card"
+                    >
+                        💳
+                        <span>Card</span>
+                    </button>
+
+
+                    <button
+                        class="payment-btn"
+                        data-mode="Credit"
+                    >
+                        🧾
+                        <span>Credit</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AMOUNT RECEIVED -->
+            <div class="received-box">
+
+                <label for="amountReceived">
+                    Amount Received
+                </label>
+
+
+                <div class="received-input">
+
+                    <span>₹</span>
+
+                    <input
+                        id="amountReceived"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                    >
+
+                </div>
+
+
+                <div class="change-row">
+    <span id="balanceLabel">Balance Due</span>
+    <strong id="changeAmount">₹0.00</strong>
+</div>
+
+            </div>
+
+
+
+            <!-- BUTTONS -->
+            <button
+                class="hold-btn"
+                id="holdBill"
+            >
+                Ⅱ&nbsp; Hold Bill
+            </button>
 
 
             <button
-                class="checkout-btn"
-                onclick="completeBill()">
-
-                ✓ Complete & Print Bill
-
+                class="complete-btn"
+                id="completeBill"
+            >
+                ✓ Complete &amp; Print Bill
             </button>
 
-        </div>
 
-    </section>
+            <div class="checkout-note">
 
-</main>
-
-
-<script>
-
-let products = [];
-
-let cart = [];
-
-let paymentMode = "Cash";
-
-
-// LOAD PRODUCTS
-
-function loadProducts(){
-
-    products =
-        JSON.parse(
-            localStorage.getItem("rrProducts")
-        ) || [];
-
-    displayProducts();
-
-}
-
-
-// DISPLAY PRODUCTS
-
-function displayProducts(list = products){
-
-    const grid =
-        document.getElementById("productGrid");
-
-    grid.innerHTML = "";
-
-
-    if(list.length === 0){
-
-        grid.innerHTML = `
-            <div class="no-products">
-                No products found
-            </div>
-        `;
-
-        return;
-    }
-
-
-    list.forEach(product => {
-
-        const stock =
-            Number(product.stock || 0);
-
-
-        const div =
-            document.createElement("div");
-
-        div.className = "product";
-
-
-        div.innerHTML = `
-
-            <div class="product-name">
-                ${escapeHtml(product.name)}
-            </div>
-
-            <div class="product-price">
-                ₹${Number(product.sellingPrice || 0).toFixed(2)}
-            </div>
-
-            <div class="stock-text
-                ${stock <= 0 ? "out-stock" : ""}">
-
-                Stock: ${stock}
+                Bill is saved automatically to
+                sales, payments and inventory.
 
             </div>
-        `;
 
+        </aside>
 
-        div.onclick = () => {
+    </main>
 
-            if(stock <= 0){
+</div>
 
-                alert("Product is out of stock.");
 
-                return;
-            }
+<!-- COMMON SIDEBAR -->
+<script src="sidebar.js"></script>
 
-            addToCart(product);
-
-        };
-
-
-        grid.appendChild(div);
-
-    });
-
-}
-
-
-// ADD TO CART
-
-function addToCart(product){
-
-    const existing =
-        cart.find(
-            item => item.id === product.id
-        );
-
-
-    if(existing){
-
-        if(existing.qty >= Number(product.stock)){
-
-            alert(
-                "Maximum available stock is " +
-                product.stock
-            );
-
-            return;
-        }
-
-        existing.qty++;
-
-    }else{
-
-        cart.push({
-
-            ...product,
-
-            qty:1
-
-        });
-
-    }
-
-
-    renderCart();
-
-}
-
-
-// RENDER CART
-
-function renderCart(){
-
-    const container =
-        document.getElementById("cartItems");
-
-
-    if(cart.length === 0){
-
-        container.innerHTML = `
-            <div class="empty-cart">
-                No products added
-            </div>
-        `;
-
-        updateTotals();
-
-        return;
-    }
-
-
-    container.innerHTML = "";
-
-
-    cart.forEach(item => {
-
-        const div =
-            document.createElement("div");
-
-        div.className = "cart-item";
-
-
-        div.innerHTML = `
-
-            <div>
-
-                <div class="item-name">
-                    ${escapeHtml(item.name)}
-                </div>
-
-                <div class="item-price">
-                    ₹${Number(item.sellingPrice).toFixed(2)}
-                    × ${item.qty}
-                </div>
-
-            </div>
-
-
-            <div class="qty-controls">
-
-                <button
-                    class="qty-btn"
-                    onclick="changeQty(${item.id},-1)">
-                    −
-                </button>
-
-                <strong>
-                    ${item.qty}
-                </strong>
-
-                <button
-                    class="qty-btn"
-                    onclick="changeQty(${item.id},1)">
-                    +
-                </button>
-
-            </div>
-
-
-            <strong>
-                ₹${(
-                    Number(item.sellingPrice) *
-                    item.qty
-                ).toFixed(2)}
-            </strong>
-
-        `;
-
-
-        container.appendChild(div);
-
-    });
-
-
-    updateTotals();
-
-}
-
-
-// CHANGE QUANTITY
-
-function changeQty(id,change){
-
-    const item =
-        cart.find(
-            item => item.id === id
-        );
-
-
-    if(!item) return;
-
-
-    const product =
-        products.find(
-            product => product.id === id
-        );
-
-
-    if(change > 0){
-
-        if(
-            item.qty >=
-            Number(product.stock)
-        ){
-
-            alert(
-                "Available stock: " +
-                product.stock
-            );
-
-            return;
-        }
-
-    }
-
-
-    item.qty += change;
-
-
-    if(item.qty <= 0){
-
-        cart =
-            cart.filter(
-                item => item.id !== id
-            );
-
-    }
-
-
-    renderCart();
-
-}
-
-
-// TOTALS
-
-function updateTotals(){
-
-    let subtotal = 0;
-
-    let gstTotal = 0;
-
-
-    cart.forEach(item => {
-
-        const amount =
-            Number(item.sellingPrice) *
-            item.qty;
-
-        const gstRate =
-            Number(item.gst || 0);
-
-        const tax =
-            amount *
-            gstRate /
-            100;
-
-
-        subtotal += amount;
-
-        gstTotal += tax;
-
-    });
-
-
-    const total =
-        subtotal + gstTotal;
-
-
-    document.getElementById("subtotal")
-        .innerText =
-        subtotal.toFixed(2);
-
-
-    document.getElementById("gst")
-        .innerText =
-        gstTotal.toFixed(2);
-
-
-    document.getElementById("total")
-        .innerText =
-        total.toFixed(2);
-
-}
-
-
-// PAYMENT
-
-function selectPayment(button,mode){
-
-    document
-        .querySelectorAll(".payment-btn")
-        .forEach(btn =>
-            btn.classList.remove("active")
-        );
-
-
-    button.classList.add("active");
-
-    paymentMode = mode;
-
-}
-
-
-// CLEAR
-
-function clearCart(){
-
-    cart = [];
-
-    renderCart();
-
-}
-
-
-// NEXT BILL NUMBER
-
-function getNextBillNumber(){
-
-    let last =
-        Number(
-            localStorage.getItem(
-                "rrLastBillNumber"
-            )
-        ) || 1000;
-
-
-    last++;
-
-
-    localStorage.setItem(
-        "rrLastBillNumber",
-        last
-    );
-
-
-    return "BILL-" + last;
-
-}
-
-
-// SHOW BILL NUMBER
-
-function showBillNumber(){
-
-    let current =
-        Number(
-            localStorage.getItem(
-                "rrLastBillNumber"
-            )
-        ) || 1000;
-
-
-    document.getElementById("billNumber")
-        .innerText =
-        "BILL-" + (current + 1);
-
-}
-
-
-// COMPLETE BILL
-
-function completeBill(){
-
-    if(cart.length === 0){
-
-        alert(
-            "Please add products first."
-        );
-
-        return;
-    }
-
-
-    /*
-       CHECK STOCK AGAIN
-    */
-
-    for(const item of cart){
-
-        const product =
-            products.find(
-                p => p.id === item.id
-            );
-
-
-        if(!product){
-
-            alert(
-                "Product not found: " +
-                item.name
-            );
-
-            return;
-        }
-
-
-        if(
-            item.qty >
-            Number(product.stock)
-        ){
-
-            alert(
-                item.name +
-                " has only " +
-                product.stock +
-                " stock."
-            );
-
-            return;
-        }
-
-    }
-
-
-    /*
-       BILL CALCULATION
-    */
-
-    let subtotal = 0;
-
-    let gstTotal = 0;
-
-
-    cart.forEach(item => {
-
-        const amount =
-            Number(item.sellingPrice) *
-            item.qty;
-
-        const tax =
-            amount *
-            Number(item.gst || 0) /
-            100;
-
-
-        subtotal += amount;
-
-        gstTotal += tax;
-
-    });
-
-
-    const total =
-        subtotal + gstTotal;
-
-
-    const billNumber =
-        getNextBillNumber();
-
-
-    /*
-       REDUCE STOCK
-    */
-
-    cart.forEach(item => {
-
-        const product =
-            products.find(
-                p => p.id === item.id
-            );
-
-
-        product.stock =
-            Number(product.stock || 0)
-            - Number(item.qty);
-
-    });
-
-
-    /*
-       SAVE PRODUCTS
-    */
-
-    localStorage.setItem(
-        "rrProducts",
-        JSON.stringify(products)
-    );
-
-
-    /*
-       SAVE SALES HISTORY
-    */
-
-    const sales =
-        JSON.parse(
-            localStorage.getItem(
-                "rrSales"
-            )
-        ) || [];
-
-
-    const sale = {
-
-        billNumber,
-
-        date:
-            new Date().toISOString(),
-
-        paymentMode,
-
-        items:
-            cart.map(item => ({
-
-                productId:item.id,
-
-                productName:item.name,
-
-                price:Number(
-                    item.sellingPrice
-                ),
-
-                qty:item.qty,
-
-                gst:Number(
-                    item.gst || 0
-                )
-
-            })),
-
-        subtotal,
-
-        gstTotal,
-
-        total
-
-    };
-
-
-    sales.push(sale);
-
-
-    localStorage.setItem(
-        "rrSales",
-        JSON.stringify(sales)
-    );
-
-    // SAVE PAYMENT
-const payments =
-    JSON.parse(
-        localStorage.getItem("rrTrinetraPayments")
-    ) || [];
-
-payments.push({
-    id: Date.now().toString(),
-    billNo: billNumber,
-    customer: "-",
-    amount: total,
-    paymentMode: paymentMode,
-    date: new Date().toISOString()
-});
-
-localStorage.setItem(
-    "rrTrinetraPayments",
-    JSON.stringify(payments)
-);
-
-    /*
-       PRINT BILL
-    */
-
-    printBill(
-        sale
-    );
-
-
-    /*
-       RESET
-    */
-
-    cart = [];
-
-    loadProducts();
-
-    renderCart();
-
-    showBillNumber();
-
-}
-
-
-// PRINT
-
-function printBill(sale){
-
-    const printWindow =
-        window.open(
-            "",
-            "_blank",
-            "width=800,height=700"
-        );
-
-
-    if(!printWindow){
-
-        alert(
-            "Please allow pop-ups to print the bill."
-        );
-
-        return;
-    }
-
-
-    let rows = "";
-
-
-    sale.items.forEach((item,index)=>{
-
-        rows += `
-
-            <tr>
-
-                <td>
-                    ${index + 1}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        item.productName
-                    )}
-                </td>
-
-                <td>
-                    ${item.qty}
-                </td>
-
-                <td>
-                    ₹${item.price.toFixed(2)}
-                </td>
-
-                <td>
-                    ${item.gst}%
-                </td>
-
-                <td>
-                    ₹${(
-                        item.price *
-                        item.qty
-                    ).toFixed(2)}
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-
-    printWindow.document.write(`
-
-        <!DOCTYPE html>
-
-        <html>
-
-        <head>
-
-            <title>${sale.billNumber}</title>
-
-            <style>
-
-                body{
-                    font-family:Arial;
-                    padding:30px;
-                    color:#111;
-                }
-
-                .header{
-                    text-align:center;
-                    border-bottom:2px solid #111;
-                    padding-bottom:15px;
-                    margin-bottom:20px;
-                }
-
-                .header h1{
-                    margin-bottom:5px;
-                }
-
-                .info{
-                    display:flex;
-                    justify-content:space-between;
-                    margin-bottom:20px;
-                }
-
-                table{
-                    width:100%;
-                    border-collapse:collapse;
-                }
-
-                th,td{
-                    border:1px solid #ccc;
-                    padding:9px;
-                    text-align:left;
-                }
-
-                th{
-                    background:#f1f1f1;
-                }
-
-                .total{
-                    margin-top:20px;
-                    margin-left:auto;
-                    width:300px;
-                }
-
-                .row{
-                    display:flex;
-                    justify-content:space-between;
-                    margin:8px 0;
-                }
-
-                .grand{
-                    font-size:20px;
-                    font-weight:bold;
-                    border-top:2px solid #111;
-                    padding-top:10px;
-                }
-
-                .footer{
-                    text-align:center;
-                    margin-top:40px;
-                    font-size:12px;
-                }
-
-            </style>
-
-        </head>
-
-
-        <body>
-
-            <div class="header">
-
-                <h1>
-                    RR Trinetra Focus and Services
-                </h1>
-
-                <div>
-                    Professional Billing System
-                </div>
-
-            </div>
-
-
-            <div class="info">
-
-                <div>
-                    <strong>Bill No:</strong>
-                    ${sale.billNumber}
-                </div>
-
-                <div>
-                    <strong>Date:</strong>
-                    ${new Date(
-                        sale.date
-                    ).toLocaleString("en-IN")}
-                </div>
-
-            </div>
-
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>#</th>
-                        <th>Product</th>
-                        <th>Qty</th>
-                        <th>Rate</th>
-                        <th>GST</th>
-                        <th>Amount</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    ${rows}
-
-                </tbody>
-
-            </table>
-
-
-            <div class="total">
-
-                <div class="row">
-                    <span>Subtotal</span>
-                    <strong>
-                        ₹${sale.subtotal.toFixed(2)}
-                    </strong>
-                </div>
-
-                <div class="row">
-                    <span>GST</span>
-                    <strong>
-                        ₹${sale.gstTotal.toFixed(2)}
-                    </strong>
-                </div>
-
-                <div class="row">
-                    <span>Payment</span>
-                    <strong>
-                        ${sale.paymentMode}
-                    </strong>
-                </div>
-
-                <div class="row grand">
-                    <span>Total</span>
-                    <span>
-                        ₹${sale.total.toFixed(2)}
-                    </span>
-                </div>
-
-            </div>
-
-
-            <div class="footer">
-
-                Thank you for your business!
-
-            </div>
-
-
-            <script>
-
-                window.onload = function(){
-
-                    window.print();
-
-                };
-
-            <\/script>
-
-        </bo${"dy"}>
-
-        </ht${"ml"}>
-
-    `);
-
-
-    printWindow.document.close();
-
-}
-
-
-// SEARCH + BARCODE
-
-document
-    .getElementById("searchBox")
-    .addEventListener(
-        "input",
-        function(){
-
-            const value =
-                this.value
-                    .toLowerCase()
-                    .trim();
-
-
-            const filtered = products.filter(function(product) {
-
-    const name =
-        String(product.name || "").toLowerCase();
-
-    const barcode =
-        String(product.barcode || "").toLowerCase();
-
-    return name.includes(value) ||
-           barcode.includes(value);
-
-});
-
-
-            displayProducts(filtered);
-
-        }
-    );
-
-
-// ESCAPE HTML
-
-function escapeHtml(value){
-
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-
-// INITIALIZE
-
-loadProducts();
-
-showBillNumber();
-
-document.getElementById("billDate")
-    .innerText =
-    new Date().toLocaleDateString("en-IN");
-
-</script>
-
-    <script src="sidebar.js"></script>
+<!-- BILLING JAVASCRIPT -->
+<script src="billing.js"></script>
 
 </body>
 </html>

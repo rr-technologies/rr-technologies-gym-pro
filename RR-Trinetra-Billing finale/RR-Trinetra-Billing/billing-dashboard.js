@@ -314,8 +314,8 @@ function loadRecentBills(
 
                 <td>
                     ${escapeHtml(
-                        sale.billNumber ||
-                        "-"
+                        sale.billNo || "-"
+                    
                     )}
                 </td>
 

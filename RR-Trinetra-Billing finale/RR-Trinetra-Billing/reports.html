@@ -1,29 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>RR Trinetra Billing - Reports</title>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}.layout{display:flex;min-height:100vh}.sidebar{width:245px;background:#101d43;color:#fff;padding:20px 14px;display:flex;flex-direction:column}.brand{font-size:21px;font-weight:700;padding:10px 12px 25px}.brand small{display:block;font-size:11px;opacity:.65;margin-top:4px}.nav{display:flex;flex-direction:column;gap:6px}.nav a{color:#dce5ff;text-decoration:none;padding:13px 14px;border-radius:10px}.nav a:hover,.nav a.active{background:#2e63e8;color:#fff}.bottom{margin-top:auto}.main{flex:1;padding:32px;overflow:auto}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #dde3ee;padding-bottom:20px}.top h1{margin:0;font-size:30px}.sub{color:#64708a;margin-top:6px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:25px}.card,.panel{background:#fff;border:1px solid #e1e6ef;border-radius:15px;padding:22px;box-shadow:0 6px 20px rgba(30,50,90,.06)}.card span{color:#6d7890;font-size:13px}.card strong{display:block;font-size:25px;margin-top:8px}.panel{margin-top:22px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;background:#2463e8;color:#fff;padding:11px 16px;border-radius:9px;cursor:pointer}.btn.secondary{background:#eef3ff;color:#2456bd}.table{width:100%;border-collapse:collapse;margin-top:15px}.table th,.table td{text-align:left;padding:13px;border-bottom:1px solid #edf0f5}.table th{font-size:12px;color:#68758e}.empty{color:#69758b;padding:30px;text-align:center}@media(max-width:900px){.sidebar{width:200px}.grid{grid-template-columns:repeat(2,1fr)}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RR Trinetra Billing - Reports</title>
+
+    <link rel="stylesheet" href="reports.css">
 </head>
+
 <body>
+
 <div class="layout">
-<aside class="sidebar"><div class="brand">RR Trinetra<small>Professional Billing System</small></div><nav class="nav">
-<a href="billing-dashboard.html">🏠 Dashboard</a><a href="billing.html">🧾 POS Billing</a><a href="products.html">📦 Products</a><a href="purchase.html">🛒 Purchase</a><a href="inventory.html">📊 Inventory</a><a href="customers.html">👥 Customers</a><a href="vendors.html">🏢 Vendors</a><a href="expenses.html">💰 Expenses</a><a href="payments.html">💳 Payments</a><a href="reports.html" class="active">📈 Reports</a></nav><div class="bottom nav"><a href="settings.html">⚙ Settings</a></div></aside>
-<main class="main"><div class="top"><div><h1>Reports</h1><div class="sub">Business reports and transaction summary</div></div><button class="btn" onclick="window.print()">🖨 Print Report</button></div>
-<div class="grid"><div class="card"><span>Total Sales</span><strong id="sales">₹0.00</strong></div><div class="card"><span>Total Bills</span><strong id="bills">0</strong></div><div class="card"><span>Total Payments</span><strong id="payments">₹0.00</strong></div><div class="card"><span>Total Expenses</span><strong id="expenses">₹0.00</strong></div></div>
-<div class="panel"><h2>Recent Sales</h2><table class="table"><thead><tr><th>Bill No</th><th>Date</th><th>Payment</th><th>Amount</th></tr></thead><tbody id="salesBody"></tbody></table></div>
-</main></div>
-<script>
-const money=n=>'₹'+Number(n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
-const get=(k)=>{try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}};
-const sales=get('rrSales'), payments=get('rrTrinetraPayments'), expenses=get('rrExpenses');
-document.getElementById('sales').textContent=money(sales.reduce((a,s)=>a+Number(s.total||0),0));
-document.getElementById('bills').textContent=sales.length;
-document.getElementById('payments').textContent=money(payments.reduce((a,p)=>a+Number(p.amount||p.total||0),0));
-document.getElementById('expenses').textContent=money(expenses.reduce((a,e)=>a+Number(e.amount||0),0));
-const body=document.getElementById('salesBody'); body.innerHTML=sales.length?sales.slice().reverse().map(s=>`<tr><td>${s.billNumber||'-'}</td><td>${s.date?new Date(s.date).toLocaleDateString('en-IN'):'-'}</td><td>${s.paymentMode||'-'}</td><td>${money(s.total)}</td></tr>`).join(''):'<tr><td colspan="4" class="empty">No sales found</td></tr>';
-</script>
-</body></html>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            RR Trinetra
+            <small>Professional Billing System</small>
+        </div>
+
+        <nav class="nav">
+
+            <a href="billing-dashboard.html">🏠 Dashboard</a>
+
+            <a href="billing.html">🧾 POS Billing</a>
+
+            <a href="products.html">📦 Products</a>
+
+            <a href="purchase.html">🛒 Purchase</a>
+
+            <a href="inventory.html">📊 Inventory</a>
+
+            <a href="customers.html">👥 Customers</a>
+
+            <a href="vendors.html">🏢 Vendors</a>
+
+            <a href="expenses.html">💰 Expenses</a>
+
+            <a href="payments.html">💳 Payments</a>
+
+            <a href="reports.html" class="active">📈 Reports</a>
+
+        </nav>
+
+        <div class="bottom nav">
+            <a href="settings.html">⚙ Settings</a>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <div class="top">
+
+            <div>
+                <h1>Reports</h1>
+
+                <div class="sub">
+                    Business reports and transaction summary
+                </div>
+            </div>
+
+            <button class="btn" onclick="window.print()">
+                🖨 Print Report
+            </button>
+
+        </div>
+
+
+        <!-- SUMMARY CARDS -->
+        <div class="grid">
+
+            <div class="card">
+                <span>Total Sales</span>
+                <strong id="sales">₹0.00</strong>
+            </div>
+
+            <div class="card">
+                <span>Total Bills</span>
+                <strong id="bills">0</strong>
+            </div>
+
+            <div class="card">
+                <span>Total Payments</span>
+                <strong id="payments">₹0.00</strong>
+            </div>
+
+            <div class="card">
+                <span>Total Expenses</span>
+                <strong id="expenses">₹0.00</strong>
+            </div>
+
+        </div>
+
+
+        <!-- RECENT SALES -->
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Recent Sales</h2>
+
+                    <p>
+                        Latest sales transactions
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table class="table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Bill No</th>
+                            <th>Date</th>
+                            <th>Payment</th>
+                            <th>Amount</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="salesBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="reports.js"></script>
+
+</body>
+</html>

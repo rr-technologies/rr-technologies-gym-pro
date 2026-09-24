@@ -1,0 +1,367 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 245px;
+    background: #101d43;
+    color: #fff;
+    padding: 20px 14px;
+
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.brand {
+    font-size: 21px;
+    font-weight: 700;
+    padding: 10px 12px 25px;
+}
+
+.brand small {
+    display: block;
+    font-size: 11px;
+    opacity: .65;
+    margin-top: 4px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nav a {
+    color: #dce5ff;
+    text-decoration: none;
+
+    padding: 13px 14px;
+
+    border-radius: 10px;
+
+    transition: .2s ease;
+}
+
+.nav a:hover,
+.nav a.active {
+    background: #2e63e8;
+    color: #fff;
+}
+
+.bottom {
+    margin-top: auto;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    flex: 1;
+
+    margin-left: 245px;
+
+    padding: 32px;
+
+    overflow: auto;
+}
+
+
+/* =========================
+   TOP HEADER
+========================= */
+
+.top {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid #dde3ee;
+
+    padding-bottom: 20px;
+}
+
+.top h1 {
+    margin: 0;
+
+    font-size: 30px;
+}
+
+.sub {
+    color: #64708a;
+
+    margin-top: 6px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn {
+    border: 0;
+
+    background: #2463e8;
+    color: #fff;
+
+    padding: 11px 16px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: .2s ease;
+}
+
+.btn:hover {
+    background: #1854d1;
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   SUMMARY CARDS
+========================= */
+
+.grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-top: 25px;
+}
+
+.card {
+    background: #fff;
+
+    border: 1px solid #e1e6ef;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 6px 20px rgba(30, 50, 90, .06);
+
+    transition: .2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(30, 50, 90, .10);
+}
+
+.card span {
+    color: #6d7890;
+
+    font-size: 13px;
+}
+
+.card strong {
+    display: block;
+
+    font-size: 25px;
+
+    margin-top: 8px;
+}
+
+
+/* =========================
+   PANEL
+========================= */
+
+.panel {
+    background: #fff;
+
+    border: 1px solid #e1e6ef;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    margin-top: 22px;
+
+    box-shadow:
+        0 6px 20px rgba(30, 50, 90, .06);
+}
+
+.panel-header h2 {
+    margin: 0;
+
+    font-size: 20px;
+}
+
+.panel-header p {
+    margin: 5px 0 0;
+
+    color: #71809a;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 15px;
+}
+
+.table th,
+.table td {
+    text-align: left;
+
+    padding: 13px;
+
+    border-bottom: 1px solid #edf0f5;
+}
+
+.table th {
+    font-size: 12px;
+
+    color: #68758e;
+
+    text-transform: uppercase;
+}
+
+.table td {
+    font-size: 14px;
+
+    color: #172033;
+}
+
+.table tbody tr:hover {
+    background: #f8faff;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+    color: #69758b;
+
+    padding: 30px;
+
+    text-align: center;
+}
+
+
+/* =========================
+   PRINT
+========================= */
+
+@media print {
+
+    .sidebar,
+    .btn {
+        display: none !important;
+    }
+
+    .main {
+        margin-left: 0;
+
+        padding: 20px;
+    }
+
+    body {
+        background: #fff;
+    }
+
+    .card,
+    .panel {
+        box-shadow: none;
+    }
+
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .main {
+        margin-left: 200px;
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        margin-left: 0;
+
+        padding: 18px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .top {
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+}
